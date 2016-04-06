@@ -1,6 +1,6 @@
 # Mediocre Okra
 
-> Pithy project description
+> Waze for Walkers
 
 ## Team
 
