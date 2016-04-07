@@ -24,14 +24,26 @@
 
 ## Requirements
 
-Ionic
-Node
-Express
-MongoDB
-NPM
-Bower
-Grunt
-Mocha (Chai? Sinon?)
+NPM Modules
+
+Ionic 1.7.14
+Cordova 6.1.1
+ios-sim 5.0.8
+ios-deploy 1.8.5
+Apple XCode
+Java SE Development Kit 7 or later
+Android Standalone SDK Tools
+Node 4.4.2
+Express 4.13.4
+MongoDB 2.1.15
+Grunt 
+Mocha
+Chai
+Sinon
+
+Bower Components
+
+
 
 ## Development
 
