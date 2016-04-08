@@ -13,6 +13,6 @@ var poiSchema = mongoose.Schema({
 poiSchema.plugin(timestamps);
 mongoose.model('POI', poiSchema);
 
-var POI = mongoose.model('POI', poiSchema);
+module.exports = mongoose.model('POI', poiSchema);
 
 
