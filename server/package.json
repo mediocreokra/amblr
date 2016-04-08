@@ -1,13 +1,13 @@
 {
-  "name": "server",
+  "name": "Amblr - Server",
   "version": "1.0.0",
-  "description": "Express Server ",
+  "description": "Server side files for Amblr, a walking app",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
-  "author": "",
+  "author": "Bryan Newby, Toben Green, Trini Le, and Alex Nitta",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.15.0",
