@@ -1,5 +1,5 @@
-[![Stories in Ready](https://badge.waffle.io/mediocreokra/mediocreokra.png?label=ready&title=Ready)](https://waffle.io/mediocreokra/mediocreokra)
-# Mediocre Okra
+    [![Stories in Ready](https://badge.waffle.io/mediocreokra/mediocreokra.png?label=ready&title=Ready)](https://waffle.io/mediocreokra/mediocreokra)
+# Amblr
 
 > Waze for Walkers
 
@@ -27,20 +27,23 @@
 
 NPM Modules
 
-Ionic 1.7.14
-Cordova 6.1.1
-ios-sim 5.0.8
-ios-deploy 1.8.5
-Apple XCode
-Java SE Development Kit 7 or later
-Android Standalone SDK Tools
-Node 4.4.2
-Express 4.13.4
-MongoDB 2.1.15
-Grunt 
-Mocha
-Chai
-Sinon
+
+- Ionic 1.7.14
+- Cordova 6.1.1
+- ios-sim 5.0.8
+- ios-deploy 1.8.5
+- Apple XCode
+- Java SE Development Kit 7 or later
+- Android Standalone SDK Tools
+- Node 4.4.2
+- Express 4.13.4
+- MongoDB 2.1.16
+- Grunt 
+- Gulp 3.9.1
+- Mocha
+- Chai
+- Sinon
+
 
 Bower Components
 
@@ -50,12 +53,17 @@ Bower Components
 
 ### Installing Dependencies
 
-From within the root directory:
+From within the ```client``` directory:
 
 ```sh
-sudo npm install -g bower
 npm install
 bower install
+```
+
+From within the ```server``` directory:
+
+```sh
+npm install
 ```
 
 ### Roadmap
@@ -66,5 +74,3 @@ View the project roadmap [here](LINK_TO_PROJECT_ISSUES)
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
-
-## Adding line for new test
