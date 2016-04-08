@@ -16,7 +16,6 @@ db.once('open', function() {
 });
 
 
-
 ///logger
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -24,22 +23,17 @@ app.use(bodyParser.json());
 
 
 //serve static files
-app.use(express.static(__dirname + '/../client'));
+app.use(express.static(__dirname + '/../client/www'));
 
 //post request from form input
-app.post('/form', function(req, res) {
-  poi.savePOI(req, res);
-  // .then(function(data) {
-  //   console.log(data);
-  //   poi.getPOI().then(function(data) {
-  //     res.send('got it', data);
-  //   })
-  // })
 
-  // res.send('got it', input);
-  //TODO: save to database
+//require(route file)(app, express)
+// app.post('/form', function(req, res) {
+//   poi.savePOI(req, res);
 
-});
+// });
+require('./config/routes.js')(app, express);
+
 //listening
 app.listen(3000, function() {
   console.log('Example app listening on port 3000!');
