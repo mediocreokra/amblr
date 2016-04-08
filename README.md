@@ -1,5 +1,5 @@
 [![Stories in Ready](https://badge.waffle.io/mediocreokra/mediocreokra.png?label=ready&title=Ready)](https://waffle.io/mediocreokra/mediocreokra)
-# Mediocre Okra
+# Amblr
 
 > Waze for Walkers
 
@@ -39,6 +39,7 @@ NPM Modules
 - Express 4.13.4
 - MongoDB 2.1.15
 - Grunt 
+- Gulp 3.9.1
 - Mocha
 - Chai
 - Sinon
