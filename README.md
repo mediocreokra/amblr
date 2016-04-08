@@ -1,4 +1,4 @@
-[![Stories in Ready](https://badge.waffle.io/mediocreokra/mediocreokra.png?label=ready&title=Ready)](https://waffle.io/mediocreokra/mediocreokra)
+    [![Stories in Ready](https://badge.waffle.io/mediocreokra/mediocreokra.png?label=ready&title=Ready)](https://waffle.io/mediocreokra/mediocreokra)
 # Amblr
 
 > Waze for Walkers
@@ -53,12 +53,17 @@ Bower Components
 
 ### Installing Dependencies
 
-From within the root directory:
+From within the ```client``` directory:
 
 ```sh
-sudo npm install -g bower
 npm install
 bower install
+```
+
+From within the ```server``` directory:
+
+```sh
+npm install
 ```
 
 ### Roadmap
