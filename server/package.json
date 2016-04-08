@@ -1,5 +1,5 @@
 {
-  "name": "Amblr - Server",
+  "name": "Amblr-Server",
   "version": "1.0.0",
   "description": "Server side files for Amblr, a walking app",
   "main": "server.js",
