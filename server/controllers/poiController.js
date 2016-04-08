@@ -5,8 +5,6 @@ var POI = require('../models/poiModel.js');
 
 exports.savePOI = function(req, res) {
   console.log(req.body);
-  var input = 'lat: ' + req.body.lat + 'long: ' + req.body.long;
-
   var newPOI = new POI({
     lat: req.body.lat,
     long: req.body.long,
