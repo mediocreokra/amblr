@@ -1,4 +1,3 @@
-    [![Stories in Ready](https://badge.waffle.io/mediocreokra/mediocreokra.png?label=ready&title=Ready)](https://waffle.io/mediocreokra/mediocreokra)
 # Amblr
 
 > Waze for Walkers
