@@ -45,7 +45,7 @@ NPM Modules
 
 
 Bower Components
-
+ngCordova
 
 
 ## Development
