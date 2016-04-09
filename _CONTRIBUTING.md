@@ -4,7 +4,9 @@
 
 ### Getting Started
 First, fork the repo at <https://github.com/mediocreokra/amblr> to your own GitHub account.
+
 Copy the link from your repo, then ```git clone https://github.com/yourname/amblr``` (replace yourname with your Github handle)
+
 Add the org repo as an upstream remote: ```git remote add upstream https://github.com/mediocreokra/amblr.git```
 
 ### To make edits / add features
