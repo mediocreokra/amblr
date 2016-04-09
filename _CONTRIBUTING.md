@@ -2,29 +2,42 @@
 
 ## General Workflow
 
-1. Fork the repo
-1. Cut a namespaced feature branch from master
-  - bug/...
-  - feat/...
-  - test/...
-  - doc/...
-  - refactor/...
-1. Make commits to your feature branch. Prefix each commit like so:
-  - (feat) Added a new feature
-  - (fix) Fixed inconsistent tests [Fixes #0]
-  - (refactor) ...
-  - (cleanup) ...
-  - (test) ...
-  - (doc) ...
-1. When you've finished with your fix or feature, Rebase upstream changes into your branch. submit a [pull request][]
-   directly to master. Include a description of your changes.
-1. Your pull request will be reviewed by another maintainer. The point of code
-   reviews is to help keep the codebase clean and of high quality and, equally
-   as important, to help you grow as a programmer. If your code reviewer
-   requests you make a change you don't understand, ask them why.
-1. Fix any issues raised by your code reviwer, and push your fixes as a single
-   new commit.
-1. Once the pull request has been reviewed, it will be merged by another member of the team. Do not merge your own commits.
+### Getting Started
+First, fork the repo at <https://github.com/mediocreokra/amblr> to your own GitHub account.
+Copy the link from your repo, then ```git clone https://github.com/yourname/amblr``` (replace yourname with your Github handle)
+Add the org repo as an upstream remote: ```git remote add upstream https://github.com/mediocreokra/amblr.git```
+
+### To make edits / add features
+
+1. ```git checkout master```
+2. ```git pull --rebase upstream master```
+3. ```git checkout -b feature-branch``` (replace feature-branch with your feature name)
+4. Make edits and ```git add``` then ```git commit``` - do this often
+5. When done, ```git pull --rebase upstream master```
+6. ```git push origin feature-branch```
+7. Submit pull request from your fork's master branch to the org repo's master branch
+Your pull request will be reviewed by another maintainer. The point of code reviews is to help keep the codebase clean and of high quality and, equally as important, to help you grow as a programmer. If your code reviewer requests you make a change you don't understand, ask them why. Fix any issues raised by your code reviwer, and push your fixes as a single new commit.
+8. Once the pull request has been reviewed, it will be merged by another member of the team. Do not merge your own commits.
+
+
+### To deploy changes to live site:
+
+First, follow Getting Started above.
+
+Once you have made edits on the master branch and pull request is approved:
+
+1. Ensure you have a remote setup for ‘live’. You will need the SSH password. ```git remote add live ssh://okra@192.241.235.109/home/okra/repo/site.git```
+2. In the organization Github, do a pull request from base:production to compare:master
+3. Someone else needs to approve the pull request.
+4. On your fork in local machine:
+  To pull changes from org, then change to production branch:
+  ```git pull upstream```
+  ```git checkout production```
+  To push the changes to Digital Ocean remote:
+  ```git push live production```
+
+Your code should now be visible on the live site.
+
 
 ## Detailed Workflow
 
@@ -33,7 +46,7 @@
 Use github’s interface to make a fork of the repo, then add that repo as an upstream remote:
 
 ```
-git remote add upstream https://github.com/mediocreokra/mediocreokra.git
+git remote add upstream https://github.com/mediocreokra/amblr.git
 ```
 
 ### Cut a namespaced feature branch from master
