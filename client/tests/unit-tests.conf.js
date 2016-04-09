@@ -1,5 +1,5 @@
 // Karma configuration
-// Generated on Fri Apr 08 2016 18:53:27 GMT-0700 (PDT)
+// Generated on Fri Apr 08 2016 19:35:36 GMT-0700 (PDT)
 
 module.exports = function(config) {
   config.set({
@@ -15,10 +15,9 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      '../../client/www/lib/ionic/js/ionic.bundle.js',
-      '../../client/www/js/app.js',
-      '../../client/www/lib/angular-mocks/angular-mocks.js',
-      '*.js'
+      '../www/lib/ionic/js/ionic.bundle.js',
+      '../www/js/app.js',
+      '../www/lib/angular-mocks/angular-mocks.js',
     ],
 
 
@@ -53,7 +52,7 @@ module.exports = function(config) {
 
 
     // enable / disable watching file and executing tests whenever any file changes
-    autoWatch: false,
+    autoWatch: true,
 
 
     // start these browsers
