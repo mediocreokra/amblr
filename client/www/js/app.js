@@ -3,7 +3,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('amblr', ['ionic', 'ngCordova', 'amblr.map'])
+angular.module('amblr', ['ionic', 'ngCordova', 'amblr.map', 'amblr.services'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -26,6 +26,12 @@ angular.module('amblr', ['ionic', 'ngCordova', 'amblr.map'])
 .config(function($stateProvider, $urlRouterProvider) {
 
   $stateProvider
+  //to delete after testing.  use for data point entry
+  .state('dataEntry', {
+    url: '/test',
+    templateUrl: 'templates/testIndex.html',
+    controller: 'testCtrl'
+  })
   .state('map', {
     url: '/',
     templateUrl: 'templates/map.html',
