@@ -1,20 +1,22 @@
 angular.module('amblr.map', [])
 
-.controller('MapCtrl', function($scope, $state, $cordovaGeolocation) {
+.controller('MapCtrl', function($scope, $state, $cordovaGeolocation, POIs) {
   var options = {timeout: 10000, enableHighAccuracy: true};
 
+  $scope.POIs=[];
+  
+  POIs.getPOIs()
+  .then(function(response){
+    $scope.POIs=response.data;
+    console.log('pois received in map controller.js');
+  })
+  .catch(function(err){
+    console.log('err getting pois in map controller.js: ', err);
+  })
+
+
   $cordovaGeolocation.getCurrentPosition(options).then(function(position){
-
-    var holdLat = [];
-    var holdLong = [];
-    holdLat.push(position.coords.latitude); 
-    holdLat.push(position.coords.latitude+.001); 
-    holdLong.push(position.coords.longitude);
-    holdLong.push(position.coords.longitude+.001);
-    var latLng2 = new google.maps.LatLng(holdLat[1], holdLong[1]);
-
     console.log(position.coords.latitude, position.coords.longitude);
-    console.log(holdLat[1], holdLong[1]);
 
     var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
@@ -29,6 +31,9 @@ angular.module('amblr.map', [])
     //Wait until the map is loaded
     google.maps.event.addListenerOnce($scope.map, 'idle', function(){
 
+
+
+
       var marker = new google.maps.Marker({
           map: $scope.map,
           animation: google.maps.Animation.DROP,
@@ -39,20 +44,27 @@ angular.module('amblr.map', [])
           content: "Here I am!"
       });
 
+      //iterate through our POIs
+      for (var i=0; i < $scope.POIs.length; i++) {
+        //create a new latLng object
+        console.log($scope.POIs[i].long, $scope.POIs[i].lat);
+        latLng2 = new google.maps.LatLng($scope.POIs[i].lat, $scope.POIs[i].long);
+        //var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+        //create a new marker with latLng
+        new google.maps.Marker({
+          map: $scope.map,
+          animation: google.maps.Animation.DROP,
+          position: latLng2
+        }); 
+      }
+
       google.maps.event.addListener(marker, 'click', function () {
           infoWindow.open($scope.map, marker);
       });
 
-      var marker2 = new google.maps.Marker({
-          map: $scope.map,
-          animation: google.maps.Animation.DROP,
-          position: latLng2
-      }); 
-      google.maps.event.addListener(marker2, 'click', function () {
-          infoWindow.open($scope.map, marker2);
-      });
-
     });
+
+
 
   }, function(error){
     console.log("Could not get location");
