@@ -2,15 +2,8 @@
 
 ## General Workflow
 
-Use Pomander to lint your code! Code that does not meet Hack Reactor's style guide will not be accepted.
+Test and lint your code! Code that does not pass tests or does not meet Hack Reactor's style guide will not be accepted. To run tests and linting, make sure you have run ```npm install``` (you may need to do ```sudo npm install```) from within both the server/ and client/ folders. Then go to the root folder and run ```grunt test``` and you will see test results and linter messages in the terminal.
 
-Using npm, install ESLint:
-
-```npm install -g eslint```
-
-Within the Amblr git repository on your local machine, run the following command:
-
-```curl -s https://raw.githubusercontent.com/hackreactor-labs/pomander/master/bin/install | bash```
 
 ### Getting Started
 1. Fork the repo at <https://github.com/mediocreokra/amblr> to your own GitHub account.
