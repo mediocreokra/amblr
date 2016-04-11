@@ -40,4 +40,4 @@ angular.module('amblr', ['ionic', 'ngCordova', 'amblr.map', 'amblr.services'])
 
   $urlRouterProvider.otherwise("/");
 
-})
+});
