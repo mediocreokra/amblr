@@ -12,14 +12,14 @@
   "dependencies": {
     "body-parser": "^1.15.0",
     "express": "^4.13.4",
-    "mongodb": "^2.1.15",
-    "mongoose": "^4.4.11",
-    "mongoose-timestamp": "^0.5.0",
-    "mongoose-type-email": "^1.0.2",
-    "morgan": "^1.7.0",
     "grunt": "^1.0.1",
     "grunt-contrib-clean": "^1.0.0",
     "grunt-contrib-concat": "^1.0.0",
-    "grunt-contrib-uglify": "^1.0.1"
+    "grunt-contrib-uglify": "^1.0.1",
+    "mongodb": "^2.1.15",
+    "mongoose": "^4.4.12",
+    "mongoose-timestamp": "^0.5.0",
+    "mongoose-type-email": "^1.0.2",
+    "morgan": "^1.7.0"
   }
 }

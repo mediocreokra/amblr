@@ -11,8 +11,8 @@ angular.module ('amblr.services', [])
     })
     .catch(function(err) {
       console.log('error in getting pois in services.js: ', err);
-    })
-  }
+    });
+  };
 
   return POIs;
 });
