@@ -28,9 +28,17 @@ module.exports = function(grunt) {
           'client/dist/<%= pkg.name %>.min.js': ['client/dist/<%= pkg.name %>.js']
         }
       }
+    },
+    
+    eslint: {
+      target: [
+        'Gruntfile.js',
+        'client/**/*.js',
+        'client/www/**/*.js',
+        'client/www/js/**/*.js',
+        'client/www/lib/**/*.js',
+      ]
     }
-
-
     
   });
 
@@ -38,6 +46,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-eslint');
 
 
   grunt.registerTask('build', [ 
@@ -46,3 +55,4 @@ module.exports = function(grunt) {
 
 
 };
+
