@@ -2,7 +2,7 @@
 
 ## General Workflow
 
-Use Pomander to lint your code! Code that does not meet Hack Reactor's [style guide] will not be accepted.
+Use Pomander to lint your code! Code that does not meet Hack Reactor's style guide will not be accepted.
 
 Using npm, install ESLint:
 
