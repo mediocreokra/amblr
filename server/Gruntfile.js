@@ -1,21 +1,21 @@
 module.exports = function(grunt) {
 
   grunt.initConfig({
-    pkg: grunt.file.readJSON('client/package.json'),
+    pkg: grunt.file.readJSON('../client/package.json'),
     
-    clean: ['client/dist'],
+    clean: ['../client/dist'],
 
     concat: {
       options: {
         separator: ';\n',
       },
       js: {
-        src: ['client/www/js/*.js'],
-        dest: 'client/dist/<%= pkg.name %>.js',
+        src: ['../client/www/js/*.js'],
+        dest: '../client/dist/<%= pkg.name %>.js',
       },
       css: {
-        src: ['client/www/css/*.css'],
-        dest: 'client/dist/<%= pkg.name %>.css',
+        src: ['../client/www/css/*.css'],
+        dest: '../client/dist/<%= pkg.name %>.css',
       } 
     },
 
@@ -25,7 +25,7 @@ module.exports = function(grunt) {
       },
       dist: {
         files: {
-          'client/dist/<%= pkg.name %>.min.js': ['client/dist/<%= pkg.name %>.js']
+          '../client/dist/<%= pkg.name %>.min.js': ['../client/dist/<%= pkg.name %>.js']
         }
       }
     },
@@ -33,14 +33,12 @@ module.exports = function(grunt) {
     eslint: {
       target: [
         'Gruntfile.js',
-        // 'client/tests/*.js',
-        'client/www/tests/*.js',
-        'client/www/js/*.js',
-        'client/www/js/**/*.js',
-        'server/config/*.js',
-        'server/controllers/*.js',
-        'server/models/*.js',
-        'server/server.js'
+        '../client/www/js/*.js',
+        '../client/www/js/**/*.js',
+        'config/*.js',
+        'controllers/*.js',
+        'models/*.js',
+        'server.js'
       ]
     },
     
@@ -50,7 +48,7 @@ module.exports = function(grunt) {
       },
       dist: {
         files: {
-          'client/dist/<%= pkg.name %>.min.css': 'client/dist/<%= pkg.name %>.css'
+          '../client/dist/<%= pkg.name %>.min.css': '../client/dist/<%= pkg.name %>.css'
         }
       }
     },
@@ -68,8 +66,8 @@ module.exports = function(grunt) {
     
     shell: {
       prodServer: {
-        command: 'git push origin master',
-        options: {
+        command: 'git push origin master', // this should eventually be 'git push live production'
+        options: {                         // once the deployment process is confirmed 
           stdout: true,
           stderr: true,
           failOnError: true
@@ -79,18 +77,15 @@ module.exports = function(grunt) {
     
   });
   
-  // Because we have two 'node_modules' folders (one in server/ and one in client/), 
-  // we must use grunt.loadTasks instead of grunt.loadNpmTasks.
-  // Make sure to format the plugin locations this way, with /tasks appended to the end
-  
-  grunt.loadTasks('server/node_modules/grunt-contrib-concat/tasks');
-  grunt.loadTasks('server/node_modules/grunt-contrib-clean/tasks');
-  grunt.loadTasks('server/node_modules/grunt-contrib-uglify/tasks');
-  grunt.loadTasks('server/node_modules/grunt-contrib-cssmin/tasks');
-  grunt.loadTasks('server/node_modules/grunt-nodemon/tasks');
-  grunt.loadTasks('server/node_modules/grunt-eslint/tasks');
-  grunt.loadTasks('server/node_modules/grunt-env/tasks');
-  grunt.loadTasks('server/node_modules/grunt-shell/tasks');
+
+  grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-clean');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-cssmin');
+  grunt.loadNpmTasks('grunt-nodemon');
+  grunt.loadNpmTasks('grunt-eslint');
+  grunt.loadNpmTasks('grunt-env');
+  grunt.loadNpmTasks('grunt-shell');
   
   grunt.registerTask('server-dev', function(target) {
     var nodemon = grunt.util.spawn({
