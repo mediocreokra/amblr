@@ -9,13 +9,21 @@
   },
   "author": "Bryan Newby, Toben Green, Trini Le, and Alex Nitta",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mediocreokra/amblr.git"
+  },
+  "readme": "../README.md",
   "dependencies": {
     "body-parser": "^1.15.0",
+    "eslint": "^2.7.0",
+    "eslint-config-hackreactor": "hackreactor-labs/eslint-config-hackreactor",
     "express": "^4.13.4",
     "grunt": "^1.0.1",
     "grunt-contrib-clean": "^1.0.0",
     "grunt-contrib-concat": "^1.0.0",
     "grunt-contrib-uglify": "^1.0.1",
+    "grunt-eslint": "^18.0.0",
     "mongodb": "^2.1.15",
     "mongoose": "^4.4.12",
     "mongoose-timestamp": "^0.5.0",

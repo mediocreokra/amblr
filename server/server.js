@@ -3,7 +3,7 @@ var bodyParser = require('body-parser');
 var app = express();
 var morgan = require('morgan');
 var mongoose = require('mongoose');
-var poi = require('./controllers/poiController.js')
+var poi = require('./controllers/poiController.js');
 
 //create connection to mongodb
 mongoose.connect('mongodb://localhost/app_database');
