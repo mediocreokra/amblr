@@ -1,7 +1,7 @@
 module.exports = function(grunt) {
 
   grunt.initConfig({
-    pkg: grunt.file.readJSON('server/package.json'),
+    pkg: grunt.file.readJSON('client/package.json'),
     
     clean: ['client/dist'],
 
@@ -28,21 +28,65 @@ module.exports = function(grunt) {
           'client/dist/<%= pkg.name %>.min.js': ['client/dist/<%= pkg.name %>.js']
         }
       }
-    }
-
-
+    },
+    
+    eslint: {
+      target: [
+        'Gruntfile.js',
+        
+        // TODO: edit and uncomment as approprite to new file structure for client JS scripts
+        
+        // 'client/**/*.js',
+        // 'client/www/**/*.js',
+        // 'client/www/js/**/*.js',
+        // 'client/www/lib/**/*.js',
+        // 'server/**/*.js',
+        'server/server.js'
+      ]
+    },
+    
+    cssmin: {
+      options: {
+        keepSpecialComments: 0
+      },
+      dist: {
+        files: {
+          'client/dist/<%= pkg.name %>.min.css': 'client/dist/<%= pkg.name %>.css'
+        }
+      }
+    },
     
   });
-
   
-  grunt.loadNpmTasks('grunt-contrib-concat');
-  grunt.loadNpmTasks('grunt-contrib-clean');
-  grunt.loadNpmTasks('grunt-contrib-uglify');
+  // Because we have two 'node_modules' folders (one in server/ and one in client/), 
+  // we must use grunt.loadTasks instead of grunt.loadNpmTasks
+  
+  grunt.loadTasks('server/node_modules/grunt-contrib-concat/tasks');
+  grunt.loadTasks('server/node_modules/grunt-contrib-clean/tasks');
+  grunt.loadTasks('server/node_modules/grunt-contrib-uglify/tasks');
+  grunt.loadTasks('server/node_modules/grunt-contrib-cssmin/tasks');
+  grunt.loadTasks('server/node_modules/grunt-nodemon/tasks');
+  grunt.loadTasks('server/node_modules/grunt-eslint/tasks');
 
+  grunt.registerTask('server-dev', function(target) {
+    var nodemon = grunt.util.spawn({
+      cmd: 'grunt',
+      grunt: true,
+      args: 'nodemon'
+    });
+    nodemon.stdout.pipe(process.stdout);
+    nodemon.stderr.piepe(process.stderr);
+    grunt.task.run(['watch']);
+  });
+  
 
   grunt.registerTask('build', [ 
-    'clean', 'concat', 'uglify'
+    'clean', 'concat', 'uglify', 'cssmin', 'test'
   ]);
 
+  grunt.registerTask('test', [ 
+    'eslint'
+  ]);
 
 };
+
