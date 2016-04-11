@@ -42,10 +42,10 @@ Once you have made edits on the master branch and pull request is approved:
 3. Someone else needs to approve the pull request.
 4. On your fork in local machine:
   To pull changes from org, then change to production branch:
-  ```git pull upstream```
-  ```git checkout production```
+  - ```git pull upstream```
+  - ```git checkout production```
   To push the changes to Digital Ocean remote:
-  ```git push live production```
+  - ```git push live production```
 
 Your code should now be visible on the live site.
 
