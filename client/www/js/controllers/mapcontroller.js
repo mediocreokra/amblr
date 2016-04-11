@@ -89,7 +89,6 @@ angular.module('amblr.map', [])
       shadowStyle: 1,
       padding: 0,
       backgroundColor: 'rgb(57,57,57)',
-      font-color: 
       borderRadius: 4,
       arrowSize: 10,
       borderWidth: 1,
@@ -112,5 +111,5 @@ angular.module('amblr.map', [])
 
   $scope.savePOI = function() {
 
-  }
+  };
 });
