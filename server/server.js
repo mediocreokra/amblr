@@ -33,6 +33,14 @@ app.use(express.static(__dirname + '/../client/www'));
 //   poi.savePOI(req, res);
 
 // });
+
+
+app.all('/*', function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Content-Type,X-Requested-With');
+    next();
+});
+
 require('./config/routes.js')(app, express);
 
 //listening
