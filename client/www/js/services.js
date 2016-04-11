@@ -4,7 +4,7 @@ angular.module ('amblr.services', [])
   var POIs = {};
 
   POIs.getPOIs = function(){
-    return $http.get('/api/allPOI')
+    return $http.get('http://127.0.0.1:3000/api/allPOI')
     .then(function(pois){
       console.log('returning pois are: ', pois);
       return pois;

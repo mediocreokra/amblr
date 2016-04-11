@@ -32,7 +32,7 @@ angular.module('amblr',
   //to delete after testing.  use for data point entry
   .state('dataEntry', {
     url: '/test',
-    templateUrl: 'templates/testIndex.html',
+    templateUrl: 'testIndex.html',
     controller: 'testCtrl'
   })
   .state('map', {
