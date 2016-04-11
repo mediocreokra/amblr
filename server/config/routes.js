@@ -6,4 +6,4 @@ module.exports = function(app, express) {
   app.post('/form', poiController.savePOI);  
   app.get('/', poiController.getAllPOI);
   app.get('/api/allPOI', poiController.getAllPOI);
-}
+};
