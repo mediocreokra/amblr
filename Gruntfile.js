@@ -33,7 +33,7 @@ module.exports = function(grunt) {
     eslint: {
       target: [
         'Gruntfile.js',
-        'client/tests/*.js',
+        // 'client/tests/*.js',
         'client/www/tests/*.js',
         'client/www/js/*.js',
         'client/www/js/**/*.js',
@@ -55,10 +55,33 @@ module.exports = function(grunt) {
       }
     },
     
+    env: {
+      prod: {
+        NODE_ENV: 'production',
+        DEST: 'temp'
+      },
+      dev: {
+        NODE_ENV: 'development',
+        DEST: 'temp'
+      }
+    },
+    
+    shell: {
+      prodServer: {
+        command: 'git push origin master',
+        options: {
+          stdout: true,
+          stderr: true,
+          failOnError: true
+        }
+      }
+    },
+    
   });
   
   // Because we have two 'node_modules' folders (one in server/ and one in client/), 
-  // we must use grunt.loadTasks instead of grunt.loadNpmTasks
+  // we must use grunt.loadTasks instead of grunt.loadNpmTasks.
+  // Make sure to format the plugin locations this way, with /tasks appended to the end
   
   grunt.loadTasks('server/node_modules/grunt-contrib-concat/tasks');
   grunt.loadTasks('server/node_modules/grunt-contrib-clean/tasks');
@@ -66,7 +89,9 @@ module.exports = function(grunt) {
   grunt.loadTasks('server/node_modules/grunt-contrib-cssmin/tasks');
   grunt.loadTasks('server/node_modules/grunt-nodemon/tasks');
   grunt.loadTasks('server/node_modules/grunt-eslint/tasks');
-
+  grunt.loadTasks('server/node_modules/grunt-env/tasks');
+  grunt.loadTasks('server/node_modules/grunt-shell/tasks');
+  
   grunt.registerTask('server-dev', function(target) {
     var nodemon = grunt.util.spawn({
       cmd: 'grunt',
@@ -78,13 +103,26 @@ module.exports = function(grunt) {
     grunt.task.run(['watch']);
   });
   
+  grunt.registerTask('test', [ 
+    'eslint'
+  ]);
 
   grunt.registerTask('build', [ 
     'clean', 'concat', 'uglify', 'cssmin', 'test'
   ]);
-
-  grunt.registerTask('test', [ 
-    'eslint'
+  
+  grunt.registerTask('upload', function(n) {
+    if (grunt.option('prod')) {
+      grunt.task.run(['env:prod']);
+      grunt.task.run(['shell:prodServer']);
+    } else {
+      grunt.task.run(['env:dev']);
+      grunt.task.run([ 'server-dev' ]);
+    }
+  });
+  
+  grunt.registerTask('deploy', [
+    'test', 'build', 'upload'
   ]);
 
 };
