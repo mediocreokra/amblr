@@ -18,7 +18,7 @@ exports.savePOI = function(req, res) {
       console.log('added new POI!!!!');
       POI.find({}, function(err, pois) {
         if (err) {
-          console.log('find poi after saving new',  err);
+          console.log('find poi after saving new', err);
         } else {
           res.json(pois);
         }
@@ -37,5 +37,5 @@ exports.getAllPOI = function(req, res) {
     } else {
       res.json(pois);
     }
-  })
-}
+  });
+};
