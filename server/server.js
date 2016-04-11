@@ -23,6 +23,7 @@ app.use(bodyParser.json());
 
 
 //serve static files
+app.use(express.static(__dirname + '/../client/app'));
 app.use(express.static(__dirname + '/../client/www'));
 
 //post request from form input
