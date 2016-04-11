@@ -2,6 +2,16 @@
 
 ## General Workflow
 
+Use Pomander to lint your code! Code that does not meet Hack Reactor's [style guide] will not be accepted.
+
+Using npm, install ESLint:
+
+```npm install -g eslint```
+
+Within the Amblr git repository on your local machine, run the following command:
+
+```curl -s https://raw.githubusercontent.com/hackreactor-labs/pomander/master/bin/install | bash```
+
 ### Getting Started
 1. Fork the repo at <https://github.com/mediocreokra/amblr> to your own GitHub account.
 2. Copy the link from your repo, then ```git clone https://github.com/yourname/amblr``` (replace yourname with your Github handle)
