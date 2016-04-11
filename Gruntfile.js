@@ -33,14 +33,13 @@ module.exports = function(grunt) {
     eslint: {
       target: [
         'Gruntfile.js',
-        
-        // TODO: edit and uncomment as approprite to new file structure for client JS scripts
-        
-        // 'client/**/*.js',
-        // 'client/www/**/*.js',
-        // 'client/www/js/**/*.js',
-        // 'client/www/lib/**/*.js',
-        // 'server/**/*.js',
+        'client/tests/*.js',
+        'client/www/tests/*.js',
+        'client/www/js/*.js',
+        'client/www/js/**/*.js',
+        'server/config/*.js',
+        'server/controllers/*.js',
+        'server/models/*.js',
         'server/server.js'
       ]
     },
