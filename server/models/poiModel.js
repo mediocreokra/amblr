@@ -1,7 +1,6 @@
 var mongoose = require('mongoose');
 var timestamps = require('mongoose-timestamp');
 
-
 var poiSchema = mongoose.Schema({
   lat: { type: Number, required: true },
   long: { type: Number, required: true },
@@ -11,7 +10,6 @@ var poiSchema = mongoose.Schema({
 });
 
 poiSchema.plugin(timestamps);
-mongoose.model('POI', poiSchema);
 
 module.exports = mongoose.model('POI', poiSchema);
 
