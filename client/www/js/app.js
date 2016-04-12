@@ -50,11 +50,6 @@ angular.module('amblr',
     templateUrl: 'testIndex.html',
     controller: 'testCtrl'
   })
-  .state('map', {
-    url: '/',
-    templateUrl: 'templates/map.html',
-    controller: 'MapCtrl'
-  });
 
   $urlRouterProvider.otherwise('/menu/home');
 
