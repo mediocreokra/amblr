@@ -6,6 +6,8 @@ var app = express();
 var logger = require('./config/logger.js');
 
 var poiRouter = require('./routers/poiRouter.js');
+var passport = require('passport');
+var Strategy = require('passport-local').Strategy;
 
 // configuration variables for server port and mongodb URI
 var port = process.env.PORT || 3000;
