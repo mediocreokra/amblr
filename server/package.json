@@ -1,5 +1,5 @@
 {
-  "name": "Amblr - Server",
+  "name": "Amblr-Server",
   "version": "1.0.0",
   "description": "Server side files for Amblr, a walking app",
   "main": "server.js",
@@ -9,11 +9,27 @@
   },
   "author": "Bryan Newby, Toben Green, Trini Le, and Alex Nitta",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mediocreokra/amblr.git"
+  },
+  "readme": "../README.md",
   "dependencies": {
     "body-parser": "^1.15.0",
+    "eslint": "^2.7.0",
+    "eslint-config-hackreactor": "hackreactor-labs/eslint-config-hackreactor",
     "express": "^4.13.4",
+    "grunt": "^0.4.5",
+    "grunt-contrib-clean": "^1.0.0",
+    "grunt-contrib-concat": "^1.0.0",
+    "grunt-contrib-cssmin": "^1.0.1",
+    "grunt-contrib-uglify": "^1.0.1",
+    "grunt-env": "^0.4.4",
+    "grunt-eslint": "^18.0.0",
+    "grunt-nodemon": "^0.4.1",
+    "grunt-shell": "^1.2.1",
     "mongodb": "^2.1.15",
-    "mongoose": "^4.4.11",
+    "mongoose": "^4.4.12",
     "mongoose-timestamp": "^0.5.0",
     "mongoose-type-email": "^1.0.2",
     "morgan": "^1.7.0"
