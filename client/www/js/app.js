@@ -45,6 +45,14 @@ angular.module('amblr',
       }
     }
   })
+  .state('menu.signin', {
+    url: '/tab/signin',
+    views: {
+      'view-content': {
+        templateUrl: 'templates/signin.html',
+      }
+    }
+  })
 
   .state('dataEntry', {
     url: '/test',

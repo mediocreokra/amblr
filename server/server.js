@@ -5,13 +5,15 @@ var morgan = require('morgan');
 var app = express();
 var logger = require('./config/logger.js');
 
-var poiRouter = require('./routers/poiRouter.js');
 var passport = require('passport');
 var expressSession = require('express-session');
 var flash = require('connect-flash');
 var cookieParser = require('cookie-parser');
-
+var passport = require('passport');
 var Strategy = require('passport-local').Strategy;
+
+var poiRouter = require('./routers/poiRouter.js');
+var userRouter = require('./routers/userRouter.js');
 
 // configuration variables for server port and mongodb URI
 var port = process.env.PORT || 3000;
