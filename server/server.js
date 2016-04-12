@@ -22,10 +22,6 @@ db.once('open', function() {
   console.log('connection to mongoose!');
 });
 
-console.log('process.env.NODE_ENV in Server.js: ', process.env.NODE_ENV);
-console.log('process.env in Server.js: ', process.env);
-
-
 ///logger
 app.use(morgan('dev'));
 
