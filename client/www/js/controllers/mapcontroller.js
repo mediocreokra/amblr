@@ -35,18 +35,18 @@ angular.module('amblr.map', [])
 
       //creat a function that calls the POIs that are in teh database
       //iterate through our POIs
-      // for (var i=0; i < $scope.POIs.length; i++) {
-      //   //create a new latLng object
-      //   console.log($scope.POIs[i].long, $scope.POIs[i].lat);
-      //   latLng2 = new google.maps.LatLng($scope.POIs[i].lat, $scope.POIs[i].long);
-      //   //var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-      //   //create a new marker with latLng
-      //   new google.maps.Marker({
-      //     map: $scope.map,
-      //     animation: google.maps.Animation.DROP,
-      //     position: latLng2
-      //   }); 
-      // }
+      for (var i=0; i < $scope.POIs.length; i++) {
+        //create a new latLng object
+        console.log($scope.POIs[i].lat, $scope.POIs[i].long);
+        latLng2 = new google.maps.LatLng($scope.POIs[i].lat, $scope.POIs[i].long);
+        //var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+        //create a new marker with latLng
+        new google.maps.Marker({
+          map: $scope.map,
+          animation: google.maps.Animation.DROP,
+          position: latLng2
+        }); 
+      }
 
       // google.maps.event.addListener(marker, 'click', function () {
       //     infoWindow.open($scope.map, marker);

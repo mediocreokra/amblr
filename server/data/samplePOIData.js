@@ -8,7 +8,7 @@ var poiData = [
   },
   {
     "lat": 37.784210,
-    "long": 37.784210, 
+    "long": -122.410130, 
     "type": "Bad",
     "description": "Inebriated hoard is rampaging in the street.",
     "title": "I am a title 2"
@@ -16,4 +16,5 @@ var poiData = [
 ];
 
 module.exports = poiData;
+
 
