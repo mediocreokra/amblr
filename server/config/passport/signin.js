@@ -8,9 +8,9 @@ module.exports = function(passport) {
   var isValidPassword = function(user, password) {
     return bCrypt.compareSync(password, user.password);
   };
-  
+  // use the Local Strategy (locally saved username and password, i.e. not OAuth)
   passport.use('login', new LocalStrategy({
-    passReqToCallback: true
+    passReqToCallback: true // allows us to use the request in the following callback
   }, 
     function(req, username, password, done) {
       // run the Mongo query for the user requested
