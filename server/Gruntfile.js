@@ -120,5 +120,9 @@ module.exports = function(grunt) {
     'test', 'build', 'upload'
   ]);
 
+  grunt.registerTask('dev_env', [
+    'env:dev'
+  ]);
+
 };
 
