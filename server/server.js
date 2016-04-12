@@ -3,7 +3,7 @@ var bodyParser = require('body-parser');
 var app = express();
 var morgan = require('morgan');
 var mongoose = require('mongoose');
-var poi = require('./controllers/poiController.js')
+var poi = require('./controllers/poiController.js');
 
 //create connection to mongodb
 mongoose.connect('mongodb://localhost/app_database');
@@ -23,6 +23,7 @@ app.use(bodyParser.json());
 
 
 //serve static files
+app.use(express.static(__dirname + '/../client/app'));
 app.use(express.static(__dirname + '/../client/www'));
 
 //post request from form input
@@ -32,6 +33,14 @@ app.use(express.static(__dirname + '/../client/www'));
 //   poi.savePOI(req, res);
 
 // });
+
+
+app.all('/*', function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Content-Type,X-Requested-With');
+  next();
+});
+
 require('./config/routes.js')(app, express);
 
 //listening

@@ -8,7 +8,7 @@ exports.savePOI = function(req, res) {
   var newPOI = new POI({
     lat: req.body.lat,
     long: req.body.long,
-    title: "NEW POI"
+    title: req.body.title
   });
 
   newPOI.save(function(err) {
@@ -18,7 +18,7 @@ exports.savePOI = function(req, res) {
       console.log('added new POI!!!!');
       POI.find({}, function(err, pois) {
         if (err) {
-          console.log('find poi after saving new',  err);
+          console.log('find poi after saving new', err);
         } else {
           res.json(pois);
         }
@@ -29,9 +29,13 @@ exports.savePOI = function(req, res) {
 };
 
 
-exports.getPOI = function() {
+exports.getAllPOI = function(req, res) {
 
   POI.find({}, function(err, pois) {
-    return pois;
-  })
-}
+    if (err) {
+      console.log('in newPOI save ', err);
+    } else {
+      res.json(pois);
+    }
+  });
+};
