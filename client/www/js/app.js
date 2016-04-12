@@ -30,18 +30,28 @@ angular.module('amblr',
 
   $stateProvider
   //to delete after testing.  use for data point entry
+  .state('menu', {
+      url: '/menu',
+      abstract: true,
+      templateUrl: 'templates/menu.html'
+  })
+  .state('menu.home', {
+    url: "/home",
+    views: {
+      'view-content': {
+        templateUrl: "templates/map.html",
+        controller: 'MapCtrl'
+      }
+    }
+  })
+
   .state('dataEntry', {
     url: '/test',
     templateUrl: 'testIndex.html',
     controller: 'testCtrl'
   })
-  .state('map', {
-    url: '/',
-    templateUrl: 'templates/map.html',
-    controller: 'MapCtrl'
-  });
 
-  $urlRouterProvider.otherwise('/');
+  $urlRouterProvider.otherwise('/menu/home');
 
 });
 
