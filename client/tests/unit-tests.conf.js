@@ -1,3 +1,5 @@
+// 4/12/16: This configuration problem is not yet working - see notes in unit-tests.conf.js
+
 // Karma configuration
 // Generated on Fri Apr 08 2016 19:35:36 GMT-0700 (PDT)
 
@@ -67,5 +69,5 @@ module.exports = function(config) {
     // Concurrency level
     // how many browser should be started simultaneous
     concurrency: Infinity
-  })
-}
+  });
+};
