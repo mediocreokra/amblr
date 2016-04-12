@@ -13,6 +13,7 @@
     <!-- cordova script (this will be a 404 during development) -->
     <script src="lib/ngCordova/dist/ng-cordova.js"></script>
     <!-- <script src="cordova.js"></script>  -->
+    <script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobubble/src/infobubble.js"></script>
 
     <script src="js/controllers/mapcontroller.js"></script>
     <script src="js/controllers/leftNavController.js"></script>
@@ -71,7 +72,7 @@
       <ion-tab title="Add Destination" icon="ion-android-walk" href="#/tab/addDestination">
         <ion-nav-view name="destination-tab"></ion-nav-view>
       </ion-tab>
-      <ion-tab title="Add POI" icon="ion-earth" href="#/tab/addPOI">
+      <ion-tab title="Add POI" icon="ion-earth" href="#/tab/addPOI" ng-controller="MapCtrl" ng-click="getCurrentPOI()">
         <ion-nav-view name="poi-tab"></ion-nav-view>
       </ion-tab>
     </ion-tabs>
