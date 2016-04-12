@@ -24,48 +24,8 @@
   </head>
   <body ng-app="amblr">
 
-    <!-- Global left nav menu for app -->
-    <ion-side-menus>     
-      <ion-side-menu-content ng-controller="LeftMenuNav">  
-        <ion-nav-bar class="bar-dark">
-          <ion-nav-back-button class="button-icon ion-arrow-left-c">
-          </ion-nav-back-button>
-          <ion-nav-buttons side="left">
-            <button class="button button-icon button-clear ion-navicon" ng-click="showMenu()">
-            </button>
-          </ion-nav-buttons>
-        </ion-nav-bar>
-        <ion-nav-view animation="slide-left-right"></ion-nav-view>
-      </ion-side-menu-content> 
-      
-      <ion-side-menu side="left">
-         <!-- need conditional logic here once user signs in to add name to this -->
-        <ion-header-bar class="bar bar-header bar-assertive">
-          <h1 class="title">User Name Here</h1>
-        </ion-header-bar>
-        <ion-content has-header="true">
-          <ul class="list">
-            <li>
-              <a class="item" menu-close nav-clear href="#/tab/signin">Sign in</a>
-            </li>
-            <li>
-              <a class="item" menu-close href="#/tab/signup">Sign Up</a>
-            </li>
-            <li>
-              <a class="item" menu-close href="#/tab/profile">Profile</a>
-            </li>
-          </ul>
-        </ion-content>
-      </ion-side-menu> 
-    </ion-side-menus>
-
-    <!-- App views  need to determine how to have menus together and where
-        the ion-nav-view actually goes 
-    <ion-content>
-      <ion-nav-view></ion-nav-view>
-    </ion-content>
-
-    -->
+    <!-- ALL VIEW STATES LOADED IN HERE -->
+    <ion-nav-view></ion-nav-view>
 
     <!-- Global bottom nav menu for app -->
     <ion-tabs class="tabs-icon-top tabs-dark">
