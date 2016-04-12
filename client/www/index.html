@@ -35,7 +35,7 @@
       <ion-tab title="Add Destination" icon="ion-android-walk" href="#/tab/addDestination">
         <ion-nav-view name="destination-tab"></ion-nav-view>
       </ion-tab>
-      <ion-tab title="Add POI" icon="ion-earth" href="#/tab/addPOI" ng-controller="MapCtrl" ng-click="getCurrentPOI()">
+      <ion-tab title="Add POI" icon="ion-earth" href="#/menu/addPOI" ng-controller="MapCtrl" on-select="getCurrentPOI()">
         <ion-nav-view name="poi-tab"></ion-nav-view>
       </ion-tab>
     </ion-tabs>
