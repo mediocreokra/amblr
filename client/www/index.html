@@ -7,18 +7,19 @@
 
     <!-- compiled css output -->
     <link href="css/ionic.app.css" rel="stylesheet">
-    
+    <link href="css/style.css" rel="stylesheet">
     <script src="lib/ionic/js/ionic.bundle.js"></script>
 
     <!-- cordova script (this will be a 404 during development) -->
     <script src="lib/ngCordova/dist/ng-cordova.js"></script>
     <!-- <script src="cordova.js"></script>  -->
-    <script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobubble/src/infobubble.js"></script>
+<!--     <script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobubble/src/infobubble.js"></script> -->
 
+    <script src="js/app.js"></script>
     <script src="js/controllers/mapcontroller.js"></script>
     <script src="js/controllers/leftNavController.js"></script>
+    <script src="js/directives/mapDirective.js"></script>
     <script src="js/services.js"></script>
-    <script src="js/app.js"></script>
     <script src="http://maps.google.com/maps/api/js?key=AIzaSyBceRLiJZrDWlQiK3vu2Mc6-gzp84ZQX5U"></script>
 
   </head>
@@ -26,16 +27,6 @@
 
     <!-- ALL VIEW STATES LOADED IN HERE -->
     <ion-nav-view></ion-nav-view>
-
-    <!-- Global bottom nav menu for app -->
-    <ion-tabs class="tabs-icon-top tabs-dark">
-      <ion-tab title="Add Destination" icon="ion-android-walk" href="#/tab/addDestination">
-        <ion-nav-view name="destination-tab"></ion-nav-view>
-      </ion-tab>
-      <ion-tab title="Add POI" icon="ion-earth" href="#/menu/addPOI" ng-controller="MapCtrl" on-select="getCurrentPOI()">
-        <ion-nav-view name="poi-tab"></ion-nav-view>
-      </ion-tab>
-    </ion-tabs>
 
   </body>
 </html>
