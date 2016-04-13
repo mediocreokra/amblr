@@ -33,5 +33,10 @@
     "mongoose-timestamp": "^0.5.0",
     "mongoose-type-email": "^1.0.2",
     "morgan": "^1.7.0"
+  },
+  "devDependencies": {
+    "grunt-simple-mocha": "^0.4.1",
+    "should": "^8.3.0",
+    "supertest": "^1.2.0"
   }
 }
