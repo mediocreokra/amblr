@@ -70,6 +70,8 @@ angular.module('amblr.map', [])
       //     position: latLng2
       //   }); 
       // }
+      // google.maps.event.addListener(marker, 'click', function () {
+
       //     infoWindow.open($scope.map, marker);
       // });
 
