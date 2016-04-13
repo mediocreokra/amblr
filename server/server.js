@@ -1,8 +1,10 @@
 var express = require('express');
 var bodyParser = require('body-parser');
-var app = express();
-var morgan = require('morgan');
 var mongoose = require('mongoose');
+var morgan = require('morgan');
+var app = express();
+var logger = require('./config/logger.js');
+
 var poiRouter = require('./routers/poiRouter.js');
 
 // configuration variables for server port and mongodb URI
@@ -22,8 +24,9 @@ db.once('open', function() {
   console.log('connection to mongoose!');
 });
 
-///logger
-app.use(morgan('dev'));
+console.log('stream: ' + logger.stream);
+
+app.use(require('morgan')('combined', { 'stream': logger.stream }));
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());

@@ -32,13 +32,13 @@
     "mongoose": "^4.4.12",
     "mongoose-timestamp": "^0.5.0",
     "mongoose-type-email": "^1.0.2",
-    "morgan": "^1.7.0"
+    "passport": "^0.3.2",
+    "morgan": "^1.7.0",
+    "winston": "^2.2.0"
   },
   "devDependencies": {
     "grunt-simple-mocha": "^0.4.1",
     "should": "^8.3.0",
-    "supertest": "^1.2.0",
-    "morgan": "^1.7.0",
-    "passport": "^0.3.2"
+    "supertest": "^1.2.0"
   }
 }
