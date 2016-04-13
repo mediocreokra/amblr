@@ -6,8 +6,9 @@
 angular.module('amblr', 
   ['ionic', 
    'ngCordova', 
-   'amblr.leftnav',
    'amblr.map', 
+   'amblr.directives',
+   'amblr.leftnav',
    'amblr.services'])
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -31,15 +32,15 @@ angular.module('amblr',
   $stateProvider
   //to delete after testing.  use for data point entry
   .state('menu', {
-      url: '/menu',
-      abstract: true,
-      templateUrl: 'templates/menu.html'
+    url: '/menu',
+    abstract: true,
+    templateUrl: 'templates/menu.html'
   })
   .state('menu.home', {
-    url: "/home",
+    url: '/home',
     views: {
       'view-content': {
-        templateUrl: "templates/map.html",
+        templateUrl: 'templates/map.html',
         controller: 'MapCtrl'
       }
     }
@@ -49,7 +50,7 @@ angular.module('amblr',
     url: '/test',
     templateUrl: 'testIndex.html',
     controller: 'testCtrl'
-  })
+  });
 
   $urlRouterProvider.otherwise('/menu/home');
 
