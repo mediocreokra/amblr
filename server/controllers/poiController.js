@@ -54,7 +54,7 @@ exports.savePOI = function(req, res) {
       return res.json(err);
     } 
 
-    logger.info('POI successfully created: ' + newPOI)
+    logger.info('POI successfully created: ' + newPOI);
     res.json(newPOI);
   });
 };

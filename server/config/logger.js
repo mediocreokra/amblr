@@ -3,7 +3,7 @@ var fs = require('fs');
 
 /* Configure the logger */
 var logDir = './logs';
-var env = process.env.NODE_ENV || 'development'
+var env = process.env.NODE_ENV || 'development';
 
 if (!fs.existsSync(logDir)) {
   fs.mkdirSync(logDir);
