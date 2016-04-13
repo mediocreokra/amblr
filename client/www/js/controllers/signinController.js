@@ -1,33 +1,34 @@
 angular.module('amblr.signin', [])
 .controller('signinCtrl', function($scope, $ionicModal, $timeout) {
-  // Form data for the login modal
-  $scope.loginData = {};
+  // Form data for the signin modal
+  $scope.signinData = {};
 
-  // Create the login modal that we will use later
-  $ionicModal.fromTemplateUrl('templates/login.html', {
+  // Create the signin modal that we will use later
+  $ionicModal.fromTemplateUrl('../../templates/signin.html', {
     scope: $scope
   }).then(function(modal) {
     $scope.modal = modal;
   });
 
-  // Triggered in the login modal to close it
-  $scope.closeLogin = function() {
+  // Triggered in the signin modal to close it
+  $scope.closeSignin = function() {
     $scope.modal.hide();
   };
 
-  // Open the login modal
-  $scope.login = function() {
+  // Open the signin modal
+  $scope.signin = function() {
+    console.log('in signin controller');
     $scope.modal.show();
   };
 
-  // Perform the login action when the user submits the login form
-  $scope.doLogin = function() {
-    console.log('Doing login', $scope.loginData);
+  // Perform the signin action when the user submits the signin form
+  $scope.doSignin = function() {
+    console.log('Doing signin', $scope.signinData);
 
-    // Simulate a login delay. Remove this and replace with your login
-    // code if using a login system
+    // Simulate a signin delay. Remove this and replace with your signin
+    // code if using a signin system
     $timeout(function() {
-      $scope.closeLogin();
+      $scope.closeSignin();
     }, 1000);
   };
 });

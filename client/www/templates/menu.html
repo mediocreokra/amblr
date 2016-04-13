@@ -26,7 +26,7 @@ to this ion-nav-view when we are building our states in the app’s config. -->
     <ion-content has-header="true">
       <ul class="list">
         <li>
-          <a class="item" menu-close nav-clear href="#/tab/signin">Sign in</a>
+          <a class="item" menu-close ng-controller="signinCtrl" ng-click="signin()">Sign In</a>
         </li>
         <li>
           <a class="item" menu-close href="#/tab/signup">Sign Up</a>

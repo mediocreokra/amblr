@@ -1,34 +1,24 @@
-<h2>Sign In</h2>
-<form method="post" action="/api/users/signin">
-  Username:
-  <input type="text" name="username"/>
-  Password:
-  <input type="password" name="password"/>
-  <input type="submit" value="Submit"/>
-<!--   { message } -->
-</form>
-
-
-<ion-modal-view>
+<!-- A modal is a content pane that goes over the user's main view temporarily -->
+<ion-modal-view> 
   <ion-header-bar>
-    <h1 class="title">Login</h1>
+    <h1 class="title">Sign In</h1>
     <div class="buttons">
-      <button class="button button-clear" ng-click="closeLogin()">Close</button>
+      <button class="button button-clear" ng-click="closeSignin()">Close</button>
     </div>
   </ion-header-bar>
   <ion-content>
-    <form ng-submit="doLogin()">
+    <form ng-submit="doSignin()">
       <div class="list">
         <label class="item item-input">
           <span class="input-label">Username</span>
-          <input type="text" ng-model="loginData.username">
+          <input type="text" ng-model="signinData.username">
         </label>
         <label class="item item-input">
           <span class="input-label">Password</span>
-          <input type="password" ng-model="loginData.password">
+          <input type="password" ng-model="signinData.password">
         </label>
         <label class="item">
-          <button class="button button-block button-positive" type="submit">Log in</button>
+          <button class="button button-block button-positive" type="submit">Sign in</button>
         </label>
       </div>
     </form>

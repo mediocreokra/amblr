@@ -3,13 +3,15 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('amblr', 
-  ['ionic', 
-   'ngCordova', 
-   'amblr.map', 
-   'amblr.directives',
-   'amblr.leftnav',
-   'amblr.services'])
+angular.module('amblr', [
+  'ionic', 
+  'ngCordova', 
+  'amblr.map', 
+  'amblr.directives',
+  'amblr.leftnav',
+  'amblr.services',
+  'amblr.signin'
+])
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
     if (window.cordova && window.cordova.plugins.Keyboard) {
@@ -41,14 +43,6 @@ angular.module('amblr',
       'view-content': {
         templateUrl: 'templates/map.html',
         controller: 'MapCtrl'
-      }
-    }
-  })
-  .state('menu.signin', {
-    url: '/signin',
-    views: {
-      'view-content': {
-        templateUrl: 'templates/signin.html',
       }
     }
   })
