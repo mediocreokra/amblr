@@ -51,11 +51,13 @@ exports.savePOI = function(req, res) {
   POI.create(newPOI, function(err, newPOI) {
     if (err) {
       logger.error('in newPOI save ', err);
+      res.status(400);
       return res.json(err);
     } 
 
     logger.info('POI successfully created: ' + newPOI);
 
+    res.status(201);
     res.json(newPOI);
   });
 };
