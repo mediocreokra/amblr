@@ -17,7 +17,7 @@ module.exports = function(passport) {
     });
   });
   
-  signin(passport);
+  // signin(passport);
   signup(passport);
 
 };

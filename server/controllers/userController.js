@@ -29,7 +29,7 @@ var isAuthenticated = function(req, res, next) {
 };
 
 // handles POST request from signin form
-exports.signinUser = function() {
+exports.signinUser = function(req, res, next) {
   passport.authenticate('local', {
     successRedirect: '/', // need to adjust these paths to actual route
     failureRedirect: '/',
@@ -38,13 +38,26 @@ exports.signinUser = function() {
 };
 
 // handles POST request from signup form
-exports.signupUser = function() {
+exports.signupUser = function(req, res, next) {
   console.log('in userController');
-  passport.authenticate('local', {
-    successRedirect: '/', // need to adjust these paths to actual route 
-    failureRedirect: '/',
-    failureFlash: true
-  });
+  passport.authenticate('signup', function(err, user, info) {
+    if (err) {
+      return next(err);
+    }
+    if (!user) {
+      return res.redirect('/');
+    }
+    req.logIn(user, function(err) {
+
+      if (err) {
+        logger.info(err);
+        return next(err);
+      }
+      return res.redirect('/');
+    });
+  })(req, res, next);
+  
+  
 };
 
 // handle logout
