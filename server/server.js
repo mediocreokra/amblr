@@ -5,11 +5,20 @@ var morgan = require('morgan');
 var app = express();
 var logger = require('./config/logger.js');
 
+var passport = require('passport');
+var expressSession = require('express-session');
+var flash = require('connect-flash');
+var cookieParser = require('cookie-parser');
+var passport = require('passport');
+var Strategy = require('passport-local').Strategy;
+
 var poiRouter = require('./routers/poiRouter.js');
+var userRouter = require('./routers/userRouter.js');
 
 // configuration variables for server port and mongodb URI
 var port = process.env.PORT || 3000;
 var dbUri = process.env.MONGOLAB_URI || 'mongodb://localhost/app_database';
+var env = process.env.NODE_ENV || 'production';
 
 //create connection to mongodb
 mongoose.connect(dbUri);
@@ -40,8 +49,26 @@ app.all('/*', function(req, res, next) {
   next();
 });
 
-// middleware to configure routes for all poi related URI's
+// configuring Passport
+app.use(cookieParser());
+// store and show messages to user that were created in config/passport/signin.js and signup.js
+app.use(flash());
+app.use(expressSession({secret: 'supersecretpizzapartypassthecheese'}));
+app.use(passport.initialize());
+app.use(passport.session());
+
+// initialize Passport
+var initPassport = require('./config/passport/init');
+initPassport(passport);
+
+// middleware to configure routes for all poi-related URIs
 app.use('/api/pois', poiRouter);
+
+// middleware to configure routes for all user-related URIs
+app.use('/api/users', userRouter);
+
+
+
 
 //listening
 app.listen(port, function(err) {

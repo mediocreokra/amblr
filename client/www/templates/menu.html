@@ -1,4 +1,7 @@
+<!-- The side menu will automatically hide on child pages, but can be overridden with the 
+enable-menu-with-back-views attribute -->
 <ion-side-menus>     
+  <!-- main site content -->
   <ion-side-menu-content ng-controller="LeftMenuNav">  
     <ion-nav-bar class="bar-dark">
       <ion-nav-back-button class="button-icon ion-arrow-left-c">
@@ -8,6 +11,10 @@
         </button>
       </ion-nav-buttons>
     </ion-nav-bar>
+    
+<!-- The ion-nav-view is where our child states (the views of our app) will be inserted and live. 
+Note that we have given it a name attribute of view-content. This name will be used to reference 
+to this ion-nav-view when we are building our states in the app’s config. -->
     <ion-nav-view name='view-content' animation="slide-left-right"></ion-nav-view>
   </ion-side-menu-content> 
 
@@ -19,7 +26,7 @@
     <ion-content has-header="true">
       <ul class="list">
         <li>
-          <a class="item" menu-close nav-clear href="#/tab/signin">Sign in</a>
+          <a class="item" menu-close ng-controller="signinCtrl" ng-click="signin()">Sign In</a>
         </li>
         <li>
           <a class="item" menu-close href="#/tab/signup">Sign Up</a>

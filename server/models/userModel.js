@@ -12,5 +12,4 @@ var userSchema = mongoose.Schema({
 userSchema.plugin(timestamps);
 mongoose.model('User', userSchema);
 
-var User = mongoose.model('User', userSchema);
-
+module.exports = mongoose.model('User', userSchema);

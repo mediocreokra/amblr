@@ -1,0 +1,26 @@
+<!-- A modal is a content pane that goes over the user's main view temporarily -->
+<ion-modal-view> 
+  <ion-header-bar>
+    <h1 class="title">Sign In</h1>
+    <div class="buttons">
+      <button class="button button-clear" ng-click="closeSignin()">Close</button>
+    </div>
+  </ion-header-bar>
+  <ion-content>
+    <form ng-submit="doSignin()">
+      <div class="list">
+        <label class="item item-input">
+          <span class="input-label">Username</span>
+          <input type="text" ng-model="signinData.username">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Password</span>
+          <input type="password" ng-model="signinData.password">
+        </label>
+        <label class="item">
+          <button class="button button-block button-positive" type="submit">Sign in</button>
+        </label>
+      </div>
+    </form>
+  </ion-content>
+</ion-modal-view>
