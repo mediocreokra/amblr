@@ -5,9 +5,9 @@
 // the 2nd parameter is an array of 'requires'
 angular.module('amblr', [
   'ionic', 
-  'ngCordova', 
+  'ngCordova',
+  'uiGmapgoogle-maps', 
   'amblr.map', 
-  'amblr.directives',
   'amblr.leftnav',
   'amblr.services',
   'amblr.signin'
@@ -29,8 +29,12 @@ angular.module('amblr', [
     }
   });
 })
-.config(function($stateProvider, $urlRouterProvider) {
-
+.config(function($stateProvider, $urlRouterProvider, uiGmapGoogleMapApiProvider) {
+  uiGmapGoogleMapApiProvider.configure({
+    key: 'AIzaSyBceRLiJZrDWlQiK3vu2Mc6-gzp84ZQX5U',
+    v: '3.20', //defaults to latest 3.X anyhow
+    libraries: 'weather,geometry,visualization'
+  });
   $stateProvider
   .state('menu', {
     url: '/menu',

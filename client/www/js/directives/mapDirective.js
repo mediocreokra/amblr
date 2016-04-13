@@ -7,13 +7,14 @@ angular.module('amblr.directives', [])
       onCreate: '&'
     },
     link: function ($scope, $element, $attr, $cordovaGeolocation, $ionicLoading) {
-      var initialize = function() {
+      function initialize() {
         //create google maps from home coordinates upon loading
         var latLng = new google.maps.LatLng(37.7938494, -122.41923439999999);
         var mapOptions = {
           center: latLng,
           zoom: 15,
-          mapTypeId: google.maps.MapTypeId.ROADMAP
+          mapTypeId: google.maps.MapTypeId.ROADMAP,
+          draggable: true
         };
         //this creates map on the first <map></map> element in map.html
         var map = new google.maps.Map($element[0], mapOptions);
