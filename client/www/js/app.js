@@ -10,7 +10,8 @@ angular.module('amblr', [
   'amblr.map', 
   'amblr.leftnav',
   'amblr.services',
-  'amblr.signin'
+  'amblr.signin',
+  'amblr.signup'
 ])
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {

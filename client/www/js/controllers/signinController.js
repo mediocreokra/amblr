@@ -1,5 +1,5 @@
 angular.module('amblr.signin', [])
-.controller('signinCtrl', function($scope, $ionicModal, $timeout) {
+.controller('signinCtrl', function($scope, $ionicModal, $http) {
   // Form data for the signin modal
   $scope.signinData = {};
 
@@ -17,7 +17,6 @@ angular.module('amblr.signin', [])
 
   // Open the signin modal
   $scope.signin = function() {
-    console.log('in signin controller');
     $scope.modal.show();
   };
 
@@ -25,10 +24,16 @@ angular.module('amblr.signin', [])
   $scope.doSignin = function() {
     console.log('Doing signin', $scope.signinData);
 
-    // Simulate a signin delay. Remove this and replace with your signin
-    // code if using a signin system
-    $timeout(function() {
+    $http({
+      method: 'POST',
+      url: '/api/users/signin',
+      data: $scope.signinData
+    })
+    .then(function(res) {
       $scope.closeSignin();
-    }, 1000);
+    }, function(err) {
+      throw new Error ('Error signing in user: ' + $scope.signinData.username + ', error: ' + err);
+    });
+    
   };
 });
