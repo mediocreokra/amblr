@@ -1,7 +1,6 @@
-angular.module('amblr.map', [])
+angular.module('amblr.map', ['uiGmapgoogle-maps'])
 
-.controller('MapCtrl', function($scope, $state, $cordovaGeolocation, POIs, $ionicLoading) {
-
+.controller('MapCtrl', function($scope, $state, $cordovaGeolocation, POIs, $ionicLoading, uiGmapGoogleMapApi) {
   $scope.POIs = [];
 
   //
@@ -14,9 +13,8 @@ angular.module('amblr.map', [])
     console.log('err getting pois in map controller.js: ', err);
   });
 
-  $scope.mapCreated = function(map) {
-    $scope.map = map;
-  };
+  $scope.map = { center: { latitude: 37.7938494, longitude: -122.41923439999999 }, zoom: 15 };
+  $scope.options = {scrollwheel: false};
 
   $scope.getCurrentPosition = function() {
     if (!$scope.map) {
