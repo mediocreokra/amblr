@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var POI = require('../models/poiModel.js');
 var sampleData = require('../data/samplePOIData.js');
-
+var logger = require('../config/logger.js');
 
 /*
    This function will load sample data 
@@ -15,20 +15,20 @@ var createPOIsFromData = function() {
   // everytime server is bounced and db isn't
   POI.remove({}, function(err, removed) {
     if (err) {
-      return console.log('Error removing data: ' + err);
+      return logger.error('Error removing POIs: ' + err);
     }
 
-    console.log('Removed: ' + removed);
+    logger.info('Removed POIs: ' + removed);
 
   });
 
   sampleData.forEach(function(poi) {
     POI.create(poi, function(err, newPoi) {
       if (err) {
-        return console.error('Error creating POI: ' + newPoi + ', error: ' + err);
+        return logger.error('Error creating POI: ' + newPoi + ', error: ' + err);
       } 
         
-      console.log('Created sample POI: ' + newPoi);
+      logger.info('Created sample POI: ' + newPoi);
     
     });
   });
@@ -44,17 +44,17 @@ var createPOIsFromData = function() {
 createPOIsFromData();
 
 exports.savePOI = function(req, res) {
-  console.log('POI to create: ' + req.body);
+  logger.info('POI to create: ' + req.body);
 
   var newPOI = req.body;
 
   POI.create(newPOI, function(err, newPOI) {
     if (err) {
-      console.log('in newPOI save ', err);
+      logger.error('in newPOI save ', err);
       return res.json(err);
     } 
 
-    console.log('POI successfully created: ' + newPOI)
+    logger.info('POI successfully created: ' + newPOI)
     res.json(newPOI);
   });
 };
@@ -64,10 +64,11 @@ exports.getAllPOI = function(req, res) {
 
   POI.find({}, function(err, pois) {
     if (err) {
-      console.log('ERROR in getAllPOI: ', err);
+      logger.error('ERROR in getAllPOI: ', err);
       return res.json(err);
     } 
       
+    logger.info('Successfully retrieved pois: ' + pois);
     res.json(pois); 
   });
 };

@@ -8,4 +8,5 @@ client/resources/
 client/dist
 
 server/node_modules
+server/logs
 npm-debug.log
