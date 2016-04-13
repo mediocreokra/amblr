@@ -8,7 +8,6 @@ angular.module('amblr', [
   'ngCordova',
   'uiGmapgoogle-maps', 
   'amblr.map', 
-  'amblr.directives',
   'amblr.leftnav',
   'amblr.services',
   'amblr.signin'
