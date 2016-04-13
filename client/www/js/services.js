@@ -15,7 +15,7 @@ angular.module ('amblr.services', [])
   };
 
   return POIs;
-})
+});
 
 // .factory('Maps', function($cordovaGeolocation, POIs, $ionicLoading){
  
