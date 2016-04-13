@@ -1,7 +1,8 @@
 <ion-view>
   <ion-content>
-      <!-- <div id="map" data-tap-disabled="true"></div>  -->
-      <map on-create="mapCreated(map)"><map>  
+    <div id="map">
+      <ui-gmap-google-map center='map.center' zoom='map.zoom' draggable="true" options="options"></ui-gmap-google-map>
+    </div>
   </ion-content>
   <!-- Global bottom nav menu for app -->
   <ion-tabs class="tabs-icon-top tabs-dark">
