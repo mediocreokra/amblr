@@ -30,7 +30,6 @@ angular.module('amblr',
 .config(function($stateProvider, $urlRouterProvider) {
 
   $stateProvider
-  //to delete after testing.  use for data point entry
   .state('menu', {
     url: '/menu',
     abstract: true,
@@ -46,14 +45,14 @@ angular.module('amblr',
     }
   })
   .state('menu.signin', {
-    url: '/tab/signin',
+    url: '/signin',
     views: {
       'view-content': {
         templateUrl: 'templates/signin.html',
       }
     }
   })
-
+  //to delete after testing.  use for data point entry
   .state('dataEntry', {
     url: '/test',
     templateUrl: 'testIndex.html',
