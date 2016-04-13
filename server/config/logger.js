@@ -9,10 +9,6 @@ if (!fs.existsSync(logDir)) {
   fs.mkdirSync(logDir);
 }
 
-
-// winston.setLevels( winston.config.npm.levels );
-// winston.addColors( winston.config.npm.colors );
-
 var logger = new winston.Logger({
   transports: [
     new winston.transports.File({
@@ -34,6 +30,10 @@ var logger = new winston.Logger({
   exitOnError: false
 });
 
+/* 
+stream is used to allow morgan to style console output
+in server.js
+*/
 module.exports = logger;
 module.exports.stream = {
   write: function(message, encoding) {
