@@ -31,5 +31,14 @@
     <!-- ALL VIEW STATES LOADED IN HERE -->
     <ion-nav-view></ion-nav-view>
 
+    <ion-tabs class="tabs-icon-top tabs-dark mapTab">
+    <ion-tab title="Add Destination" icon="ion-android-walk" href="#/tab/addDestination">
+      <ion-nav-view name="destination-tab"></ion-nav-view>
+    </ion-tab>
+    <ion-tab title="Add POI" icon="ion-earth" href="#/menu/addPOI" on-select="getCurrentPosition()">
+      <ion-nav-view name="poi-tab"></ion-nav-view>
+    </ion-tab>
+  </ion-tabs>
+  
   </body>
 </html>
