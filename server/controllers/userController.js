@@ -11,6 +11,7 @@ app.use(cookieParser());
 // store and show messages to user that were created in config/passport/signin.js and signup.js
 app.use(flash());
 app.use(expressSession({secret: 'supersecretpizzapartypassthecheese'}));
+
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -46,18 +47,16 @@ exports.signupUser = function(req, res, next) {
     }
     if (!user) {
       return res.redirect('/');
+    } else { 
+      req.login(user, function(err, user) {
+        if (err) {
+          logger.info(err);
+          return next(err, user);
+        }
+        return res.redirect('/');
+      });
     }
-    req.logIn(user, function(err) {
-
-      if (err) {
-        logger.info(err);
-        return next(err);
-      }
-      return res.redirect('/');
-    });
-  })(req, res, next);
-  
-  
+  })(req, res, next); 
 };
 
 // handle logout
@@ -66,3 +65,6 @@ exports.signoutUser = function(req, res) {
   res.redirect('/'); // need to adjust these paths to actual route
 };
 
+exports.findById = function(id, callback) {
+  console.log('in userController findById, id: ' + id + ' - callback: ' + callback);
+};
