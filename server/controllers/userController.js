@@ -26,7 +26,7 @@ var isAuthenticated = function(req, res, next) {
     return next();
     // if the user is not authenticated, redirect to login
   }
-  res.redirect('/');
+  res.redirect('/'); // need to adjust these paths to actual route
 };
 
 // handles POST request from signin form
@@ -36,14 +36,14 @@ exports.signinUser = function() {
       return next(err);
     }
     if (!user) {
-      return res.redirect('/');
+      return res.redirect('/'); // need to adjust these paths to actual route
     } else { 
       req.login(user, function(err, user) {
         if (err) {
           logger.info(err);
           return next(err, user);
         }
-        return res.redirect('/');
+        return res.redirect('/'); // need to adjust these paths to actual route
       });
     }
   })(req, res, next); 
@@ -56,14 +56,14 @@ exports.signupUser = function(req, res, next) {
       return next(err);
     }
     if (!user) {
-      return res.redirect('/');
+      return res.redirect('/'); // need to adjust these paths to actual route
     } else { 
       req.login(user, function(err, user) {
         if (err) {
           logger.info(err);
           return next(err, user);
         }
-        return res.redirect('/');
+        return res.redirect('/'); // need to adjust these paths to actual route
       });
     }
   })(req, res, next); 
