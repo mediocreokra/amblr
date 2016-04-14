@@ -1,17 +1,31 @@
-<div class="bar bar-header bar-dark">
-  <h1 class="title">Add a POI</h1>
-</div>
-
-<div class="list">
-  <label class="item item-input item-stacked-label">
-    <span class="input-label">Title</span>
-    <input type="text" placeholder="What is this POI?">
-  </label>
-  <label class="item item-input item-stacked-label">
-    <span class="input-label">Description</span>
-    <input type="text" placeholder="Describe what this POI is">
-  </label>
-  <button class="button">
-      Submit
-  </button>
-</div>
+<ion-modal-view>
+  <div class="bar bar-header bar-dark">
+    <h1 class="title">Add a POI</h1>
+    <div class="buttons">
+      <button class="button button-clear" ng-click="closeForm()">Close</button>
+    </div>
+  </div>
+  <ion-content>
+    <div class="list">
+    <!-- icons of good or bad to based on user select-->
+      <ion-item>
+        <ion-label>Rate the POI</ion-label>
+        <ion-select ng-model="currentPOI.type" okText="Okay" cancelText="Dismiss">
+          <ion-option value="good" checked="true"><ion-icon class="ion-happy-outline larger"></i>Good</ion-option>
+          <ion-option value="bad"><i class="ion-sad-outline larger"></i>Bad</ion-option>
+          </ion-select>
+      </ion-item>
+      <!-- user input  -->
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Title</span>
+        <input type="text" placeholder="What is this POI?" ng-model="currentPOI.title">
+      </label>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Description</span>
+        <input type="text" placeholder="Describe what this POI is" ng-model="currentPOI.description">
+      </label>
+      <button class="button" ng-click="cancelPOI()">Cancel</button>
+      <button class="button" ng-click="savePOI()">Add POI</button>
+    </div>
+  </ion-content>
+</ion-modal-view>
