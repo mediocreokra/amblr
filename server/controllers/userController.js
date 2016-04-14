@@ -19,23 +19,14 @@ app.use(passport.session());
 var initPassport = require('../config/passport/init');
 initPassport(passport);
 
-var isAuthenticated = function(req, res, next) {
-  
-  // if user is authenticated, move on to next request handler
-  if (req.isAuthenticated()) {
-    return next();
-    // if the user is not authenticated, redirect to login
-  }
-  res.redirect('/'); // need to adjust these paths to actual route
-};
-
 // handles POST request from signin form
-exports.signinUser = function() {
+exports.signinUser = function(req, res, next) {
   passport.authenticate('signin', function(err, user, info) {
     if (err) {
+      console.log(err);
       return next(err);
     }
-    if (!user) {
+    if (!user) { // if the username does not exist
       return res.redirect('/'); // need to adjust these paths to actual route
     } else { 
       req.login(user, function(err, user) {
@@ -43,7 +34,7 @@ exports.signinUser = function() {
           logger.info(err);
           return next(err, user);
         }
-        return res.redirect('/'); // need to adjust these paths to actual route
+        return res.json(user);
       });
     }
   })(req, res, next); 
@@ -55,7 +46,7 @@ exports.signupUser = function(req, res, next) {
     if (err) {
       return next(err);
     }
-    if (!user) {
+    if (!user) { // if a username was not given
       return res.redirect('/'); // need to adjust these paths to actual route
     } else { 
       req.login(user, function(err, user) {
@@ -63,7 +54,7 @@ exports.signupUser = function(req, res, next) {
           logger.info(err);
           return next(err, user);
         }
-        return res.redirect('/'); // need to adjust these paths to actual route
+        return res.json(user); 
       });
     }
   })(req, res, next); 
@@ -72,6 +63,7 @@ exports.signupUser = function(req, res, next) {
 // handle logout
 exports.signoutUser = function(req, res) {
   req.logout();
-  res.redirect('/'); // need to adjust these paths to actual route
+  res.redirect('/');
 };
+
 

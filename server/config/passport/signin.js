@@ -9,7 +9,7 @@ module.exports = function(passport) {
     return bCrypt.compareSync(password, user.password);
   };
   // use the Local Strategy (locally saved username and password, i.e. not OAuth)
-  passport.use('login', new LocalStrategy({
+  passport.use('signin', new LocalStrategy({
     passReqToCallback: true // allows us to use the request in the following callback
   }, 
     function(req, username, password, done) {

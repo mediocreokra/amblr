@@ -48,7 +48,6 @@ app.use('/api/pois', poiRouter);
 // middleware to configure routes for all user-related URIs
 app.use('/api/users', userRouter);
 
-
 //listening
 app.listen(port, function(err) {
   if (err) {
