@@ -7,6 +7,7 @@ angular.module('amblr', [
   'ionic', 
   'ngCordova',
   'amblr.map', 
+  'amblr.addPOI',
   'amblr.leftnav',
   'amblr.services',
   'amblr.signin',
@@ -60,6 +61,15 @@ angular.module('amblr', [
       'view-content-private': {
         templateUrl: 'templates/map.html',
         controller: 'MapCtrl'
+      }
+    }
+  })
+  .state('menu.addPOI', {
+    url: '/addPOI',
+    views: {
+      'view-content': {
+        templateUrl: 'templates/addPOI.html',
+        controller: 'addPOIController'
       }
     }
   })

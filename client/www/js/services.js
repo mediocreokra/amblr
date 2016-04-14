@@ -14,6 +14,15 @@ angular.module ('amblr.services', [])
     });
   };
 
+  POIs.savePOI = function(POI) {
+    return $http({
+      method: 'POST',
+      url: 'http://127.0.0.1:3000/api/pois/',
+      data: JSON.stringify(POI)
+    }).then(function(res) {
+      return res;
+    });
+  };
   return POIs;
 });
 
