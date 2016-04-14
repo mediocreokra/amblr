@@ -50,6 +50,7 @@ angular.module('amblr', [
       }
     }
   })
+
   .state('menu-private', {
     url: '/menu-private',
     abstract: true,
@@ -79,7 +80,6 @@ angular.module('amblr', [
     templateUrl: 'testIndex.html',
     controller: 'testCtrl'
   });
-
   $urlRouterProvider.otherwise('/menu/home');
 
 });
