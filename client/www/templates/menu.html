@@ -2,37 +2,37 @@
 enable-menu-with-back-views attribute -->
 <ion-side-menus>   
   <!-- main site content -->
-  <ion-side-menu-content ng-controller="LeftMenuNav">  
-    <ion-nav-bar class="bar-dark">
-      <ion-nav-back-button class="button-icon ion-arrow-left-c">
+  <ion-side-menu-content ng-controller='LeftMenuNav'>  
+    <ion-nav-bar class='bar-dark'>
+      <ion-nav-back-button class='button-icon ion-arrow-left-c'>
       </ion-nav-back-button>
-      <ion-nav-buttons side="left">
-        <button class="button button-icon button-clear ion-navicon" ng-click="showMenu()">
+      <ion-nav-buttons side='left'>
+        <button class='button button-icon button-clear ion-navicon' ng-click='showMenu()'>
         </button>
       </ion-nav-buttons>
     </ion-nav-bar>
     
-<!-- The ion-nav-view is where our child states (the views of our app) will be inserted and live. 
-Note that we have given it a name attribute of view-content. This name will be used to reference 
-to this ion-nav-view when we are building our states in the app’s config. -->
-    <ion-nav-view name='view-content' animation="slide-left-right"></ion-nav-view>
+    <!-- The ion-nav-view is where our child states (the views of our app) will be inserted and live. 
+    Note that we have given it a name attribute of view-content. This name will be used to reference 
+    to this ion-nav-view when we are building our states in the app’s config. -->
+    <ion-nav-view name='view-content' animation='slide-left-right'></ion-nav-view>
   </ion-side-menu-content> 
 
-  <ion-side-menu side="left">
+  <ion-side-menu side='left'>
      <!-- need conditional logic here once user signs in to add name to this -->
-    <ion-header-bar class="bar bar-header bar-assertive">
-      <h1 class="title">User Name Here</h1>
+    <ion-header-bar class='bar bar-header bar-assertive'>
+      <h1 class='title'>User Name Here</h1>
     </ion-header-bar>
     <ion-content>
-      <ul class="list">
+      <ul class='list'>
         <li>
-          <a class="item" menu-close ng-controller="signinCtrl" ng-click="signin()">Sign In</a>
+          <a class='item' menu-close ng-controller='signinCtrl' ng-click='signin()'>Sign In</a>
         </li>
         <li>
-          <a class="item" menu-close ng-controller="signupCtrl" ng-click="signup()">Sign Up</a>
+          <a class='item' menu-close ng-controller='signupCtrl' ng-click='signup()'>Sign Up</a>
         </li>
         <li>
-          <a class="item" menu-close href="#/tab/profile">Profile</a>
+          <a class='item' menu-close href='#/tab/profile'>Profile</a>
         </li>
       </ul>
     </ion-content>
