@@ -7,6 +7,7 @@ angular.module('amblr', [
   'ionic', 
   'ngCordova',
   'amblr.map', 
+  'amblr.addPOI',
   'amblr.leftnav',
   'amblr.services',
   'amblr.signin',
@@ -44,11 +45,12 @@ angular.module('amblr', [
     url: '/home',
     views: {
       'view-content': {
-        templateUrl: 'templates/map.html',
-        controller: 'MapCtrl'
+        templateUrl: 'templates/map.html'
+        // controller: 'MapCtrl'
       }
     }
   })
+
   .state('menu-private', {
     url: '/menu-private',
     abstract: true,
@@ -63,13 +65,21 @@ angular.module('amblr', [
       }
     }
   })
+  .state('menu.addPOI', {
+    url: '/addPOI',
+    views: {
+      'view-content': {
+        templateUrl: 'templates/addPOI.html',
+        controller: 'addPOIController'
+      }
+    }
+  })
   //to delete after testing.  use for data point entry
   .state('dataEntry', {
     url: '/test',
     templateUrl: 'testIndex.html',
     controller: 'testCtrl'
   });
-
   $urlRouterProvider.otherwise('/menu/home');
 
 });

@@ -1,3 +1,4 @@
+
 angular.module('amblr.map', ['uiGmapgoogle-maps'])
 .config(function($stateProvider, $urlRouterProvider, uiGmapGoogleMapApiProvider) {
   uiGmapGoogleMapApiProvider.configure({
@@ -43,12 +44,10 @@ angular.module('amblr.map', ['uiGmapgoogle-maps'])
       var markers = [];
      
       // TODO: abstract the creation of markers into a function
-      for (var i=0; i < $scope.POIs.length; i++) {
+      for (var i = 0; i < $scope.POIs.length; i++) {
         
         /*
-
           Create a marker object for each one retrieved from the db.
-
           Example marker model:
           {
             id: 1,
@@ -62,11 +61,8 @@ angular.module('amblr.map', ['uiGmapgoogle-maps'])
               labelClass: "marker-labels"
             }
           }
-
           Documentation: https://angular-ui.github.io/angular-google-maps/#!/api/markers
-
           This is connected to the google map through the ui-gmap-markers models attribute in maps.html
-
         */
         
         markers.push({
