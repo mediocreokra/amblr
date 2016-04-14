@@ -44,7 +44,7 @@ angular.module('amblr.map', ['uiGmapgoogle-maps'])
       var markers = [];
      
       // TODO: abstract the creation of markers into a function
-      for (var i=0; i < $scope.POIs.length; i++) {
+      for (var i = 0; i < $scope.POIs.length; i++) {
         
         /*
           Create a marker object for each one retrieved from the db.

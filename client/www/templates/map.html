@@ -3,7 +3,7 @@
 data-tab-disabled needed to stop ios from dragging the whole content area around when dragging map.
 overflow-scroll false needed to stop android from showing a scroll bar.
 -->
-<ion-content class='has-header has-tabs' data-tap-disabled='true' overflow-scroll='false'>
+<ion-content class='has-header has-tabs' data-tap-disabled='true' overflow-scroll='false' ng-controller="MapCtrl">
     <ui-gmap-google-map center='map.center' zoom='map.zoom' draggable='true' options='options' control='map.control'>
      
       <ui-gmap-markers models='map.POIMarkers' coords="'self'" icon="'icon'">
@@ -11,3 +11,8 @@ overflow-scroll false needed to stop android from showing a scroll bar.
  
     </ui-gmap-google-map>
 </ion-content>
+
+<!-- <ion-content ng-controller="addPOIController">
+    <ui-gmap-marker models="currentPOI" coords=" {latitude: , longitude: home.location.longitude}" idkey="currentPOI.id">
+    </ui-gmap-marker>
+</ion-content> -->

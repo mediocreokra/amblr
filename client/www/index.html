@@ -36,7 +36,7 @@
       <ion-tab title='Add Destination' icon='ion-android-walk' href='#/tab/addDestination'>
         <ion-nav-view name='destination-tab'></ion-nav-view>
       </ion-tab>
-      <ion-tab title='Add POI' icon='ion-earth' href='#/menu/addPOI' on-select='getCurrentPosition()'>
+      <ion-tab title='Add POI' icon='ion-earth' ng-click='toggleView()' ng-controller="addPOIController">
         <ion-nav-view name='poi-tab'></ion-nav-view>
       </ion-tab>
     </ion-tabs>

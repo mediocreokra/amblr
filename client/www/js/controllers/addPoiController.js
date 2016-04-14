@@ -27,10 +27,11 @@ angular.module('amblr.addPOI', [])
     console.log($scope.currentPOI);
     //clear out currentPOI info
     //TODO: post currentPOI to the database
-    $scope.currentPOI = {};
     POIs.savePOI($scope.currentPOI)
     .then(function(poi) {
       //close modal
+      console.log('poi saved', poi);
+      $scope.currentPOI = {};
       $scope.closeForm();
       // redirect to home page (may not need this)
       $location.path('/menu/home');
@@ -61,6 +62,13 @@ angular.module('amblr.addPOI', [])
     $scope.modal.hide();
   };
 
+  $scope.toggleView = function() {
+    if ($scope.modal.isShown()) {
+      $scope.closeForm();
+    } else {
+      $scope.openForm();
+    }
+  };
   //clean up modal when done
   $scope.$on('$destroy', function() {
     $scope.modal.hide();
