@@ -11,6 +11,7 @@ app.use(cookieParser());
 // store and show messages to user that were created in config/passport/signin.js and signup.js
 app.use(flash());
 app.use(expressSession({secret: 'supersecretpizzapartypassthecheese'}));
+
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -30,21 +31,42 @@ var isAuthenticated = function(req, res, next) {
 
 // handles POST request from signin form
 exports.signinUser = function() {
-  passport.authenticate('local', {
-    successRedirect: '/', // need to adjust these paths to actual route
-    failureRedirect: '/',
-    failureFlash: true
-  });
+  passport.authenticate('signin', function(err, user, info) {
+    if (err) {
+      return next(err);
+    }
+    if (!user) {
+      return res.redirect('/');
+    } else { 
+      req.login(user, function(err, user) {
+        if (err) {
+          logger.info(err);
+          return next(err, user);
+        }
+        return res.redirect('/');
+      });
+    }
+  })(req, res, next); 
 };
 
 // handles POST request from signup form
-exports.signupUser = function() {
-  console.log('in userController');
-  passport.authenticate('local', {
-    successRedirect: '/', // need to adjust these paths to actual route 
-    failureRedirect: '/',
-    failureFlash: true
-  });
+exports.signupUser = function(req, res, next) {
+  passport.authenticate('signup', function(err, user, info) {
+    if (err) {
+      return next(err);
+    }
+    if (!user) {
+      return res.redirect('/');
+    } else { 
+      req.login(user, function(err, user) {
+        if (err) {
+          logger.info(err);
+          return next(err, user);
+        }
+        return res.redirect('/');
+      });
+    }
+  })(req, res, next); 
 };
 
 // handle logout
