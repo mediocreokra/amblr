@@ -7,3 +7,14 @@
 .larger {
   font-size: larger;
 }
+
+@media (min-width: 680px) {
+  .addPOI {
+    width: 90%;
+    height: 90%;
+    top: 5%;
+    left: 5%;
+    right: 5%;
+    bottom: 5%;
+  } 
+}

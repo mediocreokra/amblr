@@ -45,8 +45,8 @@ angular.module('amblr', [
     url: '/home',
     views: {
       'view-content': {
-        templateUrl: 'templates/map.html',
-        controller: 'MapCtrl'
+        templateUrl: 'templates/map.html'
+        // controller: 'MapCtrl'
       }
     }
   })
