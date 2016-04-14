@@ -6,31 +6,95 @@ angular.module('amblr.map', ['uiGmapgoogle-maps'])
     libraries: 'weather,geometry,visualization'
   });
 })
-.controller('MapCtrl', function($scope, $state, $cordovaGeolocation, POIs, $ionicLoading, uiGmapGoogleMapApi) {
+.controller('MapCtrl', function($scope, $state, $cordovaGeolocation, POIs,
+  $ionicLoading, uiGmapGoogleMapApi, uiGmapIsReady, $location) {
+  
   $scope.POIs = [];
-
-  // service call to retrieve all POIs stored in the database
-  // TODO: need to limit the POIs to a radius search around a lat/long
-  POIs.getPOIs()
-  .then(function(response) {
-    $scope.POIs = response.data;
-    console.log('pois received in map controller.js');
-  })
-  .catch(function(err) {
-    console.log('err getting pois in map controller.js: ', err);
-  });
 
   var lat = 37.7938494;
   var long = -122.419234;
+  
+  $scope.map = { 
+    center: { 
+      latitude: lat, 
+      longitude: long 
+    }, 
+    zoom: 15,
+    control: {},
+    POIMarkers: []
+  };
 
-  $scope.map = { center: { latitude: lat, longitude: long }, zoom: 15 };
   $scope.options = {scrollwheel: false};
+
+  //use a promise to tell when the map is ready to be interacted with
+  uiGmapIsReady.promise()
+  .then(function (instances) {
+
+    console.log('equals = ' + (instances[0].map === $scope.map.control.getGMap()));
+
+    // service call to retrieve all POIs stored in the database
+    // TODO: need to limit the POIs to a radius search around a lat/long
+
+    POIs.getPOIs()
+    .then(function(response) {
+      $scope.POIs = response.data;
+      console.log('pois received in map controller.js: ' + $scope.POIs);
+
+      var markers = [];
+     
+      // TODO: abstract the creation of markers into a function
+      for (var i=0; i < $scope.POIs.length; i++) {
+        
+        /*
+
+          Create a marker object for each one retrieved from the db.
+
+          Example marker model:
+          {
+            id: 1,
+            icon: '../../img/poi.png',
+            latitude: 37.7938494,
+            longitude: -122.419234,
+            showWindow: false,
+            options: {
+              labelContent: '[46,-77]',
+              labelAnchor: "22 0",
+              labelClass: "marker-labels"
+            }
+          }
+
+          Documentation: https://angular-ui.github.io/angular-google-maps/#!/api/markers
+
+          This is connected to the google map through the ui-gmap-markers models attribute in maps.html
+
+        */
+        
+        markers.push({
+          id: i,
+          latitude: $scope.POIs[i].lat,
+          longitude: $scope.POIs[i].long,
+          title: $scope.POIs[i].description
+        });
+
+        console.log($scope.POIs[i].long, $scope.POIs[i].lat); 
+      }
+
+      $scope.map.POIMarkers = markers;
+
+    })
+    .catch(function(err) {
+      console.log('err getting pois in map controller.js: ', err);
+    });
+
+  })
+  .catch(function(err) {
+    console.log('error in doing things when map is ready', err);
+  });
 
 
   // TODO: replace this one marker with all the markers in the db
   // Don't allow draggable either but this can be used for the
   // Add POI marker
-
   $scope.coordsUpdates = 0;
   $scope.dynamicMoveCtr = 0;
   $scope.marker = {
@@ -96,6 +160,5 @@ angular.module('amblr.map', ['uiGmapgoogle-maps'])
       alert('Unable to get location: ' + error.message);
     });
   };
-
 
 });
