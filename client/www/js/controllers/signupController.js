@@ -1,5 +1,5 @@
 angular.module('amblr.signup', [])
-.controller('signupCtrl', function($scope, $ionicModal, $http) {
+.controller('signupCtrl', function($scope, $ionicModal, $http, $location) {
   // Form data for the signup modal
   $scope.signupData = {};
 
@@ -22,8 +22,7 @@ angular.module('amblr.signup', [])
 
   // Perform the signup action when the user submits the signup form
   $scope.doSignup = function() {
-    console.log('Doing signup', $scope.signupData);
-
+    console.log('Doing signup with username: ', $scope.signupData.username);
     $http({
       method: 'POST',
       url: '/api/users/signup',
@@ -31,6 +30,11 @@ angular.module('amblr.signup', [])
     })
     .then(function(res) {
       $scope.closeSignup();
+      
+      // TODO: need to test if signup was successful & if yes, redirect to private page
+      // right now, anyone who fills in the signin form goes to the private page
+      
+      $location.path('/menu-private/home');
     }, function(err) {
       throw new Error ('Error signing up user: ' + $scope.signupData.username + ', error: ' + err);
     });

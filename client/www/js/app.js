@@ -49,6 +49,20 @@ angular.module('amblr', [
       }
     }
   })
+  .state('menu-private', {
+    url: '/menu-private',
+    abstract: true,
+    templateUrl: 'templates/menu-private.html',
+  })
+  .state('menu-private.home', {
+    url: '/home',
+    views: {
+      'view-content-private': {
+        templateUrl: 'templates/map.html',
+        controller: 'MapCtrl'
+      }
+    }
+  })
   //to delete after testing.  use for data point entry
   .state('dataEntry', {
     url: '/test',

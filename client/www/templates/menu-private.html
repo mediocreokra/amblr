@@ -15,21 +15,21 @@ enable-menu-with-back-views attribute -->
     <!-- The ion-nav-view is where our child states (the views of our app) will be inserted and live. 
     Note that we have given it a name attribute of view-content. This name will be used to reference 
     to this ion-nav-view when we are building our states in the app’s config. -->
-    <ion-nav-view name='view-content' animation='slide-left-right'></ion-nav-view>
+    <ion-nav-view name='view-content-private' animation='slide-left-right'></ion-nav-view>
   </ion-side-menu-content> 
 
   <ion-side-menu side='left'>
      <!-- need conditional logic here once user signs in to add name to this -->
     <ion-header-bar class='bar bar-header bar-assertive'>
-      <h1 class='title'>Welcome to Amblr</h1>
+      <h1 class='title'>User Name Here</h1>
     </ion-header-bar>
     <ion-content>
       <ul class='list'>
         <li>
-          <a class='item' menu-close ng-controller='signinCtrl' ng-click='signin()'>Sign In</a>
+          <a class='item' menu-close href='/api/users/signout'>Sign Out</a>
         </li>
         <li>
-          <a class='item' menu-close ng-controller='signupCtrl' ng-click='signup()'>Sign Up</a>
+          <a class='item' menu-close href='#/tab/profile'>Profile</a>
         </li>
       </ul>
     </ion-content>
