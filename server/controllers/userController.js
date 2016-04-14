@@ -40,7 +40,6 @@ exports.signinUser = function(req, res, next) {
 
 // handles POST request from signup form
 exports.signupUser = function(req, res, next) {
-  console.log('in userController');
   passport.authenticate('signup', function(err, user, info) {
     if (err) {
       return next(err);
@@ -65,6 +64,3 @@ exports.signoutUser = function(req, res) {
   res.redirect('/'); // need to adjust these paths to actual route
 };
 
-exports.findById = function(id, callback) {
-  console.log('in userController findById, id: ' + id + ' - callback: ' + callback);
-};
