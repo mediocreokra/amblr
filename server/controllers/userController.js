@@ -30,12 +30,23 @@ var isAuthenticated = function(req, res, next) {
 };
 
 // handles POST request from signin form
-exports.signinUser = function(req, res, next) {
-  passport.authenticate('local', {
-    successRedirect: '/', // need to adjust these paths to actual route
-    failureRedirect: '/',
-    failureFlash: true
-  });
+exports.signinUser = function() {
+  passport.authenticate('signin', function(err, user, info) {
+    if (err) {
+      return next(err);
+    }
+    if (!user) {
+      return res.redirect('/');
+    } else { 
+      req.login(user, function(err, user) {
+        if (err) {
+          logger.info(err);
+          return next(err, user);
+        }
+        return res.redirect('/');
+      });
+    }
+  })(req, res, next); 
 };
 
 // handles POST request from signup form
