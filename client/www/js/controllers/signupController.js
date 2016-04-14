@@ -22,7 +22,7 @@ angular.module('amblr.signup', [])
 
   // Perform the signup action when the user submits the signup form
   $scope.doSignup = function() {
-    console.log('Doing signup', $scope.signupData);
+    console.log('Doing signup with username: ', $scope.signupData.username);
 
     $http({
       method: 'POST',

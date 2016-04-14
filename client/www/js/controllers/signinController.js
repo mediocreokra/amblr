@@ -22,7 +22,7 @@ angular.module('amblr.signin', [])
 
   // Perform the signin action when the user submits the signin form
   $scope.doSignin = function() {
-    console.log('Doing signin', $scope.signinData);
+    console.log('Doing signin with username: ', $scope.signinData.username);
 
     $http({
       method: 'POST',
