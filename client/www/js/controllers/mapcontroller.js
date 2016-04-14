@@ -1,5 +1,11 @@
 angular.module('amblr.map', ['uiGmapgoogle-maps'])
-
+.config(function($stateProvider, $urlRouterProvider, uiGmapGoogleMapApiProvider) {
+  uiGmapGoogleMapApiProvider.configure({
+    key: 'AIzaSyBceRLiJZrDWlQiK3vu2Mc6-gzp84ZQX5U',
+    v: '3.20', //defaults to latest 3.X anyhow
+    libraries: 'weather,geometry,visualization'
+  });
+})
 .controller('MapCtrl', function($scope, $state, $cordovaGeolocation, POIs, $ionicLoading, uiGmapGoogleMapApi) {
   $scope.POIs = [];
 
@@ -28,6 +34,7 @@ angular.module('amblr.map', ['uiGmapgoogle-maps'])
     });
 
     var options = {timeout: 10000, enableHighAccuracy: true};
+
     $cordovaGeolocation.getCurrentPosition(options).then(function (pos) {
       console.log('Got pos', pos);
       var latLng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
