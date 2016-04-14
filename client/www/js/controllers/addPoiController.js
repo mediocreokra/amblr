@@ -6,6 +6,6 @@ angular.module('addPOI', ['uiGmapgoogle-maps'])
 
   $scope.getCurrentPOI = function(POI) {
     $scope.currentPOI = POI;
-  };
 
+  };
 });
