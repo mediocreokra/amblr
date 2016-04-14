@@ -29,7 +29,10 @@ angular.module('amblr', [
     }
   });
 })
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+
+  //force android to keep tabs at bottom
+  $ionicConfigProvider.platform.android.tabs.position('bottom');
   
   $stateProvider
   .state('menu', {
