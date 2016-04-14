@@ -18,7 +18,7 @@ Test and lint your code! Code that does not pass tests or does not meet Hack Rea
 4. Make edits and ```git add``` then ```git commit``` - do this often
 5. When done, ```git pull --rebase upstream master```
 6. ```git push origin feature-branch```
-7. Submit pull request from your fork's master branch to the org repo's master branch
+7. Submit pull request from your fork's feature branch to the org repo's master branch
 Your pull request will be reviewed by another maintainer. The point of code reviews is to help keep the codebase clean and of high quality and, equally as important, to help you grow as a programmer. If your code reviewer requests you make a change you don't understand, ask them why. Fix any issues raised by your code reviwer, and push your fixes as a single new commit.
 8. Once the pull request has been reviewed, it will be merged by another member of the team. Do not merge your own commits.
 9. Optional: delete the feature branch from your local machine with ```git branch -d feature-branch``` This will keep your list of branches clean so you don't mix them up.
