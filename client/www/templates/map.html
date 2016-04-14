@@ -1,3 +1,10 @@
-<ion-content class='has-header has-tabs'>
-    <ui-gmap-google-map center='map.center' zoom='map.zoom' draggable='true' options='options'></ui-gmap-google-map>
+<!-- 
+data-tab-disabled needed to stop ios from dragging the whole content area around when dragging map.
+overflow-scroll false needed to stop android from showing a scroll bar.
+-->
+<ion-content class='has-header has-tabs' data-tap-disabled='true' overflow-scroll='false'>
+    <ui-gmap-google-map center='map.center' zoom='map.zoom' draggable='true' options='options'>
+      <ui-gmap-marker coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.id">
+      </ui-gmap-marker>
+    </ui-gmap-google-map>
 </ion-content>

@@ -9,7 +9,8 @@ angular.module('amblr.map', ['uiGmapgoogle-maps'])
 .controller('MapCtrl', function($scope, $state, $cordovaGeolocation, POIs, $ionicLoading, uiGmapGoogleMapApi) {
   $scope.POIs = [];
 
-  //
+  // service call to retrieve all POIs stored in the database
+  // TODO: need to limit the POIs to a radius search around a lat/long
   POIs.getPOIs()
   .then(function(response) {
     $scope.POIs = response.data;
@@ -19,8 +20,43 @@ angular.module('amblr.map', ['uiGmapgoogle-maps'])
     console.log('err getting pois in map controller.js: ', err);
   });
 
-  $scope.map = { center: { latitude: 37.7938494, longitude: -122.41923439999999 }, zoom: 15 };
+  var lat = 37.7938494;
+  var long = -122.419234;
+
+  $scope.map = { center: { latitude: lat, longitude: long }, zoom: 15 };
   $scope.options = {scrollwheel: false};
+
+
+  // TODO: replace this one marker with all the markers in the db
+  // Don't allow draggable either but this can be used for the
+  // Add POI marker
+
+  $scope.coordsUpdates = 0;
+  $scope.dynamicMoveCtr = 0;
+  $scope.marker = {
+    id: 0,
+    coords: {
+      latitude: lat,
+      longitude: long
+    },
+    options: { draggable: true },
+    events: {
+      dragend: function (marker, eventName, args) {
+        $log.log('marker dragend');
+        var lat = marker.getPosition().lat();
+        var lon = marker.getPosition().lng();
+        $log.log(lat);
+        $log.log(lon);
+
+        $scope.marker.options = {
+          draggable: true,
+          labelContent: "lat: " + $scope.marker.coords.latitude + ' ' + 'lon: ' + $scope.marker.coords.longitude,
+          labelAnchor: "100 0",
+          labelClass: "marker-labels"
+        };
+      }
+    }
+  };
 
   $scope.getCurrentPosition = function() {
     if (!$scope.map) {
@@ -61,54 +97,5 @@ angular.module('amblr.map', ['uiGmapgoogle-maps'])
     });
   };
 
-      //creat a function that calls the POIs that are in teh database
-      //iterate through our POIs
-      // for (var i=0; i < $scope.POIs.length; i++) {
-      //   //create a new latLng object
-      //   console.log($scope.POIs[i].long, $scope.POIs[i].lat);
-      //   latLng2 = new google.maps.LatLng($scope.POIs[i].lat, $scope.POIs[i].long);
-      //   //var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-      //   //create a new marker with latLng
-      //   new google.maps.Marker({
-      //     map: $scope.map,
-      //     animation: google.maps.Animation.DROP,
-      //     position: latLng2
-      //   }); 
-      // }
-      // google.maps.event.addListener(marker, 'click', function () {
 
-      //     infoWindow.open($scope.map, marker);
-      // });
-
-    // });
-  //     var infoBubble = new InfoBubble({
-  //       content: '<div class="phoneytext">' + 'Add a POI!' + '<div class="left-col2"></div></div>',
-  //       boxClass: 'info-box',
-  //       pixelOffset: new google.maps.Size(-150, -40),
-  //       borderColor: '#ffffff',
-  //       borderRadius: '0',
-  //       // maxWidth: 535,
-  //       // disableAutoPan: false,
-  //       // hideCloseButton: false,
-  //       shadowStyle: 1,
-  //       padding: 0,
-  //       backgroundColor: 'rgb(57,57,57)',
-  //       borderRadius: 4,
-  //       arrowSize: 10,
-  //       borderWidth: 1,
-  //       borderColor: '#2c2c2c',
-  //       disableAutoPan: true,
-  //       hideCloseButton: true,
-  //       arrowPosition: 30,
-  //       backgroundClassName: 'phoney',
-  //       arrowStyle: 2
-  //     });
-  //     console.log(infoBubble);
-  //     infoBubble.open($scope.map, $scope.CurrentMarker);
-  //     console.log('content of infobubble', infoBubble.content);
-
-  //     google.maps.event.addListener($scope.CurrentMarker, 'click', function () { 
-  //     });
-  //   });
-  // };
 });
