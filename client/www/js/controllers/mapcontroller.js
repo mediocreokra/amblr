@@ -159,7 +159,6 @@ angular.module('amblr.map', ['uiGmapgoogle-maps'])
             click: function (map, eventName, marker) {
                 
               console.log('inside in click of marker from db');
-              debugger;
               var lat = marker.latitude;
               var lon = marker.longitude;
               var infoWindow = $scope.map.infoWindow;
