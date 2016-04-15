@@ -29,17 +29,38 @@ angular.module('amblr.addPOI', [])
       $scope.currentPOI = {};
       $scope.closeForm();
       // redirect to home page (may not need this)
+      $scope.onSuccess();
       $location.path('/menu/home');
     })
     .catch(function(err) {
       console.log('error in saving poi to database', err);
-      //TODO: 
-      // alert('error in saving to database');
-      // $scope.noSave();
-      // $scope.closeForm();
+      $scope.onError();
     });
   };
   //cancel POI 
+
+  $scope.onError = function() {
+    $ionicPopup.alert({
+      title: 'Oops there as was Problem :(',
+      template: 'Would you like to try again?',
+      buttons: [
+      { text: 'Cancel'},
+      { text: 'Try Again',
+        type: 'button-dark',
+        onTap: function(e) {
+          $scope.openForm(); 
+        }
+      }]
+    });
+  };
+
+  $scope.onSuccess = function() {
+    $ionicPopup.alert({
+      title: 'POI Saved!',
+      template: 'Yay! You\'ve successfully added a POI to amblr!'
+    });
+  };
+
   $scope.cancelPOI = function() {
     $scope.currentPOI = {};
     $scope.closeForm();
@@ -59,7 +80,10 @@ angular.module('amblr.addPOI', [])
     })
     .catch(function(err) {
       console.log('error in getting current pos', err);
-      alert('unable to get current location');
+      $ionicPopup.alert({
+        title: 'Error in getting current location',
+        template: 'Please Try again later'
+      });
       $location.path('/menu/home');
     });
     //returns a promise which is resolved when modal is finished animating in.
@@ -81,18 +105,6 @@ angular.module('amblr.addPOI', [])
   $scope.$on('$destroy', function() {
     $scope.modal.hide();
   });
-
-  //TODO: confirm to user whether POI save was successful for not
-  //TODO: would use ionicPopUp
-  $scope.confirmSave = function() {
-    $scope.popUp = $ionicPopup.show({
-      template: 'Saving POI...'
-    });
-  };
-
-  // $timeout(function() {
-  //   $scope.popUp.close();
-  // }, 1000);
 
   $scope.NoSave = function() {
     $scope.popUp = $ionicPopup.show({
