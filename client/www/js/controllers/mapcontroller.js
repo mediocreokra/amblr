@@ -12,8 +12,9 @@ angular.module('amblr.map', ['uiGmapgoogle-maps'])
   
   $scope.POIs = [];
 
-  var lat = 37.7938494;
-  var long = -122.419234;
+
+  var lat = 37.786439;
+  var long = -122.408199;
 
   // dropMarker is the marker when someone clicks on the map
   // if we want to allow user to drag it around, the dragend event
