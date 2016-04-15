@@ -25,7 +25,10 @@ angular.module('amblr.map', ['uiGmapgoogle-maps'])
       latitude: 0,
       longitude: 0
     },
-    options: { draggable: true },
+    options: { 
+      draggable: true,
+      icon:'../../img/information.png' 
+    },
     events: {
       dragstart: function(marker, eventName, args) {
         $log.log('marker dragend');
@@ -43,7 +46,7 @@ angular.module('amblr.map', ['uiGmapgoogle-maps'])
           draggable: true,
           labelContent: "lat: " + $scope.marker.coords.latitude + ' ' + 'lon: ' + $scope.marker.coords.longitude,
           labelAnchor: "100 0",
-          labelClass: "marker-labels"
+          labelClass: "marker-labels",
         };
       }
     }
@@ -99,7 +102,7 @@ angular.module('amblr.map', ['uiGmapgoogle-maps'])
 
         Create a marker object for each one retrieved from the db.
 
-        Example marker model:
+        Example marker model for markers array:
         {
           id: 1,
           icon: '../../img/poi.png',
@@ -124,6 +127,7 @@ angular.module('amblr.map', ['uiGmapgoogle-maps'])
           id: i,
           latitude: $scope.POIs[i].lat,
           longitude: $scope.POIs[i].long,
+          icon: '../../img/pirates.png',
           title: $scope.POIs[i].description
         });
 
@@ -142,36 +146,7 @@ angular.module('amblr.map', ['uiGmapgoogle-maps'])
     console.log('error in doing things when map is ready', err);
   });
 
-
-  // TODO: replace this one marker with all the markers in the db
-  // Don't allow draggable either but this can be used for the
-  // Add POI marker
-  $scope.coordsUpdates = 0;
-  $scope.dynamicMoveCtr = 0;
-  $scope.marker = {
-    id: 0,
-    coords: {
-      latitude: lat,
-      longitude: long
-    },
-    options: { draggable: true },
-    events: {
-      dragend: function (marker, eventName, args) {
-        $log.log('marker dragend');
-        var lat = marker.getPosition().lat();
-        var lon = marker.getPosition().lng();
-        $log.log(lat);
-        $log.log(lon);
-
-        $scope.marker.options = {
-          draggable: true,
-          labelContent: "lat: " + $scope.marker.coords.latitude + ' ' + 'lon: ' + $scope.marker.coords.longitude,
-          labelAnchor: "100 0",
-          labelClass: "marker-labels"
-        };
-      }
-    }
-  };
+  
 
   $scope.getCurrentPosition = function() {
     if (!$scope.map) {
