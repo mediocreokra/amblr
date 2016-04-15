@@ -43,9 +43,9 @@ angular.module('amblr.map', ['uiGmapgoogle-maps'])
         $log.log(lat);
         $log.log(lon);
  
-        $scope.marker.options = {
+        $scope.dropMarker.options = {
           draggable: true,
-          labelContent: "lat: " + $scope.marker.coords.latitude + ' ' + 'lon: ' + $scope.marker.coords.longitude,
+          labelContent: "lat: " + $scope.dropMarker.coords.latitude + ' ' + 'lon: ' + $scope.dropMarker.coords.longitude,
           labelAnchor: "100 0",
           labelClass: "marker-labels",
         };
@@ -124,11 +124,18 @@ angular.module('amblr.map', ['uiGmapgoogle-maps'])
       */
       for (var i=0; i < $scope.POIs.length; i++) {
 
+        var icon = '';
+        if ($scope.POIs[i].type === 'Good') {
+           icon = '../../img/information.png'
+        } else {
+           icon = '../../img/pirates.png'
+        }
+
         markers.push({
           id: i,
           latitude: $scope.POIs[i].lat,
           longitude: $scope.POIs[i].long,
-          icon: '../../img/pirates.png',
+          icon: icon,
           title: $scope.POIs[i].description
         });
 
