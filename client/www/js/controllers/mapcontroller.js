@@ -8,7 +8,8 @@ angular.module('amblr.map', ['uiGmapgoogle-maps'])
   });
 })
 .controller('MapCtrl', function($scope, $state, $cordovaGeolocation, POIs,
-  $ionicLoading, uiGmapGoogleMapApi, uiGmapIsReady, $log, $ionicSideMenuDelegate) {
+  $ionicLoading, uiGmapGoogleMapApi, uiGmapIsReady, $log, $ionicSideMenuDelegate,
+  $window) {
   
   $scope.POIs = [];
 
@@ -72,6 +73,9 @@ angular.module('amblr.map', ['uiGmapgoogle-maps'])
         drop.id = Date.now();
         drop.coords.latitude = lat;
         drop.coords.longitude = lon;
+        // debugger;
+        //hide any info window that is open
+        $scope.map.infoWindow.show = false;
 
         $scope.$apply();
       }
@@ -87,7 +91,9 @@ angular.module('amblr.map', ['uiGmapgoogle-maps'])
           longitude: -122.408199
         },
         options: {
-          disableAutoPan: true
+          disableAutoPan: true,
+          // use pixelOffset to move the InfoWindow above the marker icon
+          pixelOffset: new $window.google.maps.Size(0, -35)
         },
         show: false,
         templateUrl: '../../templates/addPOI.html',
@@ -158,7 +164,6 @@ angular.module('amblr.map', ['uiGmapgoogle-maps'])
           events: {
             click: function (map, eventName, marker) {
                 
-              console.log('inside in click of marker from db');
               var lat = marker.latitude;
               var lon = marker.longitude;
               var infoWindow = $scope.map.infoWindow;
@@ -169,8 +174,6 @@ angular.module('amblr.map', ['uiGmapgoogle-maps'])
               infoWindow.description = marker.description;
               infoWindow.type = marker.type;
               infoWindow.show = true;
-
-              $scope.$apply();
             }
           },
         });
@@ -195,6 +198,16 @@ angular.module('amblr.map', ['uiGmapgoogle-maps'])
     console.log('error in doing things when map is ready', err);
   });
 
+
+  /*
+    Function to set the show property of the infoWindow on markers 
+    that is needed when a user clicks the close of the infoWindow.
+    This is the closeClick property on the ui-gmap-window element
+    in map.html
+  */
+  $scope.closeInfoWindowClick = function() {
+    $scope.map.infoWindow.show = false;
+  }
   
 
   $scope.getCurrentPosition = function() {

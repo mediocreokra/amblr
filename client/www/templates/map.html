@@ -7,11 +7,8 @@ Map icons taken from: Maps Icons Collection https://mapicons.mapsmarker.com
 -->
 <ion-content class='has-header has-tabs' data-tap-disabled='true' overflow-scroll='false' ng-controller="MapCtrl">
 
-
-
-
     <ui-gmap-google-map center='map.center' zoom='map.zoom' draggable='true' options='map.options' control='map.control' events='map.events'>
-      <ui-gmap-window show="map.infoWindow.show" coords="map.infoWindow.coords" isIconVisibleOnClick="false" options="map.infoWindow.options"  ng-cloak>
+      <ui-gmap-window show="map.infoWindow.show" coords="map.infoWindow.coords" isIconVisibleOnClick="false" options="map.infoWindow.options" closeClick='closeInfoWindowClick()' ng-cloak>
         <div>
             
             <p>Latitude:  {{ map.infoWindow.coords.latitude | number:4 }}</p>
@@ -21,6 +18,7 @@ Map icons taken from: Maps Icons Collection https://mapicons.mapsmarker.com
                 <p>Title:  {{map.infoWindow.title}}</p>
                 </p>Description:  {{map.infoWindow.description}}</p>
                 </p>Type:  {{map.infoWindow.type}}</p>
+
                 
                 <!-- 
                   TODO: add ability to add information and click a button
