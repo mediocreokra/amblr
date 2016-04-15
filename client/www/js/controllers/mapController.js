@@ -1,4 +1,3 @@
-
 angular.module('amblr.map', ['uiGmapgoogle-maps'])
 .config(function($stateProvider, $urlRouterProvider, uiGmapGoogleMapApiProvider) {
   uiGmapGoogleMapApiProvider.configure({
