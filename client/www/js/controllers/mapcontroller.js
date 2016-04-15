@@ -145,9 +145,14 @@ angular.module('amblr.map', ['uiGmapgoogle-maps'])
       $scope.map.POIMarkers = markers;
 
     })
+    .then(function(){
+      //after the map and POIs have loaded, lets set the current position
+      $scope.getCurrentPosition();
+    })
     .catch(function(err) {
       console.log('err getting pois in map controller.js: ', err);
     });
+
 
   })
   .catch(function(err) {
@@ -162,36 +167,41 @@ angular.module('amblr.map', ['uiGmapgoogle-maps'])
       return;
     }
     //show loading as we get location
-    $ionicLoading.show({
-      template: 'Getting current location...',
-      noBackdrop: true
-    });
+    // $ionicLoading.show({
+    //   template: 'Getting current location...',
+    //   noBackdrop: true
+    // });
 
     var options = {timeout: 10000, enableHighAccuracy: true};
 
     $cordovaGeolocation.getCurrentPosition(options).then(function (pos) {
       console.log('Got pos', pos);
-      var latLng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
-      $scope.map.setCenter(latLng);
-      google.maps.event.addListenerOnce($scope.map, 'idle', function() {
-        var marker = new google.maps.Marker({
-          map: $scope.map,
-          animation: google.maps.Animation.DROP,
-          draggable: true,
-          position: latLng
-        });      
-     
-        var infoWindow = new google.maps.InfoWindow({
-          content: 'Add a POI'
-        });
-     
-      // google.maps.event.addListener(marker, 'click', function () {
-        infoWindow.open($scope.map, marker);
-      });
+    //   // var latLng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
+    //   // $scope.map.setCenter(latLng);
 
-      $ionicLoading.hide();
+      $scope.map.center = {
+        latitude: pos.coords.latitude,
+        longitude: pos.coords.longitude
+      };
+    //   // google.maps.event.addListenerOnce($scope.map, 'idle', function() {
+    //   //   var marker = new google.maps.Marker({
+    //   //     map: $scope.map,
+    //   //     animation: google.maps.Animation.DROP,
+    //   //     draggable: true,
+    //   //     position: latLng
+    //   //   });      
+     
+    //   //   var infoWindow = new google.maps.InfoWindow({
+    //   //     content: 'Add a POI'
+    //   //   });
+     
+    //   // // google.maps.event.addListener(marker, 'click', function () {
+    //   //   infoWindow.open($scope.map, marker);
+    //   // });
+
+    //   $ionicLoading.hide();
     }, function (error) {
-      alert('Unable to get location: ' + error.message);
+      console.log('Unable to get location: ' + error.message);
     });
   };
 
