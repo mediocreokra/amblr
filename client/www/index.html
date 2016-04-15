@@ -23,6 +23,7 @@
     <script src='js/controllers/leftNavController.js'></script>
     <script src='js/controllers/signinController.js'></script>
     <script src='js/controllers/signupController.js'></script>
+    <script src='js/controllers/centerMapController.js'></script>
     
     <script src='js/services.js'></script>
 
@@ -39,6 +40,8 @@
       </ion-tab>
       <ion-tab title='Add POI' icon='ion-earth' ng-click='toggleView()' ng-controller="addPOIController">
         <ion-nav-view name='poi-tab'></ion-nav-view>
+      </ion-tab>
+      <ion-tab title='Recenter map' icon='ion-location' ng-click='recenter()' ng-controller="centerMapController">
       </ion-tab>
     </ion-tabs>
   

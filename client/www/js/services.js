@@ -56,4 +56,16 @@ angular.module ('amblr.services', [])
 
   return location;
 
+})
+
+.factory('CenterMap', function($rootScope) {
+
+  var CenterMap = {};
+
+  CenterMap.recenter = function() {
+    $rootScope.$broadcast('centerMap');
+    return true;
+  };
+
+  return CenterMap;
 });
