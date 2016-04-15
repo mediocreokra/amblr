@@ -27,7 +27,7 @@ angular.module('amblr.addPOI', [])
       console.log('poi saved', poi);
       //clear out currentPOI
       $scope.currentPOI = {};
-      $scope.closeForm();
+      // $scope.closeForm();
       // redirect to home page (may not need this)
       $location.path('/menu/home');
     })
