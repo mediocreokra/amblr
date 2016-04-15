@@ -1,5 +1,5 @@
 angular.module('amblr.addPOI', [])
-.controller('addPOIController', function($scope, $timeout, $ionicModal, POIs, $location, $ionicPopup) {
+.controller('addPOIController', function($scope, $timeout, $ionicModal, POIs, $location, $ionicPopup, Location) {
 
   $ionicModal.fromTemplateUrl('../../templates/addPOI.html', {
     scope: $scope,
@@ -9,28 +9,23 @@ angular.module('amblr.addPOI', [])
   })
   .then(function(modal) {
     $scope.modal = modal;
-    console.log($scope.modal);
   })
   .catch(function(err) {
     console.log('error in getting modal ', err);
   });
 
-  $scope.currentPOI = {
-    //lat : TODO: figure out how to get lat and long of currentPOI from MapCtrl
-    //long :
-    //type: bad or good
-    //description: 
-    //title: 
-  };
-  //add POI
+  //current POI is an object with properties: lat, long, type, description, title
+  //set default of type to good
+  $scope.currentPOI = { type: 'good'};
+
+  //save POI upon user save
   $scope.savePOI = function() {
     console.log($scope.currentPOI);
-    //clear out currentPOI info
-    //TODO: post currentPOI to the database
+    //post currentPOI to the database
     POIs.savePOI($scope.currentPOI)
     .then(function(poi) {
-      //close modal
       console.log('poi saved', poi);
+      //clear out currentPOI
       $scope.currentPOI = {};
       $scope.closeForm();
       // redirect to home page (may not need this)
@@ -38,31 +33,43 @@ angular.module('amblr.addPOI', [])
     })
     .catch(function(err) {
       console.log('error in saving poi to database', err);
+      //TODO: 
       // alert('error in saving to database');
-      $scope.noSave()
-      $scope.closeForm();
+      // $scope.noSave();
+      // $scope.closeForm();
     });
   };
   //cancel POI 
   $scope.cancelPOI = function() {
-    console.log($scope.currentPOI);
     $scope.currentPOI = {};
     $scope.closeForm();
     $location.path('/menu/home');
   };
 
   $scope.openForm = function() {
+    //get current position from Location factory
+    Location.getCurrentPos()
+    .then(function(pos) {
+      console.log('pos from factory call', pos);
+      $scope.currentPOI.lat = pos.lat;
+      $scope.currentPOI.long = pos.long;
+      //once position is found, open up modal form
+      console.log($scope.currentPOI);
+      $scope.modal.show();
+    })
+    .catch(function(err) {
+      console.log('error in getting current pos', err);
+      alert('unable to get current location');
+      $location.path('/menu/home');
+    });
     //returns a promise which is resolved when modal is finished animating in.
-    $scope.modal.show();
   };
 
   //close POI form
   $scope.closeForm = function() {
-    console.log('closing form');
-    console.log($scope.modal);
     $scope.modal.hide();
   };
-
+  //toggles View of modal form depending on state
   $scope.toggleView = function() {
     if ($scope.modal.isShown()) {
       $scope.closeForm();
@@ -75,16 +82,17 @@ angular.module('amblr.addPOI', [])
     $scope.modal.hide();
   });
 
-
+  //TODO: confirm to user whether POI save was successful for not
+  //TODO: would use ionicPopUp
   $scope.confirmSave = function() {
     $scope.popUp = $ionicPopup.show({
       template: 'Saving POI...'
     });
   };
 
-  $timeout(function() {
-    $scope.popUp.close();
-  }, 1000);
+  // $timeout(function() {
+  //   $scope.popUp.close();
+  // }, 1000);
 
   $scope.NoSave = function() {
     $scope.popUp = $ionicPopup.show({
