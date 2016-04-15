@@ -12,7 +12,6 @@ angular.module('amblr.map', ['uiGmapgoogle-maps'])
   
   $scope.POIs = [];
 
-
   var lat = 37.786439;
   var long = -122.408199;
 
@@ -48,6 +47,7 @@ angular.module('amblr.map', ['uiGmapgoogle-maps'])
           labelContent: "lat: " + $scope.dropMarker.coords.latitude + ' ' + 'lon: ' + $scope.dropMarker.coords.longitude,
           labelAnchor: "100 0",
           labelClass: "marker-labels",
+          icon: '../../img/information.png' 
         };
       }
     }
@@ -75,11 +75,27 @@ angular.module('amblr.map', ['uiGmapgoogle-maps'])
 
         $scope.$apply();
       }
+    },
+    options: {
+      scrollwheel: false
+    },
+
+    /*  used to show popup above pin when it is clicked or on dragend */
+    infoWindow: {
+        coords: {
+          latitude: 37.786439,
+          longitude: -122.408199
+        },
+        options: {
+          disableAutoPan: true
+        },
+        show: false,
+        templateUrl: '../../templates/addPOI.html',
+        templateParameter: {
+          message: 'passed in from the opener'
+        }
     }
   };
-
-
-  $scope.options = {scrollwheel: false};
 
   //use a promise to tell when the map is ready to be interacted with
   uiGmapIsReady.promise()
@@ -136,7 +152,28 @@ angular.module('amblr.map', ['uiGmapgoogle-maps'])
           latitude: $scope.POIs[i].lat,
           longitude: $scope.POIs[i].long,
           icon: icon,
-          title: $scope.POIs[i].description
+          description: $scope.POIs[i].description,
+          title: $scope.POIs[i].title,
+          type: $scope.POIs[i].type,
+          events: {
+            click: function (map, eventName, marker) {
+                
+              console.log('inside in click of marker from db');
+              debugger;
+              var lat = marker.latitude;
+              var lon = marker.longitude;
+              var infoWindow = $scope.map.infoWindow;
+
+              infoWindow.coords.latitude = lat;
+              infoWindow.coords.longitude = lon;
+              infoWindow.title = marker.title;
+              infoWindow.description = marker.description;
+              infoWindow.type = marker.type;
+              infoWindow.show = true;
+
+              $scope.$apply();
+            }
+          },
         });
 
         console.log($scope.POIs[i].long, $scope.POIs[i].lat); 
