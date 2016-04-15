@@ -8,13 +8,47 @@ angular.module('amblr.map', ['uiGmapgoogle-maps'])
   });
 })
 .controller('MapCtrl', function($scope, $state, $cordovaGeolocation, POIs,
-  $ionicLoading, uiGmapGoogleMapApi, uiGmapIsReady, $location) {
+  $ionicLoading, uiGmapGoogleMapApi, uiGmapIsReady, $log, $ionicSideMenuDelegate) {
   
   $scope.POIs = [];
 
   var lat = 37.7938494;
   var long = -122.419234;
-  
+
+  // dropMarker is the marker when someone clicks on the map
+  // if we want to allow user to drag it around, the dragend event
+  // would fire once they've stopped, which would be the lat/long
+  // we'd want to use 
+  $scope.dropMarker = {
+    id: 0,
+    coords: {
+      latitude: 0,
+      longitude: 0
+    },
+    options: { draggable: true },
+    events: {
+      dragstart: function(marker, eventName, args) {
+        $log.log('marker dragend');
+        $ionicSideMenuDelegate.canDragContent(false);
+      },
+      dragend: function (marker, eventName, args) {
+        $ionicSideMenuDelegate.canDragContent(true);
+        $log.log('marker dragend');
+        var lat = marker.getPosition().lat();
+        var lon = marker.getPosition().lng();
+        $log.log(lat);
+        $log.log(lon);
+ 
+        $scope.marker.options = {
+          draggable: true,
+          labelContent: "lat: " + $scope.marker.coords.latitude + ' ' + 'lon: ' + $scope.marker.coords.longitude,
+          labelAnchor: "100 0",
+          labelClass: "marker-labels"
+        };
+      }
+    }
+  };
+
   $scope.map = { 
     center: { 
       latitude: lat, 
@@ -22,8 +56,24 @@ angular.module('amblr.map', ['uiGmapgoogle-maps'])
     }, 
     zoom: 15,
     control: {},
-    POIMarkers: []
+    POIMarkers: [],
+    events: {
+      click: function (map, eventName, originalEventArgs) {
+          
+        var e = originalEventArgs[0];
+        var lat = e.latLng.lat();
+        var lon = e.latLng.lng();
+        var drop = $scope.dropMarker;
+
+        drop.id = Date.now();
+        drop.coords.latitude = lat;
+        drop.coords.longitude = lon;
+
+        $scope.$apply();
+      }
+    }
   };
+
 
   $scope.options = {scrollwheel: false};
 
@@ -35,36 +85,41 @@ angular.module('amblr.map', ['uiGmapgoogle-maps'])
 
     // service call to retrieve all POIs stored in the database
     // TODO: need to limit the POIs to a radius search around a lat/long
-
+    //       should add a button when map is dragged to update map that
+    //       gets POIs in the area its in.  otherwise would need to 
+    //       dynamically get them when user dragging which would be difficult
     POIs.getPOIs()
     .then(function(response) {
       $scope.POIs = response.data;
-      console.log('pois received in map controller.js: ' + $scope.POIs);
 
       var markers = [];
      
       // TODO: abstract the creation of markers into a function
-      for (var i = 0; i < $scope.POIs.length; i++) {
-        
-        /*
-          Create a marker object for each one retrieved from the db.
-          Example marker model:
-          {
-            id: 1,
-            icon: '../../img/poi.png',
-            latitude: 37.7938494,
-            longitude: -122.419234,
-            showWindow: false,
-            options: {
-              labelContent: '[46,-77]',
-              labelAnchor: "22 0",
-              labelClass: "marker-labels"
-            }
+      /*
+
+        Create a marker object for each one retrieved from the db.
+
+        Example marker model:
+        {
+          id: 1,
+          icon: '../../img/poi.png',
+          latitude: 37.7938494,
+          longitude: -122.419234,
+          showWindow: false,
+          options: {
+            labelContent: '[46,-77]',
+            labelAnchor: "22 0",
+            labelClass: "marker-labels"
           }
-          Documentation: https://angular-ui.github.io/angular-google-maps/#!/api/markers
-          This is connected to the google map through the ui-gmap-markers models attribute in maps.html
-        */
-        
+        }
+
+        Documentation: https://angular-ui.github.io/angular-google-maps/#!/api/markers
+
+        This is connected to the google map through the ui-gmap-markers models attribute in maps.html
+
+      */
+      for (var i=0; i < $scope.POIs.length; i++) {
+
         markers.push({
           id: i,
           latitude: $scope.POIs[i].lat,
