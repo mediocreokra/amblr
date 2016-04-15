@@ -125,7 +125,7 @@ angular.module('amblr.map', ['uiGmapgoogle-maps'])
       for (var i=0; i < $scope.POIs.length; i++) {
 
         var icon = '';
-        if ($scope.POIs[i].type === 'Good') {
+        if ($scope.POIs[i].type === 'good') {
            icon = '../../img/information.png'
         } else {
            icon = '../../img/pirates.png'

@@ -5,16 +5,19 @@
 }
 
 .larger {
-  font-size: larger;
+  font-size: 2em;
 }
-
 @media (min-width: 680px) {
   .addPOI {
-    width: 90%;
-    height: 90%;
+    margin: 0 auto;
+    width: 60%;
     top: 5%;
     left: 5%;
     right: 5%;
     bottom: 5%;
   } 
+}
+
+.poi-button {
+  width: 50%;
 }
