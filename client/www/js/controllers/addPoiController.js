@@ -1,5 +1,5 @@
 angular.module('amblr.addPOI', [])
-.controller('addPOIController', function($scope, $ionicModal, POIs, $location) {
+.controller('addPOIController', function($scope, $timeout, $ionicModal, POIs, $location, $ionicPopup) {
 
   $ionicModal.fromTemplateUrl('../../templates/addPOI.html', {
     scope: $scope,
@@ -38,7 +38,8 @@ angular.module('amblr.addPOI', [])
     })
     .catch(function(err) {
       console.log('error in saving poi to database', err);
-      alert('error in saving to database');
+      // alert('error in saving to database');
+      $scope.noSave()
       $scope.closeForm();
     });
   };
@@ -73,4 +74,35 @@ angular.module('amblr.addPOI', [])
   $scope.$on('$destroy', function() {
     $scope.modal.hide();
   });
+
+
+  $scope.confirmSave = function() {
+    $scope.popUp = $ionicPopup.show({
+      template: 'Saving POI...'
+    });
+  };
+
+  $timeout(function() {
+    $scope.popUp.close();
+  }, 1000);
+
+  $scope.NoSave = function() {
+    $scope.popUp = $ionicPopup.show({
+      template: '<input type="submit"/>',
+      title: 'Oops, looks like there was a problem...',
+      template: 'Would you like to try again?',
+      scope: $scope,
+      buttons: [
+      { text: 'Cancel'},
+      { text: 'Try Again',
+        type: 'button-positive',
+        onTap: function(e) {
+          $scope.openForm(); 
+        }
+      }]
+    });
+  };
+
+
+
 });
