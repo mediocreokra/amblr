@@ -74,6 +74,16 @@ module.exports = function(grunt) {
         }
       }
     },
+    simplemocha: {
+      options: {
+        globals: ['expect'],
+        timeout: 3000,
+        ignoreLeaks: false,
+        ui: 'bdd',
+        reporter: 'tap'
+      },
+      all: { src: ['test/*.js'] }
+    }
     
   });
   
@@ -81,6 +91,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-simple-mocha');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-nodemon');
   grunt.loadNpmTasks('grunt-eslint');
@@ -99,7 +110,7 @@ module.exports = function(grunt) {
   });
   
   grunt.registerTask('test', [ 
-    'eslint'
+    'eslint', 'simplemocha'
   ]);
 
   grunt.registerTask('build', [ 
@@ -120,5 +131,8 @@ module.exports = function(grunt) {
     'test', 'build', 'upload'
   ]);
 
-};
+  grunt.registerTask('dev_env', [
+    'env:dev'
+  ]);
 
+};

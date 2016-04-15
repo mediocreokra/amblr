@@ -3,12 +3,17 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('amblr', 
-  ['ionic', 
-   'ngCordova', 
-   'amblr.leftnav',
-   'amblr.map', 
-   'amblr.services'])
+angular.module('amblr', [
+  'ionic', 
+  'ngCordova',
+  'amblr.map', 
+  'amblr.addPOI',
+  'amblr.leftnav',
+  'amblr.services',
+  'amblr.signin',
+  'amblr.signup',
+  'amblr.centerMap'
+])
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
     if (window.cordova && window.cordova.plugins.Keyboard) {
@@ -26,22 +31,57 @@ angular.module('amblr',
     }
   });
 })
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
 
+  //force android to keep tabs at bottom
+  $ionicConfigProvider.platform.android.tabs.position('bottom');
+  
   $stateProvider
+  .state('menu', {
+    url: '/menu',
+    abstract: true,
+    templateUrl: 'templates/menu.html'
+  })
+  .state('menu.home', {
+    url: '/home',
+    views: {
+      'view-content': {
+        templateUrl: 'templates/map.html'
+        // controller: 'MapCtrl'
+      }
+    }
+  })
+
+  .state('menu-private', {
+    url: '/menu-private',
+    abstract: true,
+    templateUrl: 'templates/menu-private.html',
+  })
+  .state('menu-private.home', {
+    url: '/home',
+    views: {
+      'view-content-private': {
+        templateUrl: 'templates/map.html',
+        controller: 'MapCtrl'
+      }
+    }
+  })
+  .state('menu.addPOI', {
+    url: '/addPOI',
+    views: {
+      'view-content': {
+        templateUrl: 'templates/addPOI.html',
+        controller: 'addPOIController'
+      }
+    }
+  })
   //to delete after testing.  use for data point entry
   .state('dataEntry', {
     url: '/test',
     templateUrl: 'testIndex.html',
     controller: 'testCtrl'
-  })
-  .state('map', {
-    url: '/',
-    templateUrl: 'templates/map.html',
-    controller: 'MapCtrl'
   });
-
-  $urlRouterProvider.otherwise('/');
+  $urlRouterProvider.otherwise('/menu/home');
 
 });
 

@@ -1,81 +1,49 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <meta charset='utf-8'>
+    <meta name='viewport' content='initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width'>
     <title>Amblr</title>
 
     <!-- compiled css output -->
-    <link href="css/ionic.app.css" rel="stylesheet">
-    
-    <script src="lib/ionic/js/ionic.bundle.js"></script>
-
+    <link href='css/ionic.app.css' rel='stylesheet'>
+    <link href='css/style.css' rel='stylesheet'>
+    <script src='http://maps.google.com/maps/api/js?key=AIzaSyBceRLiJZrDWlQiK3vu2Mc6-gzp84ZQX5U'></script>
+    <script src='lib/lodash/dist/lodash.min.js'></script>
+    <script src='lib/ionic/js/ionic.bundle.js'></script>
+    <script src='lib/angular-simple-logger/dist/angular-simple-logger.min.js'></script>
+    <script src='lib/angular-google-maps/dist/angular-google-maps.min.js'></script>
     <!-- cordova script (this will be a 404 during development) -->
-    <script src="lib/ngCordova/dist/ng-cordova.js"></script>
-    <!-- <script src="cordova.js"></script>  -->
-    <script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobubble/src/infobubble.js"></script>
+    <script src='lib/ngCordova/dist/ng-cordova.js'></script>
+    <!-- <script src='cordova.js'></script>  -->
 
-    <script src="js/controllers/mapcontroller.js"></script>
-    <script src="js/controllers/leftNavController.js"></script>
-    <script src="js/services.js"></script>
-    <script src="js/app.js"></script>
-    <script src="http://maps.google.com/maps/api/js?key=AIzaSyBceRLiJZrDWlQiK3vu2Mc6-gzp84ZQX5U"></script>
+    <script src='js/app.js'></script>
+    <script src='js/controllers/mapController.js'></script>
+    <script src='js/controllers/addPoiController.js'></script>
+    <script src='js/controllers/leftNavController.js'></script>
+    <script src='js/controllers/signinController.js'></script>
+    <script src='js/controllers/signupController.js'></script>
+    <script src='js/controllers/centerMapController.js'></script>
+    
+    <script src='js/services.js'></script>
 
   </head>
-  <body ng-app="amblr">
+  <body ng-app='amblr'>
 
-    <!-- Global left nav menu for app -->
-    <ion-side-menus>     
-      <ion-side-menu-content ng-controller="LeftMenuNav">  
-        <ion-nav-bar class="bar-dark">
-          <ion-nav-back-button class="button-icon ion-arrow-left-c">
-          </ion-nav-back-button>
-          <ion-nav-buttons side="left">
-            <button class="button button-icon button-clear ion-navicon" ng-click="showMenu()">
-            </button>
-          </ion-nav-buttons>
-        </ion-nav-bar>
-        <ion-nav-view animation="slide-left-right"></ion-nav-view>
-      </ion-side-menu-content> 
-      
-      <ion-side-menu side="left">
-         <!-- need conditional logic here once user signs in to add name to this -->
-        <ion-header-bar class="bar bar-header bar-assertive">
-          <h1 class="title">User Name Here</h1>
-        </ion-header-bar>
-        <ion-content has-header="true">
-          <ul class="list">
-            <li>
-              <a class="item" menu-close nav-clear href="#/tab/signin">Sign in</a>
-            </li>
-            <li>
-              <a class="item" menu-close href="#/tab/signup">Sign Up</a>
-            </li>
-            <li>
-              <a class="item" menu-close href="#/tab/profile">Profile</a>
-            </li>
-          </ul>
-        </ion-content>
-      </ion-side-menu> 
-    </ion-side-menus>
+    <!-- ALL VIEW STATES LOADED IN HERE -->
+    <ion-nav-view></ion-nav-view>
 
-    <!-- App views  need to determine how to have menus together and where
-        the ion-nav-view actually goes 
-    <ion-content>
-      <ion-nav-view></ion-nav-view>
-    </ion-content>
-
-    -->
-
-    <!-- Global bottom nav menu for app -->
-    <ion-tabs class="tabs-icon-top tabs-dark">
-      <ion-tab title="Add Destination" icon="ion-android-walk" href="#/tab/addDestination">
-        <ion-nav-view name="destination-tab"></ion-nav-view>
+    <!-- Global tabs for app -->
+    <ion-tabs class='tabs-icon-top tabs-dark'>
+      <ion-tab title='Add Destination' icon='ion-android-walk' href='#/tab/addDestination'>
+        <ion-nav-view name='destination-tab'></ion-nav-view>
       </ion-tab>
-      <ion-tab title="Add POI" icon="ion-earth" href="#/tab/addPOI" ng-controller="MapCtrl" ng-click="getCurrentPOI()">
-        <ion-nav-view name="poi-tab"></ion-nav-view>
+      <ion-tab title='Add POI' icon='ion-earth' ng-click='toggleView()' ng-controller="addPOIController">
+        <ion-nav-view name='poi-tab'></ion-nav-view>
+      </ion-tab>
+      <ion-tab title='Recenter map' icon='ion-location' ng-click='recenter()' ng-controller="centerMapController">
       </ion-tab>
     </ion-tabs>
-
+  
   </body>
 </html>

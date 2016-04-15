@@ -1,13 +1,24 @@
 var express = require('express');
 var bodyParser = require('body-parser');
-var app = express();
-var morgan = require('morgan');
 var mongoose = require('mongoose');
-var poi = require('./controllers/poiController.js');
+var morgan = require('morgan');
+var app = module.exports = express();
+var logger = require('./config/logger.js');
+
+var poiRouter = require('./routers/poiRouter.js');
+var userRouter = require('./routers/userRouter.js');
+
+// configuration variables for server port and mongodb URI
+var port = process.env.PORT || 3000;
+var dbUri = process.env.MONGOLAB_URI || 'mongodb://localhost/app_database';
+var env = process.env.NODE_ENV || 'production';
 
 //create connection to mongodb
-mongoose.connect('mongodb://localhost/app_database');
+mongoose.connect(dbUri);
 
+
+// log db connection success or error
+// TODO: update to use winston logging
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
@@ -15,25 +26,15 @@ db.once('open', function() {
   console.log('connection to mongoose!');
 });
 
+console.log('stream: ' + logger.stream);
 
-///logger
-app.use(morgan('dev'));
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(require('morgan')('combined', { 'stream': logger.stream }));
+
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-
 //serve static files
-app.use(express.static(__dirname + '/../client/app'));
 app.use(express.static(__dirname + '/../client/www'));
-
-//post request from form input
-
-//require(route file)(app, express)
-// app.post('/form', function(req, res) {
-//   poi.savePOI(req, res);
-
-// });
-
 
 app.all('/*', function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
@@ -41,11 +42,18 @@ app.all('/*', function(req, res, next) {
   next();
 });
 
-require('./config/routes.js')(app, express);
+// middleware to configure routes for all poi-related URIs
+app.use('/api/pois', poiRouter);
+
+// middleware to configure routes for all user-related URIs
+app.use('/api/users', userRouter);
 
 //listening
-app.listen(3000, function() {
-  console.log('Example app listening on port 3000!');
+app.listen(port, function(err) {
+  if (err) {
+    return console.log(err);
+  }
+  console.log('Amblr API server is listening on port: ' + port);
 });
 
-module.exports = app;
+// module.exports = app;

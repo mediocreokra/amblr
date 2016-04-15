@@ -1,0 +1,32 @@
+<ion-modal-view class="addPOI">
+  <div class="bar bar-header bar-dark">
+    <h1 class="title">Add a POI</h1>
+    <div class="buttons">
+      <button class="button button-clear" ng-click="cancelPOI()">Cancel</button>
+    </div>
+  </div>
+  <ion-content class="has-header">
+    <div class="list">
+    <!-- icons of good or bad to based on user select TODO: get Good/Bad Options working-->
+      <label class="item item-input">
+        <span class="input-label">
+          Rate This POI
+        </span>
+          <ion-radio ng-model="currentPOI.type" ng-value="currentPOI.type" value="good"><i class="icon ion-happy larger"></i></ion-radio>
+          <ion-radio ng-model="currentPOI.type" value="bad"><i class="icon ion-sad larger"></i></ion-radio>
+          <!-- <ion-radio ng-model="currentPOI.type" ng-value="meh">Meh</ion-radio> -->
+      </label>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Title</span>
+        <input type="text" placeholder="What is this POI?" ng-model="currentPOI.title">
+      </label>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Description</span>
+        <input type="text" placeholder="Describe what this POI is" ng-model="currentPOI.description">
+      </label>
+      <div class="row">
+      <button class="button col block button-dark" ng-click="savePOI()">Add POI</button>
+      </div>
+    </div>
+  </ion-content>
+</ion-modal-view>

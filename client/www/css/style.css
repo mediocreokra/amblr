@@ -1,1 +1,23 @@
-/* Empty. Add your own CSS if you like */
+.angular-google-map-container {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+.larger {
+  font-size: 2em;
+}
+@media (min-width: 680px) {
+  .addPOI {
+    margin: 0 auto;
+    width: 60%;
+    top: 5%;
+    left: 5%;
+    right: 5%;
+    bottom: 5%;
+  } 
+}
+
+.poi-button {
+  width: 50%;
+}

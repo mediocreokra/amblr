@@ -1,5 +1,4 @@
 # Amblr
-#test 
 > Waze for Walkers
 
 ## Team
@@ -42,6 +41,8 @@ NPM Modules
 - Mocha
 - Chai
 - Sinon
+- Winston
+- Morgan
 
 
 Bower Components
@@ -49,6 +50,9 @@ ngCordova
 
 
 ## Development
+
+Server logging will be done both in the console and to /server/logs/log.log.
+Log level can be configured in /server/config/logger.js
 
 ### Installing Dependencies
 
