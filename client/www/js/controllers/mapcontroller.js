@@ -9,8 +9,8 @@ angular.module('amblr.map', ['uiGmapgoogle-maps'])
 })
 .controller('MapCtrl', function($scope, $state, $cordovaGeolocation, POIs,
   $ionicLoading, uiGmapGoogleMapApi, uiGmapIsReady, $log, $ionicSideMenuDelegate,
-  $window) {
-  
+  $window, Location) {
+
   $scope.POIs = [];
 
   var lat = 37.786439;
@@ -186,7 +186,7 @@ angular.module('amblr.map', ['uiGmapgoogle-maps'])
     })
     .then(function(){
       //after the map and POIs have loaded, lets set the current position
-      $scope.getCurrentPosition();
+      $scope.setMapCenterCurrent();
     })
     .catch(function(err) {
       console.log('err getting pois in map controller.js: ', err);
@@ -198,7 +198,6 @@ angular.module('amblr.map', ['uiGmapgoogle-maps'])
     console.log('error in doing things when map is ready', err);
   });
 
-
   /*
     Function to set the show property of the infoWindow on markers 
     that is needed when a user clicks the close of the infoWindow.
@@ -209,49 +208,28 @@ angular.module('amblr.map', ['uiGmapgoogle-maps'])
     $scope.map.infoWindow.show = false;
   }
   
+  $scope.setMapCenterCurrent = function () {
+    Location.getCurrentPos()
+      .then(function(pos) {
+        console.log('pos from factory call', pos);
+      //   //once position is found, open up modal form
+        $scope.map.center = {
+        latitude: pos.lat,
+        longitude: pos.long
+        };
+    
+      })
+      .catch(function(err) {
+        console.log('error in getting current pos', err);
+        $ionicPopup.alert({
+          title: 'Error in getting current location',
+          template: 'Please Try again later'
+        });
+      });
+  }; 
 
-  $scope.getCurrentPosition = function() {
-    if (!$scope.map) {
-      console.log('scope is undefined');
-      return;
-    }
-    //show loading as we get location
-    // $ionicLoading.show({
-    //   template: 'Getting current location...',
-    //   noBackdrop: true
-    // });
-
-    var options = {timeout: 10000, enableHighAccuracy: true};
-
-    $cordovaGeolocation.getCurrentPosition(options).then(function (pos) {
-      console.log('Got pos', pos);
-    //   // var latLng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
-    //   // $scope.map.setCenter(latLng);
-
-      $scope.map.center = {
-        latitude: pos.coords.latitude,
-        longitude: pos.coords.longitude
-      };
-    //   // google.maps.event.addListenerOnce($scope.map, 'idle', function() {
-    //   //   var marker = new google.maps.Marker({
-    //   //     map: $scope.map,
-    //   //     animation: google.maps.Animation.DROP,
-    //   //     draggable: true,
-    //   //     position: latLng
-    //   //   });      
-     
-    //   //   var infoWindow = new google.maps.InfoWindow({
-    //   //     content: 'Add a POI'
-    //   //   });
-     
-    //   // // google.maps.event.addListener(marker, 'click', function () {
-    //   //   infoWindow.open($scope.map, marker);
-    //   // });
-
-    //   $ionicLoading.hide();
-    }, function (error) {
-      console.log('Unable to get location: ' + error.message);
-    });
-  };
+  $scope.$on('centerMap', function () {
+      $scope.setMapCenterCurrent();
+  });
 
 });
