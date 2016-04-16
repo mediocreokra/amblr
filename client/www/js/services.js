@@ -1,6 +1,6 @@
 angular.module ('amblr.services', [])
 
-.factory('POIs', function($http) {
+.factory('POIs', function($http, $rootScope) {
   var POIs = {};
 
   POIs.getPOIs = function() {
@@ -21,6 +21,7 @@ angular.module ('amblr.services', [])
       url: 'http://127.0.0.1:3000/api/pois/',
       data: JSON.stringify(POI)
     }).then(function(res) {
+      $rootScope.$broadcast('reloadPOIs');
       return res;
     })
     .catch(function(err) {

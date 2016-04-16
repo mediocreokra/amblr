@@ -16,6 +16,7 @@ angular.module('amblr.addPOI', [])
 
   //current POI is an object with properties: lat, long, type, description, title
   //set default of type to good
+  $scope.selected='good';
   $scope.currentPOI = { type: 'good'};
 
   //save POI upon user save
@@ -26,7 +27,7 @@ angular.module('amblr.addPOI', [])
     .then(function(poi) {
       console.log('poi saved', poi);
       //clear out currentPOI
-      $scope.currentPOI = {};
+      $scope.currentPOI = { type: 'good'};
       $scope.closeForm();
       // redirect to home page (may not need this)
       $scope.onSuccess();
@@ -62,7 +63,7 @@ angular.module('amblr.addPOI', [])
   };
 
   $scope.cancelPOI = function() {
-    $scope.currentPOI = {};
+    $scope.currentPOI = { type: 'good'};
     $scope.closeForm();
     $location.path('/menu/home');
   };
