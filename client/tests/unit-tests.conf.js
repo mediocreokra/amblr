@@ -1,7 +1,5 @@
-// 4/12/16: This configuration problem is not yet working - see notes in unit-tests.conf.js
-
 // Karma configuration
-// Generated on Fri Apr 08 2016 19:35:36 GMT-0700 (PDT)
+// Generated on Fri Apr 15 2016 14:11:45 GMT-0700 (PDT)
 
 module.exports = function(config) {
   config.set({
@@ -17,9 +15,14 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+      '../www/lib/lodash/dist/lodash.min.js',
       '../www/lib/ionic/js/ionic.bundle.js',
-      '../www/js/app.js',
+      '../www/lib/angular-simple-logger/dist/angular-simple-logger.min.js',
+      '../www/lib/angular-google-maps/dist/angular-google-maps.min.js',
+      '../www/lib/ngCordova/dist/ng-cordova.js',
       '../www/lib/angular-mocks/angular-mocks.js',
+      '../www/js/**/*.js',
+      'unit-tests/*.js',
     ],
 
 
@@ -59,7 +62,8 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['PhantomJS'],
+    browsers: ['Chrome'],
+    //TO ADD? : ['PhantomJS']
 
 
     // Continuous Integration mode
