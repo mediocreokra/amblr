@@ -8,49 +8,18 @@ angular.module('amblr.map', ['uiGmapgoogle-maps'])
 })
 .controller('MapCtrl', function($scope, $state, $cordovaGeolocation, POIs,
   $ionicLoading, uiGmapGoogleMapApi, uiGmapIsReady, $log, $ionicSideMenuDelegate,
-  $window, Location) {
+  $window, Location, $timeout) {
 
   $scope.POIs = [];
 
   var lat = 37.786439;
   var long = -122.408199;
 
-  // dropMarker is the marker when someone clicks on the map
-  // if we want to allow user to drag it around, the dragend event
-  // would fire once they've stopped, which would be the lat/long
-  // we'd want to use 
+  // create dummy dropMarker, will be replaced in placeMarker function when this 
+  // didn't exist, would get the following error when attempting to drop marker:
+  // gMarker.key undefined and it is REQUIRED!! error 
   $scope.dropMarker = {
-    id: 0,
-    coords: {
-      latitude: 0,
-      longitude: 0
-    },
-    options: { 
-      draggable: true,
-      icon:'../../img/information.png' 
-    },
-    events: {
-      dragstart: function(marker, eventName, args) {
-        $log.log('marker dragend');
-        $ionicSideMenuDelegate.canDragContent(false);
-      },
-      dragend: function (marker, eventName, args) {
-        $ionicSideMenuDelegate.canDragContent(true);
-        $log.log('marker dragend');
-        var lat = marker.getPosition().lat();
-        var lon = marker.getPosition().lng();
-        $log.log(lat);
-        $log.log(lon);
- 
-        $scope.dropMarker.options = {
-          draggable: true,
-          labelContent: "lat: " + $scope.dropMarker.coords.latitude + ' ' + 'lon: ' + $scope.dropMarker.coords.longitude,
-          labelAnchor: "100 0",
-          labelClass: "marker-labels",
-          icon: '../../img/information.png' 
-        };
-      }
-    }
+    id: 0
   };
 
   $scope.map = { 
@@ -63,26 +32,28 @@ angular.module('amblr.map', ['uiGmapgoogle-maps'])
     POIMarkers: [], // array of marker models, used by ui-gmap-markers in map.html
     events: {
       mousedown: function (map, eventName, originalEventArgs) {
-          
+
         var e = originalEventArgs[0];
-        var lat = e.latLng.lat();
-        var lon = e.latLng.lng();
 
-        //dropMarker is bound to ui-gmap-marker in map.html
-        var drop = $scope.dropMarker;
+        if(angular.isUndefined($scope.placeMarkerPromise)) {
+          $scope.placeMarkerPromise = $timeout(
+            function placeMarkerDelayed() { 
+              $scope.placeMarker(e.latLng); 
+            }, 1000);
+        }
 
-        drop.id = Date.now();
-        drop.coords.latitude = lat;
-        drop.coords.longitude = lon;
-
-        //hide any info window that is open on map
         $scope.map.infoWindow.show = false;
 
         $scope.$apply();
+
       },
-      mousedown: function (map, eventName, originalEventArgs) {
+      mouseup: function (map, eventName, originalEventArgs) {
+        //if user mouses up before marker dropped, cancel it
+        $scope.placeMarkerCancel();
       }, 
-      dragend: function (map, eventName, originalEventArgs) {
+      dragstart: function (map, eventName, originalEventArgs) {
+        //if user starts to drag map before marker is dropped, cancel it
+        $scope.placeMarkerCancel();
       }
     },
     options: {
@@ -244,6 +215,80 @@ angular.module('amblr.map', ['uiGmapgoogle-maps'])
     $scope.addNewPOIs();
   });
 
+  // delete the user added marker (dropMarker object)
+  $scope.removeMarker = function() {
+    if (angular.isDefined($scope.dropMarker)) {
+      delete $scope.dropMarker;
+    }
+  };
 
+  /*
+    Function to place a marker on the map when a user long clicks 
+    on the map.  Called from $timeout callback function defined in
+    mousedown event on $scope.map.  
+  */
+  $scope.placeMarker = function(latLng)  {
+
+    $scope.removeMarker();
+
+    // dropMarker is the marker when someone clicks on the map
+    // if we want to allow user to drag it around, the dragend event
+    // would fire once they've stopped, which would be the lat/long
+    // we'd want to use 
+
+    $scope.$apply( function() {
+      $scope.dropMarker = {
+        id: 1,
+        coords: {
+          latitude: latLng.lat(),
+          longitude: latLng.lng()
+        },
+        animation: google.maps.Animation.DROP,
+        options: { 
+          draggable: true,
+          icon:'../../img/information.png' 
+        },
+        events: {
+          dragstart: function(marker, eventName, args) {
+            // disable dragging for side menu when user is dragging marker
+            // if we don't the menu will be dragged open
+            $ionicSideMenuDelegate.canDragContent(false);
+          },
+          dragend: function (marker, eventName, args) {
+            // re-enable dragging for side menu 
+            $ionicSideMenuDelegate.canDragContent(true);
+
+            var lat = marker.getPosition().lat();
+            var lon = marker.getPosition().lng();
+     
+            $scope.dropMarker.options = {
+              draggable: true,
+              labelContent: "lat: " + $scope.dropMarker.coords.latitude + ' ' + 'lon: ' + $scope.dropMarker.coords.longitude,
+              labelAnchor: "100 0",
+              labelClass: "marker-labels",
+              icon: '../../img/information.png' 
+            };
+          }
+        }
+      };
+    });
+
+    // remove the promise that was created by $timeout in onmousedown of map
+    delete $scope.placeMarkerPromise;
+
+  };
+
+  // if $timeout is still waiting to be called (i.e. user has mouse downed but the
+  // timeout wait time has not elapsed), cancel the $timeout so that it does not
+  // create the marker.  Currently called on mouseup and dragstart events on map
+  $scope.placeMarkerCancel = function() {
+    if(angular.isUndefined($scope.placeMarkerPromise)) {
+      return;
+    }
+
+    $timeout.cancel($scope.placeMarkerPromise);
+    delete $scope.placeMarkerPromise;
+  };
 
 });
+
