@@ -8,6 +8,8 @@ Map icons taken from: Maps Icons Collection https://mapicons.mapsmarker.com
 <ion-content class='has-header has-tabs' data-tap-disabled='true' overflow-scroll='false' ng-controller="MapCtrl">
 
     <ui-gmap-google-map center='map.center' zoom='map.zoom' draggable='true' options='map.options' control='map.control' events='map.events'>
+
+      <!-- use external info window so only one exists for all markers -->
       <ui-gmap-window show="map.infoWindow.show" coords="map.infoWindow.coords" isIconVisibleOnClick="false" options="map.infoWindow.options" closeClick='closeInfoWindowClick()' ng-cloak>
         <div>
             

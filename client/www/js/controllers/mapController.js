@@ -60,30 +60,38 @@ angular.module('amblr.map', ['uiGmapgoogle-maps'])
     }, 
     zoom: 15,
     control: {},
-    POIMarkers: [],
+    POIMarkers: [], // array of marker models, used by ui-gmap-markers in map.html
     events: {
-      click: function (map, eventName, originalEventArgs) {
+      mousedown: function (map, eventName, originalEventArgs) {
           
         var e = originalEventArgs[0];
         var lat = e.latLng.lat();
         var lon = e.latLng.lng();
+
+        //dropMarker is bound to ui-gmap-marker in map.html
         var drop = $scope.dropMarker;
 
         drop.id = Date.now();
         drop.coords.latitude = lat;
         drop.coords.longitude = lon;
-        // debugger;
-        //hide any info window that is open
+
+        //hide any info window that is open on map
         $scope.map.infoWindow.show = false;
 
         $scope.$apply();
+      },
+      mousedown: function (map, eventName, originalEventArgs) {
+      }, 
+      dragend: function (map, eventName, originalEventArgs) {
       }
     },
     options: {
       scrollwheel: false
     },
-
-    /*  used to show popup above pin when it is clicked or on dragend */
+    /*  
+       infoWindow used to show popup above marker pin when it is 
+       clicked or on dragend. Used by ui-gmap-window in map.html
+    */
     infoWindow: {
         coords: {
           latitude: 37.786439,
@@ -108,8 +116,8 @@ angular.module('amblr.map', ['uiGmapgoogle-maps'])
 
     console.log('equals = ' + (instances[0].map === $scope.map.control.getGMap()));
 
+    // retrieve all the POIs from server and place them on map
     $scope.addNewPOIs();
-
 
   })
   .then(function(){
@@ -199,8 +207,6 @@ angular.module('amblr.map', ['uiGmapgoogle-maps'])
             }
           },
         });
-
-        console.log($scope.POIs[i].long, $scope.POIs[i].lat); 
       }
 
       $scope.map.POIMarkers = markers;
@@ -217,10 +223,9 @@ angular.module('amblr.map', ['uiGmapgoogle-maps'])
         console.log('pos from factory call', pos);
       //   //once position is found, open up modal form
         $scope.map.center = {
-        latitude: pos.lat,
-        longitude: pos.long
+          latitude: pos.lat,
+          longitude: pos.long
         };
-    
       })
       .catch(function(err) {
         console.log('error in getting current pos', err);
@@ -231,12 +236,14 @@ angular.module('amblr.map', ['uiGmapgoogle-maps'])
       });
   }; 
 
+  // Listen for broadcast events fired from within services.js
   $scope.$on('centerMap', function () {
     $scope.setMapCenterCurrent();
   });
-
   $scope.$on('reloadPOIs', function() {
     $scope.addNewPOIs();
-  })
+  });
+
+
 
 });
