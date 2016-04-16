@@ -108,6 +108,29 @@ angular.module('amblr.map', ['uiGmapgoogle-maps'])
 
     console.log('equals = ' + (instances[0].map === $scope.map.control.getGMap()));
 
+    $scope.addNewPOIs();
+
+
+  })
+  .then(function(){
+    //after the map and POIs have loaded, lets set the current position
+    $scope.setMapCenterCurrent();
+  })
+  .catch(function(err) {
+    console.log('error in doing things when map is ready', err);
+  });
+
+  /*
+    Function to set the show property of the infoWindow on markers 
+    that is needed when a user clicks the close of the infoWindow.
+    This is the closeClick property on the ui-gmap-window element
+    in map.html
+  */
+  $scope.closeInfoWindowClick = function() {
+    $scope.map.infoWindow.show = false;
+  };
+  
+  $scope.addNewPOIs = function () {
     // service call to retrieve all POIs stored in the database
     // TODO: need to limit the POIs to a radius search around a lat/long
     //       should add a button when map is dragged to update map that
@@ -183,30 +206,11 @@ angular.module('amblr.map', ['uiGmapgoogle-maps'])
       $scope.map.POIMarkers = markers;
 
     })
-    .then(function(){
-      //after the map and POIs have loaded, lets set the current position
-      $scope.setMapCenterCurrent();
-    })
     .catch(function(err) {
       console.log('err getting pois in map controller.js: ', err);
     });
+  };
 
-
-  })
-  .catch(function(err) {
-    console.log('error in doing things when map is ready', err);
-  });
-
-  /*
-    Function to set the show property of the infoWindow on markers 
-    that is needed when a user clicks the close of the infoWindow.
-    This is the closeClick property on the ui-gmap-window element
-    in map.html
-  */
-  $scope.closeInfoWindowClick = function() {
-    $scope.map.infoWindow.show = false;
-  }
-  
   $scope.setMapCenterCurrent = function () {
     Location.getCurrentPos()
       .then(function(pos) {
@@ -228,7 +232,11 @@ angular.module('amblr.map', ['uiGmapgoogle-maps'])
   }; 
 
   $scope.$on('centerMap', function () {
-      $scope.setMapCenterCurrent();
+    $scope.setMapCenterCurrent();
   });
+
+  $scope.$on('reloadPOIs', function() {
+    $scope.addNewPOIs();
+  })
 
 });
