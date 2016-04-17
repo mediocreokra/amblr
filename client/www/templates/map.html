@@ -39,6 +39,12 @@ Map icons taken from: Maps Icons Collection https://mapicons.mapsmarker.com
             </div>
         </div>
       </ui-gmap-window>
+
+       <ui-gmap-window show="map.droppedInfoWindow.show" coords="map.droppedInfoWindow.coords"
+                options="map.droppedInfoWindow.options"
+                templateUrl="map.droppedInfoWindow.templateUrl"
+                templateParameter="map.droppedInfoWindow.templateParameter" closeClick='closeInfoWindowClick()' ng-cloak>
+        </ui-gmap-window>
      
       <ui-gmap-markers models='map.POIMarkers' coords="'self'" icon="'icon'">
       </ui-gmap-markers>

@@ -74,10 +74,23 @@ angular.module('amblr.map', ['uiGmapgoogle-maps'])
           pixelOffset: new $window.google.maps.Size(0, -35)
         },
         show: false,
+    },
+    droppedInfoWindow: {
+        coords: {
+          latitude: 37.786439,
+          longitude: -122.408199
+        },
+        options: {
+          disableAutoPan: true,
+          // use pixelOffset to move the InfoWindow above the marker icon
+          pixelOffset: new $window.google.maps.Size(0, -35)
+        },
+        show: false,
         templateUrl: '../../templates/addPOI.html',
         templateParameter: {
           message: 'passed in from the opener'
-        }
+        },
+        maxWidth: 325
     }
   };
 
@@ -107,6 +120,7 @@ angular.module('amblr.map', ['uiGmapgoogle-maps'])
   */
   $scope.closeInfoWindowClick = function() {
     $scope.map.infoWindow.show = false;
+    $scope.map.droppedInfoWindow.show = false;
   };
   
   $scope.addNewPOIs = function () {
@@ -231,11 +245,6 @@ angular.module('amblr.map', ['uiGmapgoogle-maps'])
 
     $scope.removeMarker();
 
-    // dropMarker is the marker when someone clicks on the map
-    // if we want to allow user to drag it around, the dragend event
-    // would fire once they've stopped, which would be the lat/long
-    // we'd want to use 
-
     $scope.$apply( function() {
       $scope.dropMarker = {
         id: 1,
@@ -263,11 +272,18 @@ angular.module('amblr.map', ['uiGmapgoogle-maps'])
      
             $scope.dropMarker.options = {
               draggable: true,
-              labelContent: "lat: " + $scope.dropMarker.coords.latitude + ' ' + 'lon: ' + $scope.dropMarker.coords.longitude,
-              labelAnchor: "100 0",
-              labelClass: "marker-labels",
               icon: '../../img/information.png' 
             };
+
+            //update droppedInfoWindow lat/long
+            $scope.map.droppedInfoWindow.coords.latitude = marker.position.lat();
+            $scope.map.droppedInfoWindow.coords.longitude = marker.position.lng();
+          },
+          click: function(marker, eventName, args) {
+            // set the lat/long of the InfoWindow to the marker clicked on
+            $scope.map.droppedInfoWindow.coords.latitude = marker.position.lat();
+            $scope.map.droppedInfoWindow.coords.longitude = marker.position.lng();
+            $scope.map.droppedInfoWindow.show = true;
           }
         }
       };
