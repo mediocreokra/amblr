@@ -29,7 +29,7 @@ angular.module('amblr.signin', [])
     })
     .then(function(res) {
       $scope.closeSignin();
-      if (res.data === '') {
+      if (res.status === 200) {
         // if res.data is an empty string, sign up was successful, so send user to private menu
         $location.path('/menu-private/home');
       }

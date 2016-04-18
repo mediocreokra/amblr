@@ -23,8 +23,8 @@ module.exports = function(passport) {
           // if user is not found
           if (!user) {
             // log error and alert user
-            console.log('User query failed with username: ', username);
-            return done(null, false, req.flash('message', 'User not found; please try again.'));
+            var error = 'User query failed with username: ' + username;
+            return done(error, false, req.flash('message', 'User not found; please try again.'));
           }
           // if password does not match
           if (!isValidPassword(user, password)) {

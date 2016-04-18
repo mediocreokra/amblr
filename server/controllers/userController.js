@@ -23,8 +23,8 @@ initPassport(passport);
 exports.signinUser = function(req, res, next) {
   passport.authenticate('signin', function(err, user, info) {
     if (err) {
-      console.log(err);
-      return next(err);
+      res.status(403);
+      res.json(err);
     }
     if (!user) { // if the username does not exist
       return res.redirect('/'); // need to adjust these paths to actual route
@@ -44,7 +44,8 @@ exports.signinUser = function(req, res, next) {
 exports.signupUser = function(req, res, next) {
   passport.authenticate('signup', function(err, user, info) {
     if (err) {
-      return next(err);
+      res.status(403);
+      res.json(err);
     }
     if (!user) { // if a username was not given
       return res.redirect('/'); // need to adjust these paths to actual route
