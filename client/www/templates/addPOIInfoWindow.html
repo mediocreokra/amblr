@@ -1,0 +1,15 @@
+<div class='list list-inset' id='drop-info-window'>
+  <label class="item item-input">
+    <ion-radio ng-model="$parent.$parent.currentPOI.type" value="good"><i class="icon ion-happy"></i></ion-radio>
+    <ion-radio ng-model="$parent.$parent.currentPOI.type" value="bad"><i class="icon ion-sad"></i></ion-radio>
+  </label>
+  <label class="item item-input item-stacked-label">
+    <input type="text" placeholder='Title' ng-model="$parent.$parent.currentPOI.title">
+  </label>
+  <label class="item item-input item-stacked-label">
+    <input type="text" placeholder='Description' ng-model="$parent.$parent.currentPOI.description">
+  </label>
+  <div class="row">
+    <button class="button col block button-dark" ng-click="$parent.$parent.savePOI()">Add POI</button>
+  </div>
+</div>
