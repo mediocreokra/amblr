@@ -10,7 +10,12 @@ var app = require('../server.js');
 app.use(cookieParser());
 // store and show messages to user that were created in config/passport/signin.js and signup.js
 app.use(flash());
-app.use(expressSession({secret: 'supersecretpizzapartypassthecheese'}));
+app.use(expressSession({
+  secret: 'supersecretpizzapartypassthecheese',
+  cookie: {
+    httpOnly: false
+  }
+}));
 
 app.use(passport.initialize());
 app.use(passport.session());

@@ -7,6 +7,10 @@
   },
   "dependencies": {
     "ngCordova": "^0.1.26-alpha",
-    "angular-google-maps": "^2.3.2"
+    "angular-google-maps": "^2.3.2",
+    "angular-cookies": "^1.5.5"
+  },
+  "resolutions": {
+    "angular": "1.4.3"
   }
 }
