@@ -28,8 +28,8 @@ module.exports = function(passport) {
           }
           // if password does not match
           if (!isValidPassword(user, password)) {
-            console.log('Invalid password.');
-            return done(null, false, req.flash('message', 'Invalid password; please try again.'));
+            var error = 'Invalid password.';
+            return done(error, false, req.flash('message', 'Invalid password; please try again.'));
           }
           // if username and password match, return user
           return done(null, user);

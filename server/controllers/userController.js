@@ -43,12 +43,13 @@ exports.signinUser = function(req, res, next) {
 // handles POST request from signup form
 exports.signupUser = function(req, res, next) {
   passport.authenticate('signup', function(err, user, info) {
-    if (err) {
+    if (err) { // if there is a signin error, respond 403
       res.status(403);
       res.json(err);
     }
-    if (!user) { // if a username was not given
-      return res.redirect('/'); // need to adjust these paths to actual route
+    if (!user) { // if a username was not given, respond 403
+      res.status(403);
+      res.json(info);
     } else { 
       req.login(user, function(err, user) {
         if (err) {

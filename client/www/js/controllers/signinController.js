@@ -19,6 +19,13 @@ angular.module('amblr.signin', [])
     $scope.modal.show();
   };
 
+  $scope.showAlert = function() {
+    $ionicPopup.alert({
+      title: 'Error',
+      template: 'Oops! There was a problem with your sign in form. Please try again.'
+    });
+  };
+
   // Perform the signin action when the user submits the signin form
   $scope.doSignin = function() {
     console.log('Doing signin with username: ', $scope.signinData.username);    
@@ -29,11 +36,11 @@ angular.module('amblr.signin', [])
     })
     .then(function(res) {
       $scope.closeSignin();
-      if (res.status === 200) {
-        // if res.data is an empty string, sign up was successful, so send user to private menu
+      if (res.status === 200) { // if sign in is successful, go to private menu
         $location.path('/menu-private/home');
-      }
+      } 
     }, function(err) {
+      $scope.showAlert(); // if sign in is not successful, show alert message
       console.log('Error during signin with username: ', $scope.signinData.username);  
       console.dir(err);
       $scope.onError();
