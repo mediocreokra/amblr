@@ -6,6 +6,7 @@ client/platforms/
 client/plugins/
 client/resources/
 client/dist
+client/www/js/config.js
 
 server/node_modules
 server/logs

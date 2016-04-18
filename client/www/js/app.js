@@ -6,6 +6,7 @@
 angular.module('amblr', [
   'ionic', 
   'ngCordova',
+  'amblr.config',
   'amblr.map', 
   'amblr.addPOI',
   'amblr.leftnav',
