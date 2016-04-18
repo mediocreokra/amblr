@@ -120,6 +120,21 @@ module.exports = function(grunt) {
         }
       }
     },
+
+    watch: {
+      scripts: {
+        files: [
+          ''
+        ],
+        tasks: [
+          'build'
+        ]
+      },
+      css: {
+        files: '',
+        tasks: ['cssmin']
+      }
+    }
     
   });
   
@@ -149,7 +164,12 @@ module.exports = function(grunt) {
     nodemon.stdout.pipe(process.stdout);
     nodemon.stderr.pipe(process.stderr);
 
-    // grunt.task.run(['watch']);
+    grunt.task.run(['watch']);
+
+  });
+
+  grunt.registerTask('server-prod', function(target) {
+    grunt.task.run(['ngconstant:production']);
   });
   
   grunt.registerTask('test', [ 
