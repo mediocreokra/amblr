@@ -83,7 +83,38 @@ module.exports = function(grunt) {
         reporter: 'tap'
       },
       all: { src: ['test/*.js'] }
-    }
+    },
+    ngconstant: {
+      // Options for all targets
+      options: {
+        space: '  ',
+        wrap: '"use strict";\n\n {\%= __ngModule %}',
+        name: 'config',
+      },
+      // Environment targets
+      development: {
+        options: {
+          dest: '../client/js/config.js'
+        },
+        constants: {
+          ENV: {
+            name: 'development',
+            apiEndpoint: 'http://localhost:3000'
+          }
+        }
+      },
+      production: {
+        options: {
+          dest: '../client/js/config.js'
+        },
+        constants: {
+          ENV: {
+            name: 'production',
+            apiEndpoint: 'http://192.241.235.109:3000'
+          }
+        }
+      }
+    },
     
   });
   
@@ -97,16 +128,23 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-eslint');
   grunt.loadNpmTasks('grunt-env');
   grunt.loadNpmTasks('grunt-shell');
+  grunt.loadNpmTasks('grunt-ng-constant');
+  grunt.loadNpmTasks('grunt-contrib-watch');
   
   grunt.registerTask('server-dev', function(target) {
+
+    grunt.task.run(['ngconstant:development']);
+
     var nodemon = grunt.util.spawn({
       cmd: 'grunt',
       grunt: true,
       args: 'nodemon'
     });
+
     nodemon.stdout.pipe(process.stdout);
-    nodemon.stderr.piepe(process.stderr);
-    grunt.task.run(['watch']);
+    nodemon.stderr.pipe(process.stderr);
+
+    // grunt.task.run(['watch']);
   });
   
   grunt.registerTask('test', [ 
@@ -120,6 +158,7 @@ module.exports = function(grunt) {
   grunt.registerTask('upload', function(n) {
     if (grunt.option('prod')) {
       grunt.task.run(['env:prod']);
+      grunt.task.run(['ngconstant:production']);
       grunt.task.run(['shell:prodServer']);
     } else {
       grunt.task.run(['env:dev']);
