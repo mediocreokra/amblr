@@ -74,6 +74,7 @@ module.exports = function(grunt) {
         }
       }
     },
+
     simplemocha: {
       options: {
         globals: ['expect'],
@@ -84,6 +85,10 @@ module.exports = function(grunt) {
       },
       all: { src: ['test/*.js'] }
     },
+
+    // plugin that creates a config file based on target which will allow
+    // you to specify environment specific variables used on client side
+    // I.E. services.js for the endpoint of our API server
     ngconstant: {
       // Options for all targets
       options: {
@@ -94,7 +99,7 @@ module.exports = function(grunt) {
       // Environment targets
       development: {
         options: {
-          dest: '../client/js/config.js'
+          dest: '../client/www/js/config.js'
         },
         constants: {
           ENV: {
@@ -105,7 +110,7 @@ module.exports = function(grunt) {
       },
       production: {
         options: {
-          dest: '../client/js/config.js'
+          dest: '../client/www/js/config.js'
         },
         constants: {
           ENV: {

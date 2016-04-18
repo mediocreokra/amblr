@@ -1,10 +1,10 @@
 angular.module ('amblr.services', [])
 
-.factory('POIs', function($http, $rootScope) {
+.factory('POIs', function($http, $rootScope, ENV) {
   var POIs = {};
 
   POIs.getPOIs = function() {
-    return $http.get('http://127.0.0.1:3000/api/pois/')
+    return $http.get(ENV.apiEndpoint + '/api/pois/')
     .then(function(pois) {
       console.log('returning pois are: ', pois);
       return pois;
@@ -18,7 +18,7 @@ angular.module ('amblr.services', [])
     console.log('in save poi', POI);
     return $http({
       method: 'POST',
-      url: 'http://127.0.0.1:3000/api/pois/',
+      url: ENV.apiEndpoint + '/api/pois/',
       data: JSON.stringify(POI)
     }).then(function(res) {
       $rootScope.$broadcast('reloadPOIs');
