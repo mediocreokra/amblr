@@ -52,6 +52,7 @@ angular.module ('amblr.services', [])
       return position;
     }, function (error) {
       alert('Unable to get location: ' + error.message);
+      $ionicLoading.hide(); 
     });
   };
 
