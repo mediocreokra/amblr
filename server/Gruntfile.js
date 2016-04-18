@@ -94,7 +94,7 @@ module.exports = function(grunt) {
       options: {
         space: '  ',
         wrap: '"use strict";\n\n {\%= __ngModule %}',
-        name: 'config',
+        name: 'amblr.config',
       },
       // Environment targets
       development: {
