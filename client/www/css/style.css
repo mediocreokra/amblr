@@ -22,3 +22,8 @@
   width: 50%;
 }
 
+#drop-info-window {
+  width: 230px !important;
+  height: 240px !important;
+}
+

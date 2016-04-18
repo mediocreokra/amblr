@@ -167,7 +167,7 @@ angular.module('amblr.map', ['uiGmapgoogle-maps'])
 
         var icon = '';
         if ($scope.POIs[i].type === 'good') {
-           icon = '../../img/information.png'
+           icon = '../../img/star-3.png'
         } else {
            icon = '../../img/pirates.png'
         }
@@ -259,8 +259,9 @@ angular.module('amblr.map', ['uiGmapgoogle-maps'])
         animation: google.maps.Animation.DROP,
         options: { 
           draggable: true,
-          icon:'../../img/information.png' 
+          icon:'../../img/information-grn.png' 
         },
+        maxWidth: 350,
         events: {
           dragstart: function(marker, eventName, args) {
             // disable dragging for side menu when user is dragging marker
@@ -276,7 +277,7 @@ angular.module('amblr.map', ['uiGmapgoogle-maps'])
      
             $scope.dropMarker.options = {
               draggable: true,
-              icon: '../../img/information.png' 
+              icon: '../../img/information-grn.png' 
             };
 
             //update droppedInfoWindow lat/long

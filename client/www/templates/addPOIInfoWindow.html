@@ -1,4 +1,6 @@
-<div class='list list-inset'>
+<div class='list list-inset' id='drop-info-window' >
+
+  <!-- <div class='iw-title'>Point of Interest</div> -->
 <!-- icons of good or bad to based on user select TODO: get Good/Bad Options working-->
   <label class="item item-input">
     <ion-radio ng-model="$parent.$parent.currentPOI.type" value="good"><i class="icon ion-happy"></i></ion-radio>
@@ -11,6 +13,6 @@
     <input type="text" placeholder='Description' ng-model="$parent.$parent.currentPOI.description">
   </label>
   <div class="row">
-  <button class="button col block button-dark" ng-click="$parent.$parent.savePOI()">Add POI</button>
+    <button class="button col block button-dark" ng-click="$parent.$parent.savePOI()">Add POI</button>
   </div>
 </div>
