@@ -21,7 +21,6 @@ angular.module('amblr.addPOI', [])
 
   //save POI upon user save
   $scope.savePOI = function() {
-    console.log('current POI ', $scope.currentPOI);
     //post currentPOI to the database
     POIs.savePOI($scope.currentPOI)
     .then(function(poi) {
