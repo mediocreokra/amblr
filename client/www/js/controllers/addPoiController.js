@@ -10,13 +10,10 @@ angular.module('amblr.addPOI', [])
   .then(function(modal) {
     $scope.modal = modal;
   });
-  // .catch(function(err) {
-  //   console.log('error in getting modal ', err);
-  // });
 
   //current POI is an object with properties: lat, long, type, description, title
   //set default of type to good
-  $scope.selected='good';
+  $scope.selected = 'good';
   $scope.currentPOI = { type: 'good'};
 
   //save POI upon user save
@@ -39,7 +36,7 @@ angular.module('amblr.addPOI', [])
       $scope.onError();
     });
   };
-  //cancel POI 
+
 
   $scope.onError = function() {
     $ionicPopup.alert({
@@ -107,24 +104,5 @@ angular.module('amblr.addPOI', [])
   $scope.$on('$destroy', function() {
     $scope.modal.hide();
   });
-
-  $scope.NoSave = function() {
-    $scope.popUp = $ionicPopup.show({
-      template: '<input type="submit"/>',
-      title: 'Oops, looks like there was a problem...',
-      template: 'Would you like to try again?',
-      scope: $scope,
-      buttons: [
-      { text: 'Cancel'},
-      { text: 'Try Again',
-        type: 'button-positive',
-        onTap: function(e) {
-          $scope.openForm(); 
-        }
-      }]
-    });
-  };
-
-
 
 });
