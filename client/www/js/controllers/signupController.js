@@ -30,11 +30,10 @@ angular.module('amblr.signup', [])
     })
     .then(function(res) {
       $scope.closeSignup();
-      
-      // TODO: need to test if signup was successful & if yes, redirect to private page
-      // right now, anyone who fills in the signin form goes to the private page
-      
-      $location.path('/menu-private/home');
+      if (res.data === '') {
+        // if res.data is an empty string, sign up was successful, so send user to private menu
+        $location.path('/menu-private/home');
+      }
     }, function(err) {
       throw new Error ('Error signing up user: ' + $scope.signupData.username + ', error: ' + err);
     });

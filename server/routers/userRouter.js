@@ -7,8 +7,9 @@ var privateController = require('../controllers/privateController.js');
 // the path '/api/users' is already prepended to all routes based on app.use statement in server.js
 userRouter.route('/signup').post(userController.signupUser);
 
-// this should prevent the next step if the user is not authenticated
-userRouter.route('/signin').post(userController.signinUser, privateController.isAuthenticated);
+// adding ", privateController.isAuthenticated" after userController.signinUser would be
+// one way to prevent the next step if the user is not authenticated
+userRouter.route('/signin').post(userController.signinUser);
 
 userRouter.route('/signout').get(userController.signoutUser);
 

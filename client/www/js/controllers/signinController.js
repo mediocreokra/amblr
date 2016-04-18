@@ -30,8 +30,10 @@ angular.module('amblr.signin', [])
     })
     .then(function(res) {
       $scope.closeSignin();
-      // signin successful, redirect to private page
-      $location.path('/menu-private/home');
+      if (res.data === '') {
+        // if res.data is an empty string, sign up was successful, so send user to private menu
+        $location.path('/menu-private/home');
+      }
     }, function(err) {
       console.log('Error during signin with username: ', $scope.signinData.username);  
       console.dir(err);
