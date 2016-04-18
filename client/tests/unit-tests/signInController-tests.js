@@ -64,6 +64,7 @@ describe('signinCtrl', function() {
       return $q.when(modalMock);
     });
 
+    //mockup of ionicPopuups
     ionicPopupMock = jasmine.createSpyObj('popup', ['alert']);
     // var $ionicModal = jasmine.createSpy('$ionicModal', ['fromTemplateUrl']);
     // ionicModalMock = jasmine.createSpyObj('modal', ['show', 'hide']);
@@ -73,7 +74,7 @@ describe('signinCtrl', function() {
     var controller = $controller('signinCtrl', 
       { $scope: scope, $location: locationMock, $ionicPopup: ionicPopupMock});
   }));
-
+  //simple testing that we have the right $scope
   describe('scope variable', function() {
     it('should have a $scope variable', function() {
       expect(scope).toBeDefined();
@@ -83,9 +84,11 @@ describe('signinCtrl', function() {
   });
 
   describe('#doSignin', function() {
-    beforeEach(inject(function(_$rootScope_, $injector) {
+    beforeEach(inject(function(_$rootScope_, $injector, $http) {
+
       var user = {username: 'trini', password: 'hello'};
       var url = '/api/users/signin';
+      scope.signinData = user;
       
       //use httpbackend mock
       $httpBackend = $injector.get('$httpBackend');
@@ -97,8 +100,9 @@ describe('signinCtrl', function() {
       $httpBackend.when('GET', /\.html$/).respond(200);
 
       $rootScope = _$rootScope_;
-      scope.signinData = { username: 'trini', password: 'hello'};
       scope.doSignin();
+
+      
     }));
 
     afterEach(function() {
@@ -114,27 +118,36 @@ describe('signinCtrl', function() {
 
     it('should have sent a POST request to api', function() {
       url = '/api/users/signin';
-      $httpBackend.expectPOST(url);
+      
+      $httpBackend.expectPOST(url, scope.signinData);
       $httpBackend.flush();
     });
 
     describe('when the signin is executed,', function() {
       it('if successful, should close modal and redirect to home page', function() {
         
-        signInDefer.resolve();
-        $rootScope.$digest();
-        
-        expect(scope.closeSignin).toHaveBeenCalledWith();
+        //Any time you resolve or reject a promise you need  
+        // $scope.$digest next because promises are only resolved when
+        // Angular's digest cycle is triggered. (here $rootScope.$digest() called)
+        // signInDefer.resolve();
+        $httpBackend.whenPOST(url, scope.signinData).respond(200, { data: scope.signinData });
+        // $rootScope.$digest();
+        $httpBackend.flush();
+
+        spyOn(scope, 'closeSignin');
+        expect(scope.closeSignin).toHaveBeenCalled();
         expect(locationMock.path).toHaveBeenCalledWith('/menu-private/home');
       });
       
       it('if unsuccessful, should show a popup', function() {
         
-        signInDefer.reject();
+        // signInDefer.reject();
+        $httpBackend.whenPOST(url, scope.signinData).respond('500', scope.signinData);
         $rootScope.$digest();
         
         expect(ionicPopupMock.alert).toHaveBeenCalled();
         expect(scope.signin).toHaveBeenCalled();
+        $httpBackend.flush();
       });
     });
   });
@@ -177,56 +190,6 @@ describe('signinCtrl', function() {
   //       expect($scope.modal_login.hide()).toHaveBeenCalled(); // NOT PASS
   //   });
   });
-
-  // describe('#doSignin', function() {
-
-  //   // TODO: Call doSignin on the Controller
-  //     beforeEach(function() {
-  //       scope.doSignin();
-  //       var user = {
-  //         username: 'trini',
-  //         password: 'hello'
-  //       };
-  //       scope.signinData = user;
-  //       console.log(scope.signinData);
-  //     });
-  //   it('should call POST on http', function() {
-  //     expect(httpMock).toHaveBeenCalledWith({
-  //       method: 'POST',
-  //       url: '/api/users/signin',
-  //       data: scope.signinData
-  //       }); 
-  //   });
-
-    // describe('when signin is executed,', function() {
-    //   it('if successful, should change state to my-dinners', function() {
-
-    //     // TODO: Mock the login response from DinnerService
-
-    //     expect(stateMock.go).toHaveBeenCalledWith('my-dinners');
-    //   });
-
-    //   it('if unsuccessful, should show a popup', function() {
-
-    //     // TODO: Mock the login response from DinnerService
-
-    //     expect(ionicPopupMock.alert).toHaveBeenCalled();
-    //   });
-    // });
-  // });
-
-  // describe('#closeSignin', function() {
-  //   //TODO: modal closes
-
-  // });
-
-
-
-
-
-
-
-
 
 
 });
