@@ -41,7 +41,7 @@ var createPOIsFromData = function() {
    It will delete all data in the db, if this is
    not wanted, comment out this call. 
 */
-createPOIsFromData();
+// createPOIsFromData();
 
 exports.savePOI = function(req, res) {
   logger.info('POI to create: ' + req.body);
