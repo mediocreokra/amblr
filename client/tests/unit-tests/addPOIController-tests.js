@@ -23,16 +23,19 @@ describe('addPOIController', function() {
   }));
 
   //get services needed
-  beforeEach(inject(function($controller, $q, $rootScope, Location, POIs, $location, $http, $injector, $ionicModal) {
+  beforeEach(inject(function($controller, $q, $rootScope, Location, POIs, $location, $http, $injector, $ionicModal, $ionicPopup) {
     deferred = $q.defer();
     spyPromise = deferred.promise;
     $scope = $rootScope.$new();
-
     //inject fake httpbackend to ignore template get requests
+    //this is to prevent errors of 'unexpected get request' as test will load up all templates of app
+    //This may not be the correct way to ignore the template requests
+    //TODO: research templateCache ****** 
     $httpBackend = $injector.get('$httpBackend');
     $httpBackend.when('GET', /\.html$/).respond(200);
 
     //set up mocks for services passed in
+    //create spy for $location service (returns promise)
     location = { 'path': jasmine.createSpy('location spy').and.returnValue(deferred.promise)};
     
     //set up mock for POIs service
@@ -50,113 +53,160 @@ describe('addPOIController', function() {
       }
     };
 
-    //TODO: set up ionicModal mock
-    //set up fake template
-    var fakeTemplate = function () {
-      return { 
-        then: function(modal) {
-          $scope.modal = modal; 
-        }
-      }; 
-    };
-    
+    ionicPopupMock = jasmine.createSpyObj('popup', ['alert']);
+    //TODO: set up ionicModal mock    
     ionicModalMock = {
-      fromTemplateUrl: jasmine.createSpy('$ionicModal.fromTemplateUrl').and.returnValue(deferred.promise)
+      fromTemplateUrl: jasmine.createSpy('$ionicModal.fromTemplateUrl', ['fromTemplateUrl'])
     };
 
-    modalMock = jasmine.createSpyObj('modal', ['show', 'hide', 'isShown']);
-    ionicModalMock.fromTemplateUrl.and.callFake(fakeTemplate);
+    //create a mock of the modal you gonna pass and resolve at your fake resolve
+    modalMock = jasmine.createSpyObj('$scope.modal', ['show', 'hide', 'isShown']);
 
+    ionicModalMock.fromTemplateUrl.and.callFake(function() {
+      return $q.when(modalMock);
+      // $q.when wraps an object that might be a value or a (3rd party) then-able promise into a $q promise. 
+      // This is useful when you are dealing with an object that might or might not be a promise.
+    });
 
-    //initialize the controller, passing spy service instance
+    //initialize the controller, passing spy services instance
     controller = $controller('addPOIController', {
       $scope: $scope,
       $location: location,
       POIs: POIsMock, //service mock
       Location: LocationMock, //service mock
-      $ionicModal: ionicModalMock
+      $ionicModal: ionicModalMock,
+      $ionicPopup: ionicPopupMock
     });
+    //must flush the backend before doing any 'expect tests'
+    //things come back undefined otherwise
+    $httpBackend.flush();
+
   }));
 
+  //after each function call, must check there are no outstanding requests from $httpBackend
   afterEach(function() {
     $httpBackend.verifyNoOutstandingExpectation();
     $httpBackend.verifyNoOutstandingRequest();
   });
-
+  //simple scope variable check
   describe('scope variable exists', function() {
     it('should have the correct scope', function() {
 
-      $httpBackend.flush();
 
       expect($scope).toBeDefined();
       expect($scope.savePOI).toBeDefined();
       expect($scope.onError).toBeDefined();
       expect($scope.openForm).toBeDefined();
+      expect($scope.modal).toBeDefined();
     });
   });
 
+  describe('close form function', function() {
+    it('should close modal upon calling it', function() {
+      
+      $scope.closeForm();
+      expect($scope.modal.hide).toHaveBeenCalled();
+
+    });
+  });
+
+  describe('#openForm', function() {
+    beforeEach(inject(function(_$rootScope_, $injector, $q) {
+      $rootScope = _$rootScope_;
+
+      spyOn(LocationMock, 'getCurrentPos').and.callThrough();
+      $scope.openForm();
+    }));
+
+    describe('when openForm is executed', function() {
+      it('if successful, should set currentPOI to position returned and show modal', function() {
+        //set fakePos for LocationMock to return
+        var fakePos = { lat: 37, long: -122 };
+        deferred.resolve(fakePos);
+        $scope.$root.$digest();
+
+        expect($scope.currentPOI.lat).toBe(37);
+        expect($scope.modal.show).toHaveBeenCalled();
+      });
+
+      it('if not successful, should popup an alert and redirect to home page', function() {
+        
+        deferred.reject();
+        $scope.$root.$digest();
+
+        expect(ionicPopupMock.alert).toHaveBeenCalled();
+        expect(location.path).toHaveBeenCalledWith('/menu/home');
+      });
+    });
+  });
+
+  //test functionality of savePOI
   describe('#savePOI', function() {
-    beforeEach(inject(function(_$rootScope_, $injector, $q, $location) {
+    beforeEach(inject(function(_$rootScope_, $injector, $q) {
         //set up data we want to return for the .then function in controller
       var fakePOI = { lat: 37, long: -122, title: 'POI', description: 'Testing POI', type: 'bad'};
       $scope.currentPOI = fakePOI;
       $rootScope = _$rootScope_;
+
       //spy on methods that happen when savePOI is called
       spyOn($scope, 'closeForm');
       spyOn($scope, 'onSuccess');
-
+      spyOn($scope, 'onError');
+      //spy on POIS.savePOI service and call through the function
       spyOn(POIsMock, 'savePOI').and.callThrough();
       //call the method savePOI
       $scope.savePOI();
-
-      // deferred.resolve($scope.currentPOI);
-      deferred.resolve($scope.currentPOI);
-      $scope.$root.$digest();
-      $httpBackend.flush();
     }));
 
     describe('when savePOI is executed', function() {
       it('should call POI service method #savePOI', function() {
-        //spy on POIs mock service
+        //use fakePOI to call function
         var fakePOI = { lat: 37, long: -122, title: 'POI', description: 'Testing POI', type: 'bad'};
+        
+        // resolve the promise of the call of savePOI
+        deferred.resolve($scope.currentPOI);
+        $scope.$root.$digest();
 
         expect(POIsMock.savePOI).toHaveBeenCalledWith(fakePOI);
         expect(POIsMock.savePOI.calls.count()).toEqual(1);
 
       });
       it('if successful, should save the POI and reset currentPOI to default type: good', function() {
+        
+        deferred.resolve($scope.currentPOI);
+        $scope.$root.$digest();
         //make assertions
+        //poi saved should have the same type as fakePOI
         expect($scope.poiSaved.type).toBe('bad');
         //expect currentPOI to be empty except type: good
         expect($scope.currentPOI).toEqual({type: 'good' });
       });
 
-      it('if sucessful, should close POI form', function() {
+      it('if successful, should close POI form and confirm success', function() {
 
-        // $ionicModal.fromTemplateURL(fakeTemplate);
+        deferred.resolve($scope.currentPOI);
+        $scope.$root.$digest();
 
         expect($scope.closeForm).toHaveBeenCalled();
-        expect($scope.modal.close).toHaveBeenCalled();
+        expect($scope.onSuccess).toHaveBeenCalled();
       });
 
       it('if successful, should relocate the page to home', function() {
-        
+
+        deferred.resolve($scope.currentPOI);
+        $scope.$root.$digest();
+
         expect(location.path).toHaveBeenCalledWith('/menu/home');
       });
 
       it('if not successful, should show a popup', function() {
+        //reject condition
         deferred.reject();
         $scope.$root.$digest();
 
-        expect($scope.closeForm).toHaveBeenCalled();
-
+        expect($scope.onError).toHaveBeenCalled();
       });
     });
   });
-
-  describe('should ', function() {
-
-  });
-
 
 });
