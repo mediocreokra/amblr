@@ -35,6 +35,8 @@ NPM Modules
 - Android Standalone SDK Tools
 - Node 4.4.2
 - Express 4.13.4
+- Karma
+- Karma-Jasmine
 - MongoDB 2.1.16
 - Grunt 
 - Gulp 3.9.1
@@ -47,6 +49,7 @@ NPM Modules
 
 Bower Components
 ngCordova
+angular-mocks#1.4.3
 
 
 ## Development

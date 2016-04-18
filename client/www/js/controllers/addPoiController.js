@@ -9,10 +9,10 @@ angular.module('amblr.addPOI', [])
   })
   .then(function(modal) {
     $scope.modal = modal;
-  })
-  .catch(function(err) {
-    console.log('error in getting modal ', err);
   });
+  // .catch(function(err) {
+  //   console.log('error in getting modal ', err);
+  // });
 
   //current POI is an object with properties: lat, long, type, description, title
   //set default of type to good
@@ -21,13 +21,15 @@ angular.module('amblr.addPOI', [])
 
   //save POI upon user save
   $scope.savePOI = function() {
-    console.log($scope.currentPOI);
+    console.log('current POI ', $scope.currentPOI);
     //post currentPOI to the database
     POIs.savePOI($scope.currentPOI)
     .then(function(poi) {
       console.log('poi saved', poi);
       //clear out currentPOI
-      $scope.currentPOI = { type: 'good'};
+      $scope.poiSaved = poi;
+      $scope.currentPOI = {type: 'good'};
+      console.log($scope.currentPOI, 'after');
       $scope.closeForm();
       // redirect to home page (may not need this)
       $scope.onSuccess();
