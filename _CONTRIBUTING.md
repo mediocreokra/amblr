@@ -9,6 +9,7 @@ Test and lint your code! Code that does not pass tests or does not meet Hack Rea
 1. Fork the repo at <https://github.com/mediocreokra/amblr> to your own GitHub account.
 2. Copy the link from your repo, then ```git clone https://github.com/yourname/amblr``` (replace yourname with your Github handle)
 3. Add the org repo as an upstream remote: ```git remote add upstream https://github.com/mediocreokra/amblr.git```
+4. In order to create the config file used by each environment, cd to server directory and run: ```grunt server-dev```
 
 ### To make edits / add features
 
