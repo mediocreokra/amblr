@@ -92,7 +92,6 @@ describe('addPOIController', function() {
   describe('scope variable exists', function() {
     it('should have the correct scope', function() {
 
-
       expect($scope).toBeDefined();
       expect($scope.savePOI).toBeDefined();
       expect($scope.onError).toBeDefined();
@@ -106,7 +105,6 @@ describe('addPOIController', function() {
       
       $scope.closeForm();
       expect($scope.modal.hide).toHaveBeenCalled();
-
     });
   });
 
@@ -118,11 +116,13 @@ describe('addPOIController', function() {
       $scope.openForm();
     }));
 
-    describe('when openForm is executed', function() {
+    describe('user clicks on addPOI #openForm is executed', function() {
       it('if successful, should set currentPOI to position returned and show modal', function() {
         //set fakePos for LocationMock to return
         var fakePos = { lat: 37, long: -122 };
+        //resolve the promise to return fakePos
         deferred.resolve(fakePos);
+        //run the lifecycle
         $scope.$root.$digest();
 
         expect($scope.currentPOI.lat).toBe(37);
@@ -143,7 +143,7 @@ describe('addPOIController', function() {
   //test functionality of savePOI
   describe('#savePOI', function() {
     beforeEach(inject(function(_$rootScope_, $injector, $q) {
-        //set up data we want to return for the .then function in controller
+      //set up data we want to return for the .then function in controller
       var fakePOI = { lat: 37, long: -122, title: 'POI', description: 'Testing POI', type: 'bad'};
       $scope.currentPOI = fakePOI;
       $rootScope = _$rootScope_;
