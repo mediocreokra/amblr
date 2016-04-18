@@ -74,6 +74,7 @@ module.exports = function(grunt) {
         }
       }
     },
+
     simplemocha: {
       options: {
         globals: ['expect'],
@@ -83,6 +84,56 @@ module.exports = function(grunt) {
         reporter: 'tap'
       },
       all: { src: ['test/*.js'] }
+    },
+
+    // plugin that creates a config file based on target which will allow
+    // you to specify environment specific variables used on client side
+    // I.E. services.js for the endpoint of our API server
+    ngconstant: {
+      // Options for all targets
+      options: {
+        space: '  ',
+        wrap: '"use strict";\n\n {\%= __ngModule %}',
+        name: 'amblr.config',
+      },
+      // Environment targets
+      development: {
+        options: {
+          dest: '../client/www/js/config.js'
+        },
+        constants: {
+          ENV: {
+            name: 'development',
+            apiEndpoint: 'http://localhost:3000'
+          }
+        }
+      },
+      production: {
+        options: {
+          dest: '../client/www/js/config.js'
+        },
+        constants: {
+          ENV: {
+            name: 'production',
+            apiEndpoint: 'http://192.241.235.109:3000'
+          }
+        }
+      }
+    },
+
+    watch: {
+      scripts: {
+        files: [
+          ''
+        ],
+        tasks: [
+          'build'
+        ]
+      },
+      css: {
+        files: '',
+        tasks: ['cssmin']
+      }
     }
     
   });
@@ -97,16 +148,28 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-eslint');
   grunt.loadNpmTasks('grunt-env');
   grunt.loadNpmTasks('grunt-shell');
+  grunt.loadNpmTasks('grunt-ng-constant');
+  grunt.loadNpmTasks('grunt-contrib-watch');
   
   grunt.registerTask('server-dev', function(target) {
+
+    grunt.task.run(['ngconstant:development']);
+
     var nodemon = grunt.util.spawn({
       cmd: 'grunt',
       grunt: true,
       args: 'nodemon'
     });
+
     nodemon.stdout.pipe(process.stdout);
-    nodemon.stderr.piepe(process.stderr);
+    nodemon.stderr.pipe(process.stderr);
+
     grunt.task.run(['watch']);
+
+  });
+
+  grunt.registerTask('server-prod', function(target) {
+    grunt.task.run(['ngconstant:production']);
   });
   
   grunt.registerTask('test', [ 
@@ -120,6 +183,7 @@ module.exports = function(grunt) {
   grunt.registerTask('upload', function(n) {
     if (grunt.option('prod')) {
       grunt.task.run(['env:prod']);
+      grunt.task.run(['ngconstant:production']);
       grunt.task.run(['shell:prodServer']);
     } else {
       grunt.task.run(['env:dev']);

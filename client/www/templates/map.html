@@ -8,35 +8,16 @@ Map icons taken from: Maps Icons Collection https://mapicons.mapsmarker.com
 <ion-content class='has-header has-tabs' data-tap-disabled='true' overflow-scroll='false' ng-controller="MapCtrl">
 
     <ui-gmap-google-map center='map.center' zoom='map.zoom' draggable='true' options='map.options' control='map.control' events='map.events'>
-      <ui-gmap-window show="map.infoWindow.show" coords="map.infoWindow.coords" isIconVisibleOnClick="false" options="map.infoWindow.options" closeClick='closeInfoWindowClick()' ng-cloak>
-        <div>
-            
-            <p>Latitude:  {{ map.infoWindow.coords.latitude | number:4 }}</p>
-            <p>Longitude: {{ map.infoWindow.coords.longitude | number:4 }}!</p>
-            <div> <!-- TODO: as part of the below TODO, can add separate controller possibly to handle adding POIs ng-controller='InfoController'> -->
 
-                <p>Title:  {{map.infoWindow.title}}</p>
-                </p>Description:  {{map.infoWindow.description}}</p>
-                </p>Type:  {{map.infoWindow.type}}</p>
-
-                
-                <!-- 
-                  TODO: add ability to add information and click a button
-                        to submit. Probably need separate infoWindow directive to store
-                        editable one versus viewable one.  A possible example from the 
-                        ui-gmap-google-map demo:
-
-                    I should not be attached to a
-                    marker.  Not sure how this works yet, but it appears we
-                    have a separate controller and perform and action on it.
-                    I.E. - pass params into function call for lat
-
-
-                    <a class="btn" ng-click="clickedButtonInWindow()>CLICK ME</a>  
-                -->
-            </div>
-        </div>
+      <!-- use external info window so only one exists for all markers -->
+      <ui-gmap-window show="map.infoWindow.show" coords="map.infoWindow.coords" templateUrl="map.infoWindow.templateUrl" templateParameter="map.infoWindow" isIconVisibleOnClick="false" options="map.infoWindow.options" closeClick='closeInfoWindowClick()' ng-cloak>
       </ui-gmap-window>
+
+       <ui-gmap-window show="map.droppedInfoWindow.show" coords="map.droppedInfoWindow.coords"
+                options="map.droppedInfoWindow.options"
+                templateUrl="map.droppedInfoWindow.templateUrl"
+                templateParameter="map.droppedInfoWindow.templateParameter" closeClick='closeInfoWindowClick()' ng-cloak>
+        </ui-gmap-window>
      
       <ui-gmap-markers models='map.POIMarkers' coords="'self'" icon="'icon'">
       </ui-gmap-markers>

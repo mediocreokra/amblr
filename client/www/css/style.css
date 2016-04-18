@@ -21,3 +21,26 @@
 .poi-button {
   width: 50%;
 }
+
+#drop-info-window {
+  width: 230px !important;
+  height: 240px !important;
+}
+
+.good { 
+  color: #73AD21;
+}
+
+.bad { 
+  color: #CC0000;
+}
+
+.title {
+  text-transform: capitalize;
+  font-weight: bold;
+}
+
+.POIbox {
+
+}
+
