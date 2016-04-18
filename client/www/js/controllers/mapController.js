@@ -93,7 +93,8 @@ angular.module('amblr.map', ['uiGmapgoogle-maps'])
           // use pixelOffset to move the InfoWindow above the marker icon
           pixelOffset: new $window.google.maps.Size(0, -35)
         },
-        show: false
+        show: false,
+        templateUrl: '../../templates/POIInfoWindow.html',
     },
     droppedInfoWindow: {
         coords: {
@@ -199,11 +200,20 @@ angular.module('amblr.map', ['uiGmapgoogle-maps'])
               var lon = marker.longitude;
               var infoWindow = $scope.map.infoWindow;
 
+
               infoWindow.coords.latitude = lat;
               infoWindow.coords.longitude = lon;
+
+              //these are not getting passed to the POI Info Window template
               infoWindow.title = marker.title;
               infoWindow.description = marker.description;
               infoWindow.type = marker.type;
+              
+
+              //the info window only maintains the coords object so I had to store these values in it to pass to the POIInfoWindow template
+              infoWindow.coords.title = marker.title;
+              infoWindow.coords.type = marker.type;
+              infoWindow.coords.description = marker.description;
               infoWindow.show = true;
             }
           },

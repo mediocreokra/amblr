@@ -27,3 +27,20 @@
   height: 240px !important;
 }
 
+.good { 
+  color: #73AD21;
+}
+
+.bad { 
+  color: #CC0000;
+}
+
+.title {
+  text-transform: capitalize;
+  font-weight: bold;
+}
+
+.POIbox {
+
+}
+
