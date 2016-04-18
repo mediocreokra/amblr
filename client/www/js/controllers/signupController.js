@@ -1,5 +1,5 @@
 angular.module('amblr.signup', [])
-.controller('signupCtrl', function($scope, $ionicModal, $http, $location) {
+.controller('signupCtrl', function($scope, $ionicModal, $http, $location, $ionicPopup) {
   // Form data for the signup modal
   $scope.signupData = {};
 
@@ -19,6 +19,13 @@ angular.module('amblr.signup', [])
   $scope.signup = function() {
     $scope.modal.show();
   };
+  
+  $scope.showAlert = function() {
+    $ionicPopup.alert({
+      title: 'Error',
+      template: 'Oops! Something\'s wrong with your username, password or email address. Please try again.'
+    });
+  };
 
   // Perform the signup action when the user submits the signup form
   $scope.doSignup = function() {
@@ -30,12 +37,13 @@ angular.module('amblr.signup', [])
     })
     .then(function(res) {
       $scope.closeSignup();
-      if (res.data === '') {
-        // if res.data is an empty string, sign up was successful, so send user to private menu
-        $location.path('/menu-private/home');
+      if (res.status === 200) {  // if sign up is successful,
+        $location.path('/menu-private/home'); // serve private menu
       }
-    }, function(err) {
-      throw new Error ('Error signing up user: ' + $scope.signupData.username + ', error: ' + err);
+    }, function(err) { // if sign up is not successful,
+      $scope.showAlert(); // show alert message
+      console.log('Error during signin with username: ', $scope.signupData.username);  
+      console.log(err);
     });
     
   };
