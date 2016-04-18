@@ -22,19 +22,31 @@ angular.module('amblr.map', ['uiGmapgoogle-maps'])
     id: 0
   };
   
-  $scope.currentPOI = {
-    lat: -1,
-    long: -1,
-    type: '',
-    description: '',
-    title: ''
-  };
+  // $scope.currentPOI = {
+  //   lat: -1,
+  //   long: -1,
+  //   type: '',
+  //   description: '',
+  //   title: ''
+  // };
 
-  $scope.map = { 
-    center: { 
-      latitude: lat, 
-      longitude: long 
-    }, 
+  $scope.resetPOI = function () {
+    $scope.currentPOI = {
+      lat: -1,
+      long: -1,
+      type: 'good',
+      description: '',
+      title: ''
+    };
+  };
+  // sets a default POI
+  $scope.resetPOI();
+
+  $scope.map = {
+    center: {
+      latitude: lat,
+      longitude: long
+    },
     zoom: 15,
     control: {},
     POIMarkers: [], // array of marker models, used by ui-gmap-markers in map.html
@@ -45,8 +57,8 @@ angular.module('amblr.map', ['uiGmapgoogle-maps'])
 
         if(angular.isUndefined($scope.placeMarkerPromise)) {
           $scope.placeMarkerPromise = $timeout(
-            function placeMarkerDelayed() { 
-              $scope.placeMarker(e.latLng); 
+            function placeMarkerDelayed() {
+              $scope.placeMarker(e.latLng);
             }, 1000);
         }
 
@@ -223,7 +235,7 @@ angular.module('amblr.map', ['uiGmapgoogle-maps'])
           template: 'Please Try again later'
         });
       });
-  }; 
+  };
 
   // Listen for broadcast events fired from within services.js
   $scope.$on('centerMap', function () {
@@ -257,9 +269,9 @@ angular.module('amblr.map', ['uiGmapgoogle-maps'])
           longitude: latLng.lng()
         },
         animation: google.maps.Animation.DROP,
-        options: { 
+        options: {
           draggable: true,
-          icon:'../../img/information-grn.png' 
+          icon:'../../img/information-grn.png'
         },
         maxWidth: 350,
         events: {
@@ -277,7 +289,7 @@ angular.module('amblr.map', ['uiGmapgoogle-maps'])
      
             $scope.dropMarker.options = {
               draggable: true,
-              icon: '../../img/information-grn.png' 
+              icon: '../../img/information-grn.png'
             };
 
             //update droppedInfoWindow lat/long
@@ -323,12 +335,16 @@ angular.module('amblr.map', ['uiGmapgoogle-maps'])
         console.log('poi saved', poi);
         //clear out currentPOI
         $scope.map.droppedInfoWindow.show = false;
-        $window.location.reload();
+        $scope.resetPOI();
+
+        // $window.location.reload();
+        $scope.removeMarker();
+        $scope.addNewPOIs();
       })
       .catch(function(err) {
         console.log('error in saving poi to database', err);
       });
-  }
+  };
 
 });
 
