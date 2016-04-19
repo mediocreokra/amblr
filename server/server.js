@@ -56,5 +56,3 @@ app.listen(port, function(err) {
   }
   console.log('Amblr API server is listening on port: ' + port);
 });
-
-// module.exports = app;
