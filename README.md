@@ -30,38 +30,12 @@ Sign In and Sign Out features are implemented with Passport.js, but they do not 
 - Express 4.13.4
 - Angular 1.4.3 with Ionic 1.2.4
 - Node 4.4.2
+- Google Maps API
 
+### NPM Modules and Bower Components
 
-###NPM Modules
+For complete details, see package.json files in Server and Client folders, and bower.json in Client folder.
 
-(For complete details, see package.json files in Server and Client folders, and bower.json in Client folder)
-
-
-- Ionic 1.7.14
-- Cordova 6.1.1
-- ios-sim 5.0.8
-- ios-deploy 1.8.5
-- Apple XCode
-- Java SE Development Kit 7 or later
-- Android Standalone SDK Tools
-- Node 4.4.2
-- Express 4.13.4
-- Karma
-- Karma-Jasmine
-- Karma-Chrome-Launcher
-- MongoDB 2.1.16
-- Grunt 
-- Gulp 3.9.1
-- Mocha
-- Chai
-- Sinon
-- Winston
-- Morgan
-
-
-###Bower Components
-- ngCordova
-- angular-mocks 1.4.3
 
 
 ## Development
