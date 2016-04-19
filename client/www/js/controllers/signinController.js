@@ -1,5 +1,5 @@
 angular.module('amblr.signin', [])
-.controller('signinCtrl', function($scope, $ionicModal, $http, $location, $ionicPopup) {
+.controller('signinCtrl', function($scope, $ionicModal, $http, $location, $ionicPopup, ENV) {
   // Form data for the signin modal
   $scope.signinData = {};
 
@@ -31,7 +31,7 @@ angular.module('amblr.signin', [])
     console.log('Doing signin with username: ', $scope.signinData.username);    
     $http({
       method: 'POST',
-      url: '/api/users/signin',
+      url: ENV.apiEndpoint + '/api/users/signin',
       data: $scope.signinData
     })
     .then(function(res) {
@@ -42,7 +42,6 @@ angular.module('amblr.signin', [])
     }, function(err) {
       $scope.showAlert(); // if sign in is not successful, show alert message
       console.log('Error during signin with username: ', $scope.signinData.username);  
-      console.dir(err);
       return err;
     });
 

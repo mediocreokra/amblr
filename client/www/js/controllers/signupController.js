@@ -1,5 +1,5 @@
 angular.module('amblr.signup', [])
-.controller('signupCtrl', function($scope, $ionicModal, $http, $location, $ionicPopup) {
+.controller('signupCtrl', function($scope, $ionicModal, $http, $location, $ionicPopup, ENV) {
   // Form data for the signup modal
   $scope.signupData = {};
 
@@ -41,8 +41,9 @@ angular.module('amblr.signup', [])
         $location.path('/menu-private/home');
       } 
     }, function(err) {
-      $scope.showAlert(); // if sign up is not successful, show alert message
-      throw new Error ('Error signing up user: ' + $scope.signupData.username + ', error: ' + err);
+      $scope.showAlert(); // if sign in is not successful, show alert message
+      console.log('Error during signup with username: ', $scope.signinData.username);  
+      return err;
     });
     
   };
