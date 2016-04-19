@@ -48,19 +48,4 @@ angular.module('amblr.signin', [])
     });
 
   };
-
-  $scope.onError = function() {
-    $ionicPopup.alert({
-      title: 'Oops there was a problem signing in :(',
-      template: 'Would you like to try again?',
-      buttons: [
-      { text: 'Cancel'},
-      { text: 'Try Again',
-        type: 'button-dark',
-        onTap: function(e) {
-          $scope.signin(); 
-        }
-      }]
-    });
-  };
 });
