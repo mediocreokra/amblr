@@ -26,10 +26,10 @@ Sign In and Sign Out features are implemented with Passport.js, but they do not 
 ## Requirements
 
 ### Stack
-MongoDB 2.1.16
-Express 4.13.4
-Angular 1.4.3 with Ionic 1.2.4
-Node 4.4.2
+- MongoDB 2.1.16
+- Express 4.13.4
+- Angular 1.4.3 with Ionic 1.2.4
+- Node 4.4.2
 
 
 ###NPM Modules
