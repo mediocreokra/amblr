@@ -1,5 +1,5 @@
 # Amblr
-> When you’re walking around the city, you want to enjoy the fun and interesting things and avoid the dangerous / gross stuff. Amblr lets you share points of interest (POIs) with other users and lets you see what other have added. It’s kind of like Waze, but for walkers.
+> When you’re walking around the city, you want to enjoy the fun and interesting things and avoid the dangerous / gross stuff. Amblr lets you share points of interest with other users and lets you see what other have added. It’s kind of like Waze, but for walkers.
 
 ## Team
 
@@ -19,7 +19,7 @@
 
 ## Usage
 
-When you load the app, you'll see a Google Map where you can add a POI at your current location by clicking a menu link or at any location by touching and holding on the map for 1 second. After adding a POI, you can add details and save it to the database. Touch existing POIs to see the details.
+When you load the app, you'll see a Google Map where you can add a point of interest (POI) at your current location by clicking a menu link or at any location by touching and holding on the map for 1 second. After adding a POI, you can add details and save it to the database. Touch existing POIs to see the details.
 
 Sign In and Sign Out features are implemented with Passport.js, but they do not restrict user functions yet.
 
