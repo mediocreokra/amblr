@@ -1,5 +1,5 @@
 # Amblr
-> Waze for Walkers
+> When you’re walking around the city, you want to enjoy the fun and interesting things and avoid the dangerous / gross stuff. Amblr lets you share points of interest (POIs) with other users and lets you see what other have added. It’s kind of like Waze, but for walkers.
 
 ## Team
 
@@ -19,11 +19,15 @@
 
 ## Usage
 
-> Some usage instructions
+When you load the app, you'll see a Google Map where you can add a POI at your current location by clicking a menu link or at any location by touching and holding on the map for 1 second. After adding a POI, you can add details and save it to the database. Touch existing POIs to see the details.
+
+Sign In and Sign Out features are implemented with Passport.js, but they do not restrict user functions yet.
 
 ## Requirements
 
 NPM Modules
+
+(For complete details, see package.json files in Server and Client folders, and bower.json in Client folder)
 
 
 - Ionic 1.7.14
@@ -37,6 +41,7 @@ NPM Modules
 - Express 4.13.4
 - Karma
 - Karma-Jasmine
+- Karma-Chrome-Launcher
 - MongoDB 2.1.16
 - Grunt 
 - Gulp 3.9.1
@@ -70,13 +75,14 @@ From within the ```server``` directory:
 
 ```sh
 npm install
+grunt server-dev
 ```
 
 ### Roadmap
 
-View the project roadmap [here](LINK_TO_PROJECT_ISSUES)
+View the project roadmap [here](https://github.com/mediocreokra/amblr/issues)
 
 
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
+See [CONTRIBUTING.md](https://github.com/mediocreokra/amblr/blob/master/_CONTRIBUTING.md) for contribution guidelines.
