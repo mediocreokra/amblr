@@ -9,5 +9,5 @@ client/dist
 client/www/js/config.js
 
 server/node_modules
-server/logs
+server/logs/logs.log
 npm-debug.log
