@@ -1,5 +1,5 @@
 # Amblr
-> When you’re walking around the city, you want to enjoy the fun and interesting things and avoid the dangerous / gross stuff. Amblr lets you share points of interest with other users and lets you see what other have added. It’s kind of like Waze, but for walkers.
+When you’re walking around the city, you want to enjoy the fun and interesting things and avoid the dangerous / gross stuff. Amblr lets you share points of interest with other users and lets you see what other have added. It’s kind of like Waze, but for walkers.
 
 ## Team
 
@@ -25,7 +25,14 @@ Sign In and Sign Out features are implemented with Passport.js, but they do not 
 
 ## Requirements
 
-NPM Modules
+### Stack
+MongoDB 2.1.16
+Express 4.13.4
+Angular 1.4.3 with Ionic 1.2.4
+Node 4.4.2
+
+
+###NPM Modules
 
 (For complete details, see package.json files in Server and Client folders, and bower.json in Client folder)
 
@@ -52,9 +59,9 @@ NPM Modules
 - Morgan
 
 
-Bower Components
-ngCordova
-angular-mocks#1.4.3
+###Bower Components
+- ngCordova
+- angular-mocks 1.4.3
 
 
 ## Development
