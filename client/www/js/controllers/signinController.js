@@ -43,7 +43,6 @@ angular.module('amblr.signin', [])
       $scope.showAlert(); // if sign in is not successful, show alert message
       console.log('Error during signin with username: ', $scope.signinData.username);  
       console.dir(err);
-      $scope.onError();
       return err;
     });
 

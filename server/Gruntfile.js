@@ -164,7 +164,7 @@ module.exports = function(grunt) {
     nodemon.stdout.pipe(process.stdout);
     nodemon.stderr.pipe(process.stderr);
 
-    grunt.task.run(['watch']);
+
 
   });
 
@@ -193,10 +193,6 @@ module.exports = function(grunt) {
   
   grunt.registerTask('deploy', [
     'test', 'build', 'upload'
-  ]);
-
-  grunt.registerTask('dev_env', [
-    'env:dev'
   ]);
 
 };

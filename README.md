@@ -36,9 +36,24 @@ Sign In and Sign Out features are implemented with Passport.js, but they do not 
 
 For complete details, see package.json files in Server and Client folders, and bower.json in Client folder.
 
+### What's Ionic?
+
+In case you're curious about the mobile technologies:
+
+
+Ionic - A mobile development framework for Angular.js - see the [official site] (http://ionicframework.com/) and [this blog post] (http://blog.ionic.io/where-does-the-ionic-framework-fit-in/)
+
+
+Cordova - Cordova wraps your HTML/JavaScript app into a native container which can access the device functions of several platforms (phones, tablets, browsers) -  See [http://cordova.apache.org/] (http://cordova.apache.org/)
 
 
 ## Development
+
+### File Structure
+
+See the [file structure] (https://github.com/mediocreokra/amblr/blob/master/_FILE-STRUCTURE.md) for a guide to what's included.
+
+### Logging
 
 Server logging will be done both in the console and to /server/logs/log.log.
 Log level can be configured in /server/config/logger.js
@@ -61,7 +76,7 @@ grunt server-dev
 
 ### Roadmap
 
-View the project roadmap [here](https://github.com/mediocreokra/amblr/issues)
+View the current issues list [here](https://github.com/mediocreokra/amblr/issues)
 
 
 ## Contributing
