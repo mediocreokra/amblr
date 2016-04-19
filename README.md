@@ -51,7 +51,7 @@ Cordova - Cordova wraps your HTML/JavaScript app into a native container which c
 
 ### File Structure
 
-See the [file structure] (https://github.com/mediocreokra/amblr/blob/master/_FILE-STRUCTURE.md) for a guide to what's included.
+See the [file structure] (https://github.com/mediocreokra/amblr/blob/master/_FILE-STRUCTURE.MD) for a guide to what's included.
 
 ### Logging
 
