@@ -10,4 +10,5 @@ client/www/js/config.js
 
 server/node_modules
 server/logs/logs.log
+logs
 npm-debug.log
