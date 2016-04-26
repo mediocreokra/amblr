@@ -73,6 +73,13 @@ From within the ```server``` directory:
 npm install
 grunt server-dev
 ```
+The application is configured to use https only due to the use of getCurrentLocation and Chrome not allowing non-secure requests for this any longer.  To create a self-signed certificate, perform the following commands in server/config/keys directory:
+
+````
+openssl req -newkey rsa:2048 -new -nodes -keyout key.pem -out csr.pem
+openssl x509 -req -days 365 -in csr.pem -signkey key.pem -out server.crt
+````
+
 
 ### Roadmap
 
