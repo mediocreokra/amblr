@@ -89,11 +89,6 @@ angular.module('amblr', [
       }
     }
   })
-  //to delete after testing.  use for data point entry
-  .state('dataEntry', {
-    url: '/test',
-    templateUrl: 'testIndex.html',
-    controller: 'testCtrl'
-  });
+  
   $urlRouterProvider.otherwise('/menu/home');
 });
