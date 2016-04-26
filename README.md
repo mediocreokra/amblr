@@ -80,6 +80,7 @@ openssl req -newkey rsa:2048 -new -nodes -keyout key.pem -out csr.pem
 openssl x509 -req -days 365 -in csr.pem -signkey key.pem -out server.crt
 ````
 
+````
 After starting mongod and then the server, go to https://localhost:4443.
 Click on the lock icon that should have a red X in the location bar.
 Click the Details link in the popup that appears
@@ -91,6 +92,7 @@ Hit URL again.
 Go to the Advanced link on the error
 Click the Proceed to localhost (unsafe) linkto fiew 
 You should now be able view the site over HTTPS now!
+````
 
 ### Roadmap
 
