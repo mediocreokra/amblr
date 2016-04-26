@@ -4,30 +4,28 @@ var mongoose = require('mongoose');
 var morgan = require('morgan');
 var app = module.exports = express();
 var logger = require('./config/logger.js');
+var fs = require('fs');
+var https = require('https');
 
 var poiRouter = require('./routers/poiRouter.js');
 var userRouter = require('./routers/userRouter.js');
 
 
 // configuration variables for server port and mongodb URI
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 4443;
 var dbUri = process.env.MONGOLAB_URI || 'mongodb://localhost/app_database';
 var env = process.env.NODE_ENV || 'production';
 
 //create connection to mongodb
 mongoose.connect(dbUri);
 
-
 // log db connection success or error
-// TODO: update to use winston logging
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
   // we're connected!
   console.log('connection to mongoose!');
 });
-
-console.log('stream: ' + logger.stream);
 
 app.use(require('morgan')('combined', { 'stream': logger.stream }));
 
@@ -49,10 +47,18 @@ app.use('/api/pois', poiRouter);
 // middleware to configure routes for all user-related URIs
 app.use('/api/users', userRouter);
 
-//listening
-app.listen(port, function(err) {
-  if (err) {
-    return console.log(err);
-  }
-  console.log('Amblr API server is listening on port: ' + port);
-});
+
+var options = {
+  key: fs.readFileSync('config/key.pem'),
+  cert: fs.readFileSync('config/server.crt')
+};
+
+// Create an HTTPS service 
+https.createServer(options, app).listen(port);
+
+
+
+
+
+
+

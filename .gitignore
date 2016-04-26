@@ -10,5 +10,6 @@ client/www/js/config.js
 _whiteboards
 server/node_modules
 server/logs/logs.log
+server/config/keys
 logs
 npm-debug.log
