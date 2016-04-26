@@ -104,7 +104,7 @@ module.exports = function(grunt) {
         constants: {
           ENV: {
             name: 'development',
-            apiEndpoint: 'http://localhost:3000'
+            apiEndpoint: 'https://localhost:4443'
           }
         }
       },
@@ -115,7 +115,7 @@ module.exports = function(grunt) {
         constants: {
           ENV: {
             name: 'production',
-            apiEndpoint: 'http://192.241.235.109:3000'
+            apiEndpoint: 'https://192.241.235.109:4443'
           }
         }
       }
@@ -164,7 +164,7 @@ module.exports = function(grunt) {
     nodemon.stdout.pipe(process.stdout);
     nodemon.stderr.pipe(process.stderr);
 
-    grunt.task.run(['watch']);
+
 
   });
 
@@ -193,10 +193,6 @@ module.exports = function(grunt) {
   
   grunt.registerTask('deploy', [
     'test', 'build', 'upload'
-  ]);
-
-  grunt.registerTask('dev_env', [
-    'env:dev'
   ]);
 
 };
