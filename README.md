@@ -80,6 +80,17 @@ openssl req -newkey rsa:2048 -new -nodes -keyout key.pem -out csr.pem
 openssl x509 -req -days 365 -in csr.pem -signkey key.pem -out server.crt
 ````
 
+After starting mongod and then the server, go to https://localhost:4443.
+Click on the lock icon that should have a red X in the location bar.
+Click the Details link in the popup that appears
+Click the View Certificate button that is displayed in the Security tab of Chrome Dev Tools (this should open automatically after clickig Details)
+A popup appears with the certificate information.  Drag the icon of the certificate to your desktop. This will create the .cer file on your desktop.
+Double click the .cer file and on the popup, change the Keychain dropdown to: System and click Add.
+Enter your password and click Modify Keychain
+Hit URL again.
+Go to the Advanced link on the error
+Click the Proceed to localhost (unsafe) linkto fiew 
+You should now be able view the site over HTTPS now!
 
 ### Roadmap
 
