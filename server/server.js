@@ -49,8 +49,8 @@ app.use('/api/users', userRouter);
 
 
 var options = {
-  key: fs.readFileSync('./config/keys/key.pem'),
-  cert: fs.readFileSync('./config/keys/server.crt')
+  key: fs.readFileSync('./config/keys/privKey.pem'),
+  cert: fs.readFileSync('./config/keys/cert.pem')
 };
 
 // Create an HTTPS service 
