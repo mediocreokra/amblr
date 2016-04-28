@@ -12,7 +12,7 @@ var userRouter = require('./routers/userRouter.js');
 
 
 // configuration variables for server port and mongodb URI
-var port = process.env.PORT || 4443;
+var port = process.env.PORT || 443;
 var dbUri = process.env.MONGOLAB_URI || 'mongodb://localhost/app_database';
 var env = process.env.NODE_ENV || 'production';
 
