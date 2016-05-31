@@ -3,9 +3,13 @@ When you’re walking around the city, you want to enjoy the fun and interesting
 
 ## Team
 
-  - __Product Owner__: Toben
-  - __Scrum Master__: Alex
-  - __Development Team Members__: Trini, Bryan
+- [**Bryan Newby - Software Engineer**] (https://github.com/brnewby602)
+
+- [**Alex Nitta - Scrum Master, Software Engineer**](https://github.com/alexnitta)
+
+- [**Toben Green - Product Owner, Software Engineer**](https://github.com/tobensg)
+
+- [**Trini Le, Software Engineer**](https://github.com/trinile)
 
 ## Table of Contents
 
