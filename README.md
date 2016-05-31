@@ -3,13 +3,13 @@ When you’re walking around the city, you want to enjoy the fun and interesting
 
 ## Team
 
-- [**Bryan Newby - Software Engineer**] (https://github.com/brnewby602)
+- [**Bryan Newby - Developer**] (https://github.com/brnewby602)
 
-- [**Alex Nitta - Scrum Master & Software Engineer**](https://github.com/alexnitta)
+- [**Alex Nitta - Scrum Master & Developer**](https://github.com/alexnitta)
 
-- [**Toben Green - Product Owner & Software Engineer**](https://github.com/tobensg)
+- [**Toben Green - Product Owner & Developer**](https://github.com/tobensg)
 
-- [**Trini Le, Software Engineer**](https://github.com/trinile)
+- [**Trini Le - Developer**](https://github.com/trinile)
 
 ## Table of Contents
 
